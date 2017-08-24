@@ -7,9 +7,9 @@ This post is going to document that process for others to follow.
 
 # Setting up the repositories
 
-You'll need to setup a pages repository. You can follow the instructions [on GitHub](https://pages.github.com/) for how to setup this repository. For personal pages the master branch must be the one that contains the output from the Wyam build. For project pages you can have the master branch for the code, and use a `gh-pages` for the site. Either way you need to create an orphaned branch at this point. Ensure both are completely empty to start off with. Since I'm creating a personal page, my new branch will be called main
+You'll need to setup a pages repository. You can follow the instructions [on GitHub](https://pages.github.com/) for how to setup this repository. For personal pages the master branch must be the one that contains the output from the Wyam build. For project pages you can have the master branch for the code, and use a `gh-pages` for the site. Either way you need to create an orphaned branch at this point. Ensure both are completely empty to start off with. Since I'm creating a personal page, my new branch will be called develop (this is so cake will still generate the documentation)
 ```
-git checkout --orphan main
+git checkout --orphan develop
 ```
 Do an initial commit on each branch at this point. Switch to the main branch and add a folder called docs. The majority of our work will be in this branch
 
@@ -44,7 +44,7 @@ BuildParameters.SetParameters(context: Context,
                             buildSystem: BuildSystem,
                             title: "Wozzo.Blog",
                             repositoryOwner: "wozzo",
-                            repositoryName: "Wozzo.Blog",
+                            repositoryName: "wozzo.github.io",
                             appVeyorAccountName: "wozzo",
                             wyamRecipe: "Blog",
                             wyamTheme: "Phantom");
@@ -91,4 +91,39 @@ Isn't it pretty. For some reason when I tried to use the SolidState theme I got 
 Wyam's site has some really great [instructions for setting up Wyam with AppVeyor](https://wyam.io/docs/deployment/appveyor), but we'll need to change a few things to keep our site working with Cake.Recipe.
 
 Cake.Recipe has everything setup with either parameters, or Environment variables. The credentials and settings for most of what we'll need is done through environment variables.
-Log in to AppVeyor and add a new project
+Log in to AppVeyor and add a new project, select your \<username\>.github.io repository.
+If you're doing a personal page then change your appveyor.yml file so that the master branch isn't on the whitelist and add the main branch is. You'll also need to change the target task to the Publish-Documentation task, since we're not building a solution at all.
+
+```
+#---------------------------------#
+#  Build Script                   #
+#---------------------------------#
+build_script:
+  - ps: .\build.ps1 -Target Publish-Documentation
+
+# Tests
+test: off
+
+#---------------------------------#
+#        Branches to build        #
+#---------------------------------#
+branches:
+  # Whitelist
+  only:
+    - main
+    - dev
+    - /release/.*/
+    - /hotfix/.*/
+
+#---------------------------------#
+#  Build Cache                    #
+#---------------------------------#
+cache:
+- Tools -> build.ps1
+```
+
+## Environment Variables
+
+I'm going to set the branch to deploy to using the setup.cake script by changing the `Environment.SetParameters90` call to `Environment.SetVariableNames(wyamDeployBranchVariable: "master");`
+The rest will be done in AppVeyor for security reasons.
+Go to github and create a new access token and add this to your appveyor project with the name `WYAM_ACCESS_TOKEN`

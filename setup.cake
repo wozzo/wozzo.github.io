@@ -7,7 +7,7 @@ BuildParameters.SetParameters(context: Context,
                             sourceDirectoryPath: "./src",
                             title: "Wozzo.Blog",
                             repositoryOwner: "wozzo",
-                            repositoryName: "wozzo-github-io",
+                            repositoryName: "wozzo.github.io",
                             appVeyorAccountName: "wozzo",
                             wyamRecipe: "Blog",
                             wyamTheme: "CleanBlog");
