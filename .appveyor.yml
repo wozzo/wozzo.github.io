@@ -13,8 +13,7 @@ test: off
 branches:
   # Whitelist
   only:
-    - main
-    - dev
+    - develop
     - /release/.*/
     - /hotfix/.*/
 

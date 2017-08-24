@@ -124,6 +124,4 @@ cache:
 
 ## Environment Variables
 
-I'm going to set the branch to deploy to using the setup.cake script by changing the `Environment.SetParameters90` call to `Environment.SetVariableNames(wyamDeployBranchVariable: "master");`
-The rest will be done in AppVeyor for security reasons.
-Go to github and create a new access token and add this to your appveyor project with the name `WYAM_ACCESS_TOKEN`
+Go to github and create a new access token and add this to your appveyor project with the name `WYAM_ACCESS_TOKEN`. Copy the link to the repository as well and add that as the `WYAM_DEPLOY_REMOTE` environment variable. The last one is the branch `WYAM_DEPLOY_BRANCH`, which should either by gh-pages or master
