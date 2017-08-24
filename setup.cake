@@ -8,7 +8,9 @@ BuildParameters.SetParameters(context: Context,
                             title: "Wozzo.Blog",
                             repositoryOwner: "wozzo",
                             repositoryName: "Wozzo.Blog",
-                            appVeyorAccountName: "wozzo");
+                            appVeyorAccountName: "wozzo",
+                            wyamRecipe: "Blog",
+                            wyamTheme: "CleanBlog");
 
 BuildParameters.PrintParameters(Context);
 
