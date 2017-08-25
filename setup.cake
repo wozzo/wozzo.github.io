@@ -10,7 +10,8 @@ BuildParameters.SetParameters(context: Context,
                             repositoryName: "wozzo.github.io",
                             appVeyorAccountName: "wozzo",
                             wyamRecipe: "Blog",
-                            wyamTheme: "CleanBlog");
+                            wyamTheme: "CleanBlog",
+                            webLinkRoot: "/");
 
 BuildParameters.PrintParameters(Context);
 
