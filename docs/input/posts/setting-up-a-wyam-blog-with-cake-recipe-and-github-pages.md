@@ -1,6 +1,15 @@
 ﻿Title: Setting up a Wyam blog with Cake.Recipe and GitHub pages
 Published: 24/8/2017
-Tags: Cake, Cake.Recipe, Recipe, Build, Preview, Wyam, GitHub, Pages, Blog
+Tags:
+- Cake
+- Cake.Recipe
+- Recipe
+- Build
+- Preview
+- Wyam
+- GitHub
+- Pages
+- Blog
 ---
 I first saw [Wyam](https://wyam.io) in action when I was working on the Cake.Recipe blog series, and was so impressed I decided to move the entire blog to it using GitHub pages to serve it up.
 This post is going to document that process for others to follow.
@@ -150,7 +159,7 @@ WYAM_DEPLOY_BRANCH   =   master / gh-pages
 # GitHub personal access token
 WYAM_ACCESS_TOKEN    =   **************************************
 ```
-The access token must be kept secret. You can create one by following these [instructions](https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/). 
+The access token must be kept secret. You can create one by following these [instructions](https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/). This token will need the repo -> public_repo scope.
 
 ![Setting AppVeyor environment variables](../assets/images/appveyor-environment-variables.png)
 
