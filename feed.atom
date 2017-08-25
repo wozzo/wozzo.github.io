@@ -4,30 +4,40 @@
 	<id>http://wozzo.github.io/</id>
 	<title>Wozzo.Blog</title>
 	<rights>2017</rights>
-	<updated>2017-08-25T05:40:37Z</updated>
+	<updated>2017-08-25T06:43:34Z</updated>
 	<subtitle>Welcome!</subtitle>
 	<entry>
 		<link href="http://wozzo.github.io/posts/setting-up-a-wyam-blog-with-cake-recipe-and-github-pages" />
 		<id>http://wozzo.github.io/posts/setting-up-a-wyam-blog-with-cake-recipe-and-github-pages</id>
 		<title>Setting up a Wyam blog with Cake.Recipe and GitHub pages</title>
 		<updated>2017-08-24T00:00:00Z</updated>
-		<content>&lt;p&gt;I first saw Wyam in action when I was working on the Cake.Recipe blog series, and was so impressed I decided to move the entire blog to it.
-This post is going to document that process for others to follow.&lt;/p&gt;
+		<content>&lt;p&gt;I first saw &lt;a href="https://wyam.io"&gt;Wyam&lt;/a&gt; in action when I was working on the Cake.Recipe blog series, and was so impressed I decided to move the entire blog to it using GitHub pages to serve it up.
+This post is going to document that process for others to follow.
+One important distinction to get out of the way is the difference between a personal github page and a project page.&lt;/p&gt;
+&lt;p&gt;Personal page url's take the form &lt;code&gt;https://&amp;lt;username&amp;gt;.github.io/&lt;/code&gt; while project pages take the form &lt;code&gt;https://&amp;lt;username&amp;gt;.github.io/&amp;lt;project_name&amp;gt;&lt;/code&gt;. Project pages can be served from any branch in the repository but personal pages can only be served from the master branch. Because of this there will be some slightly different instructions/hacks depending on whether you intend to use this process to create a personal or project page.&lt;/p&gt;
 &lt;h1 id="setting-up-the-repositories"&gt;Setting up the repositories&lt;/h1&gt;
-&lt;p&gt;You'll need to setup a pages repository. You can follow the instructions &lt;a href="https://pages.github.com/"&gt;on GitHub&lt;/a&gt; for how to setup this repository. For personal pages the master branch must be the one that contains the output from the Wyam build. For project pages you can have the master branch for the code, and use a &lt;code&gt;gh-pages&lt;/code&gt; for the site. Either way you need to create an orphaned branch at this point. Ensure both are completely empty to start off with. Since I'm creating a personal page, my new branch will be called develop (this is so cake will still generate the documentation)&lt;/p&gt;
+&lt;h2 id="personal-pages"&gt;Personal pages&lt;/h2&gt;
+&lt;p&gt;Create a repository which matches the pattern &lt;code&gt;&amp;lt;username&amp;gt;.github.io&lt;/code&gt;, e.g. mine is &lt;a href="https://github.com/wozzo/wozzo.github.io"&gt;wozzo.github.io&lt;/a&gt;. For personal pages the &lt;code&gt;master&lt;/code&gt; branch must be the one that contains the output from the Wyam build. Make a single commit to the &lt;code&gt;master&lt;/code&gt; branch of this empty repository.&lt;/p&gt;
+&lt;p&gt;Use the following commands to create a new orphaned branch called &lt;code&gt;develop&lt;/code&gt;. It must be called &lt;code&gt;develop&lt;/code&gt; for cake.recipe to publish the documentation using AppVeyor (remember I mentioned some hacks?).&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;git checkout --orphan develop
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Do an initial commit on each branch at this point. Switch to the main branch and add a folder called docs. The majority of our work will be in this branch&lt;/p&gt;
+&lt;p&gt;Do an initial commit on this branch too. The majority of our work will be in this &lt;code&gt;develop&lt;/code&gt; branch, while we leave the &lt;code&gt;master&lt;/code&gt; branch to AppVeyor. Use the branch name &lt;code&gt;develop&lt;/code&gt; elsewhere in this tutorial where I use the term "working branch"&lt;/p&gt;
+&lt;h2 id="project-pages"&gt;Project pages&lt;/h2&gt;
+&lt;p&gt;If a branch exists called &lt;code&gt;gh-pages&lt;/code&gt; then GitHub will use this branch to serve your sites content.
+Create a new orphaned branch with the following command&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;git checkout --orphan gh-pages
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Do an initial commit on this branch and then switch back to the master branch. Use the branch name &lt;code&gt;master&lt;/code&gt; elsewhere in this tutorial where I use the term "working branch".&lt;/p&gt;
 &lt;h1 id="starting-with-wyam"&gt;Starting with Wyam&lt;/h1&gt;
-&lt;p&gt;To see how to get Wyam go to their &lt;a href="https://wyam.io/docs/usage/obtaining"&gt;obtaining&lt;/a&gt; page.
-Note: I had to add %appdata%/local/wyam to my path to allow powershell to run wyam.&lt;/p&gt;
+&lt;p&gt;Not strictly a required step, but it might make life easier. Install wyam on your machine - to see how to get Wyam go to their &lt;a href="https://wyam.io/docs/usage/obtaining"&gt;obtaining&lt;/a&gt; page.
+Note: I had to add %appdata%/local/wyam to my path to allow powershell to be able to run wyam commands.&lt;/p&gt;
 &lt;h1 id="creating-your-blog"&gt;Creating your blog&lt;/h1&gt;
-&lt;p&gt;Wyam uses recipes to setup the outline of your site quickly. In your command line interface of choice browse to the docs folder we created earlier and run the following command&lt;/p&gt;
+&lt;p&gt;Wyam uses recipes to setup the outline of your site quickly. Create a folder called "docs" in the root of your working branch. In your command line interface of choice browse to the docs folder and run the following command&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;wyam new --recipe blog
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;This will create a new folder called input and setup a couple of pages under there. Follow the next few steps to see what this blog will look like, then we'll start adding some content.&lt;/p&gt;
+&lt;p&gt;This will create a new folder called input and setup a couple of pages under there. Follow the next few steps to see what this blog will look like, then we'll start adding some content. The recipe will also add a config.wyam file, but we won't be needing this. It is safe to delete.&lt;/p&gt;
 &lt;h1 id="getting-cake.recipe"&gt;Getting Cake.Recipe&lt;/h1&gt;
-&lt;p&gt;Go to &lt;a href="https://github.com/cake-contrib/Cake.Recipe"&gt;Cake.Recipe&lt;/a&gt; on GitHub and download the following files to the root of your blog repository.&lt;/p&gt;
+&lt;p&gt;Go to &lt;a href="https://github.com/cake-contrib/Cake.Recipe"&gt;Cake.Recipe&lt;/a&gt; on GitHub and download the following files to the root of your working branch.&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;.appveyor.yml&lt;/li&gt;
 &lt;li&gt;.gitignore&lt;/li&gt;
@@ -36,6 +46,7 @@ Note: I had to add %appdata%/local/wyam to my path to allow powershell to run wy
 &lt;li&gt;GitReleaseManager.yaml&lt;/li&gt;
 &lt;li&gt;setup.cake&lt;/li&gt;
 &lt;/ul&gt;
+&lt;h2 id="setup-cake.recipe"&gt;Setup Cake.Recipe&lt;/h2&gt;
 &lt;p&gt;Open up the &lt;code&gt;setup.cake&lt;/code&gt; file in your favourite text editor and edit the parameters so that it reflects the name of your blog.&lt;/p&gt;
 &lt;pre&gt;&lt;code class="language-csharp"&gt;BuildParameters.SetParameters(context: Context,
                             buildSystem: BuildSystem,
@@ -44,11 +55,34 @@ Note: I had to add %appdata%/local/wyam to my path to allow powershell to run wy
                             repositoryName: "wozzo.github.io",
                             appVeyorAccountName: "wozzo",
                             wyamRecipe: "Blog",
-                            wyamTheme: "Phantom");
+                            wyamTheme: "CleanBlog");
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;I've also added two additional parameters telling Wyam that it should use the blog recipe and Phantom theme.
-At this point you should make your first commit. If you don't GitVersion will throw an exception when attempting to run the cake build.&lt;/p&gt;
-&lt;h1 id="preview"&gt;Preview&lt;/h1&gt;
+&lt;p&gt;If you're working on a personal page then you may also want to provide an additional parameter to change the virtual directory the website is compiled for. By default Cake will use the &lt;code&gt;repositoryName&lt;/code&gt; value.
+For a personal site you add the following parameter.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;webLinkRoot: "/"
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;I've also added two additional parameters telling Wyam that it should use the blog recipe and Phantom theme.&lt;/p&gt;
+&lt;h2 id="setup-appveyors-config"&gt;Setup AppVeyor's config&lt;/h2&gt;
+&lt;p&gt;We won't setup AppVeyor just yet, but we can start to get things in place with the &lt;code&gt;.appveyor.yml&lt;/code&gt; config file. Open it up and change the target of the build to &lt;code&gt;Force-Publish-Documentation&lt;/code&gt;.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;#---------------------------------#
+#  Build Script                   #
+#---------------------------------#
+build_script:
+  - ps: .\build.ps1 -Target Force-Publish-Documentation
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;If you're working on a personal page you should also remove &lt;code&gt;master&lt;/code&gt; from the branch whitelist&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;#---------------------------------#
+#        Branches to build        #
+#---------------------------------#
+branches:
+  # Whitelist
+  only:
+    - develop
+    - /release/.*/
+    - /hotfix/.*/
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;At this point you should make another commit. If you don't have any commits GitVersion will throw an exception when attempting to run the cake build.&lt;/p&gt;
+&lt;h1 id="previewing-the-site-locally"&gt;Previewing the site locally&lt;/h1&gt;
 &lt;p&gt;Time to see what it looks like. The cake.recipe Wyam script comes with a Preview task which will fire up a local web server, and run wyam with a watch on your files. This means you can view the site in your browser, edit your posts and the browser will refressh so you can see your changes immediately.&lt;/p&gt;
 &lt;p&gt;Run the following command in the root of your repository.&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;.\build.ps1 -target preview
@@ -61,47 +95,32 @@ Watching paths(s) file:///.../content, theme, input
 Watching configuration file file:///.../wozzo.blog/config.wyam
 Hit any key to exit
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;The key parts are the port and virtual directory. Replace them in the following url in your browser.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;http://localhost:&amp;lt;port&amp;gt;/&amp;lt;virtual directory&amp;gt;
-e.g.
+&lt;p&gt;The key parts are the port and virtual directory. For personal sites there will be no virtual directory. Replace them in the following url in your browser.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;http://localhost:&amp;lt;port&amp;gt;/&amp;lt;virtual_directory&amp;gt;/
+
+# Example
 http://localhost:5080/Wozzo.Blog
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;The virtual directory is case sensitive by the way ;-)&lt;/p&gt;
-&lt;p&gt;&lt;img src="./assets/images/wyam-in-browser.png" class="img-fluid" alt="Wyam blog in the browser"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="../assets/images/wyam-in-browser.png" class="img-fluid" alt="Wyam blog in the browser inception"&gt;&lt;/p&gt;
 &lt;p&gt;Isn't it pretty. For some reason when I tried to use the SolidState theme I got exceptions due to missing files. If you get it working, please get in touch.&lt;/p&gt;
 &lt;h1 id="appveyor"&gt;AppVeyor&lt;/h1&gt;
-&lt;p&gt;Wyam's site has some really great &lt;a href="https://wyam.io/docs/deployment/appveyor"&gt;instructions for setting up Wyam with AppVeyor&lt;/a&gt;, but we'll need to change a few things to keep our site working with Cake.Recipe.&lt;/p&gt;
+&lt;p&gt;Wyam's site has some really great &lt;a href="https://wyam.io/docs/deployment/appveyor"&gt;instructions for setting up Wyam with AppVeyor&lt;/a&gt;, and it's worth looking through but we're going to do things differently to get the benefits of working with Cake.Recipe.&lt;/p&gt;
 &lt;p&gt;Cake.Recipe has everything setup with either parameters, or Environment variables. The credentials and settings for most of what we'll need is done through environment variables.
-Log in to AppVeyor and add a new project, select your &amp;lt;username&amp;gt;.github.io repository.
-If you're doing a personal page then change your appveyor.yml file so that the master branch isn't on the whitelist and add the main branch is. You'll also need to change the target task to the Publish-Documentation task, since we're not building a solution at all.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;#---------------------------------#
-#  Build Script                   #
-#---------------------------------#
-build_script:
-  - ps: .\build.ps1 -Target Publish-Documentation
-
-# Tests
-test: off
-
-#---------------------------------#
-#        Branches to build        #
-#---------------------------------#
-branches:
-  # Whitelist
-  only:
-    - main
-    - dev
-    - /release/.*/
-    - /hotfix/.*/
-
-#---------------------------------#
-#  Build Cache                    #
-#---------------------------------#
-cache:
-- Tools -&amp;gt; build.ps1
+Log in to AppVeyor and add a new project, select your repository. If doing a personal site then change the default branch to &lt;code&gt;develop&lt;/code&gt; on the project settings page.
+Go to the project settings page and find the Environment section. We'll need to add three variables here for Cake.Recipe to be able to deploy our site.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# Url of the git repository
+WYAM_DEPLOY_REMOTE   =   https://github.com/wozzo/wozzo.github.io
+# Branch to deploy the site too
+WYAM_DEPLOY_BRANCH   =   master / gh-pages
+# GitHub personal access token
+WYAM_ACCESS_TOKEN    =   **************************************
 &lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id="environment-variables"&gt;Environment Variables&lt;/h2&gt;
-&lt;p&gt;Go to github and create a new access token and add this to your appveyor project with the name &lt;code&gt;WYAM_ACCESS_TOKEN&lt;/code&gt;. Copy the link to the repository as well and add that as the &lt;code&gt;WYAM_DEPLOY_REMOTE&lt;/code&gt; environment variable. The last one is the branch &lt;code&gt;WYAM_DEPLOY_BRANCH&lt;/code&gt;, which should either by gh-pages or master&lt;/p&gt;</content>
+&lt;p&gt;The access token must be kept secret. You can create one by following these &lt;a href="https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/"&gt;instructions&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src="../assets/images/appveyor-environment-variables.png" class="img-fluid" alt="Setting AppVeyor environment variables"&gt;&lt;/p&gt;
+&lt;h1 id="get-blogging"&gt;Get Blogging&lt;/h1&gt;
+&lt;p&gt;That's all the setup complete. Now commit any uncommitted changes and push your working branch to the remote. AppVeyor should pick it up and run it deploying your site.&lt;/p&gt;
+&lt;p&gt;If there are any problems check the AppVeyor build log. In particular the &lt;code&gt;Printing Build Parameters...&lt;/code&gt; section can provide useful insight.&lt;/p&gt;</content>
 		<summary>Welcome!</summary>
 	</entry>
 </feed>
