@@ -7,6 +7,7 @@ Tags:
 - JavaScript
 - Prime numbers
 - Euler Problems
+RedirectFrom: closures-in-c
 ---
 Closures are a vital part of any language that passes functions around as variables. They ensure that everything that was available when we defined the function is available when it's called later, even if it's called in a different scope or long after the original scope has completely ended. There's a vast amount of information available on closures in Javascript because as a classless language where functions are always first class objects closures are regularly used to imitate class like functionality.
 

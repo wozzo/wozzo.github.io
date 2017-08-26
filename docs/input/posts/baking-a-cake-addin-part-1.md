@@ -7,6 +7,7 @@ Tags:
 - GitHub
 - Bower
 - Cake.Bower
+RedirectFrom: baking-a-cake-addin
 ---
 No blog post on Cake is complete without a few puns, and bonus, now while you're googling technical stuff you always get a few recipes for delicious cakes thrown in. So what is cake and why do we need add ins?
 >[Cake (C# Make)](https://www.cakebuild.net/) is a cross platform build automation system with a C# DSL to do things like compiling code, copy files/folders, running unit tests, compress files and build NuGet packages.

@@ -5,6 +5,7 @@ Tags:
 - C#
 - Math
 - Timing
+RedirectFrom: theres-fast-code-and-theres-fast-code
 ---
 I was solving a problem recently and came across a number of different ways of solving it. I decided to test them each out to see which was the quickest. The functions purpose was to return the number of digits in an integer. I've tried four different methods out. Two of them are single line solutions, one uses a bit of looping to solve the problem and the final one... well you'll see.
 
