@@ -1,15 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-	<link rel="self" href="http://wozzo.github.io/" />
-	<id>http://wozzo.github.io/</id>
-	<title>Wozzo.Blog</title>
+	<link rel="self" href="https://wbates.net/" />
+	<id>https://wbates.net/</id>
+	<title>Warren Bates</title>
 	<rights>2017</rights>
-	<updated>2017-08-26T10:53:12Z</updated>
-	<subtitle>Welcome!</subtitle>
+	<updated>2017-08-26T11:26:40Z</updated>
+	<subtitle>Warren Bates</subtitle>
 	<entry>
-		<link href="http://wozzo.github.io/posts/getting-started-with-cake-recipe" />
-		<id>http://wozzo.github.io/posts/getting-started-with-cake-recipe</id>
-		<title>Testing a Cake Addin</title>
+		<link href="https://wbates.net/posts/getting-started-with-cake-recipe" />
+		<id>https://wbates.net/posts/getting-started-with-cake-recipe</id>
+		<title>Getting Started with Cake.Recipe</title>
 		<updated>2017-08-26T00:00:00Z</updated>
 		<content>&lt;p&gt;I've been playing around with the Cake build tool for a little while now, but having recently had need of a plugin that didn't yet exist I embarked on a journey that lead me to Cake.Recipe.&lt;/p&gt;
 &lt;blockquote class="blockquote"&gt;
@@ -42,7 +42,7 @@ ToolSettings.SetToolSettings(context: Context,
 Build.Run();
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;No tasks. None at all.&lt;/p&gt;
-&lt;p&gt;The top line is the critical one. It fetches the Cake.Recipe scripts and loads each one providing the methods you can see being used here. The bootstrapped build.ps1 that you'd normally download if you followed the instructions on the �Setting up a new project� tutorial page has been modified to use a default file of setup.cake purely as a convention to distinguish between normal cake builds and recipe builds. You can then modify the parameters in the setup.cake file to achieve the desired result. There are close to 80 different parameters that can be set here that can be used to configure the ~40 odd tasks that cake.recipe provides.&lt;/p&gt;
+&lt;p&gt;The top line is the critical one. It fetches the Cake.Recipe scripts and loads each one providing the methods you can see being used here. The bootstrapped build.ps1 that you'd normally download if you followed the instructions on the "Setting up a new project" tutorial page has been modified to use a default file of setup.cake purely as a convention to distinguish between normal cake builds and recipe builds. You can then modify the parameters in the setup.cake file to achieve the desired result. There are close to 80 different parameters that can be set here that can be used to configure the ~40 odd tasks that cake.recipe provides.&lt;/p&gt;
 &lt;h1 id="parameters"&gt;Parameters&lt;/h1&gt;
 &lt;p&gt;Take a look at the parameters.cake file to see what options are available to you out of the box. These can all be set either in the SetParameters or using environment variables.
 Tasks
@@ -94,10 +94,10 @@ Total:                               00:00:53.0741721
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Run it again and this time the task will be skipped but the rest should be the same.&lt;/p&gt;
 &lt;h1 id="replacing-a-task"&gt;Replacing a task&lt;/h1&gt;
-&lt;p&gt;With Cake, once a Task has been created you can't create another with the same name. Calling the .Does(�) method adds an additional action but doesn't replace the existing one. If you want to replace the tasks actions with something completely different you first need to clear the existing actions. To clear the InspectCode actions use the following&lt;/p&gt;
+&lt;p&gt;With Cake, once a Task has been created you can't create another with the same name. Calling the .Does(...) method adds an additional action but doesn't replace the existing one. If you want to replace the tasks actions with something completely different you first need to clear the existing actions. To clear the InspectCode actions use the following&lt;/p&gt;
 &lt;pre&gt;&lt;code class="language-csharp"&gt;BuildParameters.Tasks.InspectCodeTask.Task.Actions.Clear();
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;I'm now free to call the .Does(�) method with the action I want it to undertake and be sure it is the only thing it will do, for example:&lt;/p&gt;
+&lt;p&gt;I'm now free to call the .Does(...) method with the action I want it to undertake and be sure it is the only thing it will do, for example:&lt;/p&gt;
 &lt;pre&gt;&lt;code class="language-csharp"&gt;BuildParameters.Tasks.InspectCodeTask.Does( () =&amp;gt; Information("And now for something completely different..."));
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Running .\build.ps1 now yields the following output when you get to the InspectCode task.&lt;/p&gt;
@@ -108,14 +108,14 @@ Executing task: InspectCode
 And now for something completely different...
 Finished executing task: InspectCode
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;You are also free to create your own tasks and add them as dependencies to the existing ones. Something like this�&lt;/p&gt;
+&lt;p&gt;You are also free to create your own tasks and add them as dependencies to the existing ones. Something like this...&lt;/p&gt;
 &lt;pre&gt;&lt;code class="language-csharp"&gt;Task("MakeTea").Does( () =&amp;gt; Information("Make Tea not Love"));
 BuildParameters.Tasks.InspectCodeTask.Task.Actions.Clear();
 BuildParameters.Tasks.InspectCodeTask
     .IsDependentOn("MakeTea")
     .Does( () =&amp;gt; Information("And now for something completely different..."));
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;which yields�&lt;/p&gt;
+&lt;p&gt;which yields...&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;========================================
 MakeTea
 ========================================
@@ -131,11 +131,11 @@ And now for something completely different...
 Finished executing task: InspectCode
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;And of course if you find that you need loads of additional scripts for a particular use case consider a pull request into Cake.Recipe&lt;/p&gt;</content>
-		<summary>Welcome!</summary>
+		<summary>Warren Bates</summary>
 	</entry>
 	<entry>
-		<link href="http://wozzo.github.io/posts/setting-up-a-wyam-blog-with-cake-recipe-and-github-pages" />
-		<id>http://wozzo.github.io/posts/setting-up-a-wyam-blog-with-cake-recipe-and-github-pages</id>
+		<link href="https://wbates.net/posts/setting-up-a-wyam-blog-with-cake-recipe-and-github-pages" />
+		<id>https://wbates.net/posts/setting-up-a-wyam-blog-with-cake-recipe-and-github-pages</id>
 		<title>Setting up a Wyam blog with Cake.Recipe and GitHub pages</title>
 		<updated>2017-08-24T00:00:00Z</updated>
 		<content>&lt;p&gt;I first saw &lt;a href="https://wyam.io"&gt;Wyam&lt;/a&gt; in action when I was working on the Cake.Recipe blog series, and was so impressed I decided to move the entire blog to it using GitHub pages to serve it up.
@@ -248,11 +248,11 @@ WYAM_ACCESS_TOKEN    =   **************************************
 &lt;h1 id="get-blogging"&gt;Get Blogging&lt;/h1&gt;
 &lt;p&gt;That's all the setup complete. Now commit any uncommitted changes and push your working branch to the remote. AppVeyor should pick it up and run it deploying your site.&lt;/p&gt;
 &lt;p&gt;If there are any problems check the AppVeyor build log. In particular the &lt;code&gt;Printing Build Parameters...&lt;/code&gt; section can provide useful insight.&lt;/p&gt;</content>
-		<summary>Welcome!</summary>
+		<summary>Warren Bates</summary>
 	</entry>
 	<entry>
-		<link href="http://wozzo.github.io/posts/baking-a-cake-adding-part-2-testing" />
-		<id>http://wozzo.github.io/posts/baking-a-cake-adding-part-2-testing</id>
+		<link href="https://wbates.net/posts/baking-a-cake-adding-part-2-testing" />
+		<id>https://wbates.net/posts/baking-a-cake-adding-part-2-testing</id>
 		<title>Testing a Cake Addin</title>
 		<updated>2017-08-21T00:00:00Z</updated>
 		<content>&lt;p&gt;Tasting the cake would be the obvious pun here, but hopefully by now you've gotten stuck in and had more than a slice. Today I'm going to walkthrough setting up some simple unit tests on the Markdown-Pdf addin I wrote in &lt;a href="http://wbates.net/baking-a-cake-addin/"&gt;part 1&lt;/a&gt;.
@@ -335,11 +335,11 @@ Task("Run-Unit-Tests")
 });
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Happy testing :)&lt;/p&gt;</content>
-		<summary>Welcome!</summary>
+		<summary>Warren Bates</summary>
 	</entry>
 	<entry>
-		<link href="http://wozzo.github.io/posts/baking-a-cake-addin-part-1" />
-		<id>http://wozzo.github.io/posts/baking-a-cake-addin-part-1</id>
+		<link href="https://wbates.net/posts/baking-a-cake-addin-part-1" />
+		<id>https://wbates.net/posts/baking-a-cake-addin-part-1</id>
 		<title>Baking a Cake Addin</title>
 		<updated>2017-08-20T00:00:00Z</updated>
 		<content>&lt;p&gt;No blog post on Cake is complete without a few puns, and bonus, now while you're googling technical stuff you always get a few recipes for delicious cakes thrown in. So what is cake and why do we need add ins?&lt;/p&gt;
@@ -675,11 +675,11 @@ Add to nuget, and then you can change the #reference line to #addin and your scr
 &lt;li&gt;Check out &lt;a href="https://github.com/cake-contrib/Home"&gt;Cake-Contrib on Github&lt;/a&gt; and consider adding your addin on there. I started with Cake.Bower, and decided to write this blog post off the back of that.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;The resulting addin from this blog post can be found at &lt;a href="https://github.com/wozzo/Cake.Markdown-Pdf"&gt;Wozzo/Cake.Markdown-Pdf on github&lt;/a&gt; and the blog series can be found at &lt;a href="https://github.com/wozzo/Cake_Addin_Blog_Posts"&gt;Wozzo/Cake_Addin_Blog_Posts&lt;/a&gt;&lt;/p&gt;</content>
-		<summary>Welcome!</summary>
+		<summary>Warren Bates</summary>
 	</entry>
 	<entry>
-		<link href="http://wozzo.github.io/posts/seeding-data-using-entity-framework-in-asp.net-core" />
-		<id>http://wozzo.github.io/posts/seeding-data-using-entity-framework-in-asp.net-core</id>
+		<link href="https://wbates.net/posts/seeding-data-using-entity-framework-in-asp.net-core" />
+		<id>https://wbates.net/posts/seeding-data-using-entity-framework-in-asp.net-core</id>
 		<title>Seeding data using Entity Framework in ASP.NET Core</title>
 		<updated>2016-09-17T00:00:00Z</updated>
 		<content>&lt;p&gt;With thanks to &lt;a href="http://coderhints.com/ef7-seed-user/"&gt;coderhints.com&lt;/a&gt; for the initial steps in doing this. I've done a bit of refactoring and added some additional steps to enable setting up a lot of data quickly and easily.&lt;/p&gt;
@@ -741,11 +741,11 @@ await SaveChangesAsync();
 &lt;p&gt;Use ASP.NET's Configuration Options[2] to describe default values and allow them to be set by using .json files for different environments.
 Move most of this additional configuration out to an extension method on the IServicesCollection. Keep the configure method clean.
 Define the roles as auto properties in a static class so you don't need to use strings like �Administrator� to reference them everywhere&lt;/p&gt;</content>
-		<summary>Welcome!</summary>
+		<summary>Warren Bates</summary>
 	</entry>
 	<entry>
-		<link href="http://wozzo.github.io/posts/asp.net-core-configuration" />
-		<id>http://wozzo.github.io/posts/asp.net-core-configuration</id>
+		<link href="https://wbates.net/posts/asp.net-core-configuration" />
+		<id>https://wbates.net/posts/asp.net-core-configuration</id>
 		<title>ASP.NET Core Configuration</title>
 		<updated>2016-04-24T00:00:00Z</updated>
 		<content>&lt;p&gt;Only just beginning to dive into ASP.NET Core (or ASP.NET 5 if you prefer), but there's a great deal to like. Configuration in Core is extremely simple. Values can simply be added to a json (or other format, but why bother) configuration file and are then available to your application where Configuration is instantiated.
@@ -807,11 +807,11 @@ services.Configure&amp;lt;MyConfig&amp;gt;(Configuration.GetSection("MyConfig");
     .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true);
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;The later files take priority over the earlier ones, overwriting any earlier values. See this page for info on how to set the EnvironmentName. I also recommend adding *.development.json to your .gitignore files so that your development environment configuration isn't committed.&lt;/p&gt;</content>
-		<summary>Welcome!</summary>
+		<summary>Warren Bates</summary>
 	</entry>
 	<entry>
-		<link href="http://wozzo.github.io/posts/configuring-for-pretty-urls-in-angularjs-and-visual-studio" />
-		<id>http://wozzo.github.io/posts/configuring-for-pretty-urls-in-angularjs-and-visual-studio</id>
+		<link href="https://wbates.net/posts/configuring-for-pretty-urls-in-angularjs-and-visual-studio" />
+		<id>https://wbates.net/posts/configuring-for-pretty-urls-in-angularjs-and-visual-studio</id>
 		<title>Configuring for Pretty URLs in AngularJS and Visual Studio</title>
 		<updated>2015-06-08T00:00:00Z</updated>
 		<content>&lt;p&gt;Pretty URLs look much better than some of the long query string type URLs we've gotten used to.
@@ -933,11 +933,11 @@ For example &lt;code&gt;&amp;lt;link href="Content/nav.css" rel="stylesheet" /&a
 Add a / to the front of the path to solve this problem (took me 20 minutes to figure that one out).
 &lt;code&gt;&amp;lt;link href="/Content/nav.css" rel="stylesheet" /&amp;gt;&lt;/code&gt; will work&lt;/li&gt;
 &lt;/ol&gt;</content>
-		<summary>Welcome!</summary>
+		<summary>Warren Bates</summary>
 	</entry>
 	<entry>
-		<link href="http://wozzo.github.io/posts/closures-in-csharp" />
-		<id>http://wozzo.github.io/posts/closures-in-csharp</id>
+		<link href="https://wbates.net/posts/closures-in-csharp" />
+		<id>https://wbates.net/posts/closures-in-csharp</id>
 		<title>Closures in C#</title>
 		<updated>2015-05-28T00:00:00Z</updated>
 		<content>&lt;p&gt;Closures are a vital part of any language that passes functions around as variables. They ensure that everything that was available when we defined the function is available when it's called later, even if it's called in a different scope or long after the original scope has completely ended. There's a vast amount of information available on closures in Javascript because as a classless language where functions are always first class objects closures are regularly used to imitate class like functionality.&lt;/p&gt;
@@ -1001,11 +1001,11 @@ for (int i = 0; i &amp;lt; 100; i++) {
 }
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;That's it. We call the first function and store the returned delegate in another variable, then we call that as many times as we like, each time it will return the next prime number that can be found. Eventually this code will hit the maximum value for an integer and will go back to the beginning, but dealing with that is left as an exercise for the reader.&lt;/p&gt;</content>
-		<summary>Welcome!</summary>
+		<summary>Warren Bates</summary>
 	</entry>
 	<entry>
-		<link href="http://wozzo.github.io/posts/theres-fast-code-and-theres-fast-code" />
-		<id>http://wozzo.github.io/posts/theres-fast-code-and-theres-fast-code</id>
+		<link href="https://wbates.net/posts/theres-fast-code-and-theres-fast-code" />
+		<id>https://wbates.net/posts/theres-fast-code-and-theres-fast-code</id>
 		<title>There's fast code and there's fast code</title>
 		<updated>2015-05-24T00:00:00Z</updated>
 		<content>&lt;p&gt;I was solving a problem recently and came across a number of different ways of solving it. I decided to test them each out to see which was the quickest. The functions purpose was to return the number of digits in an integer. I've tried four different methods out. Two of them are single line solutions, one uses a bit of looping to solve the problem and the final one... well you'll see.&lt;/p&gt;
@@ -1090,6 +1090,6 @@ for (int i = 0; i &amp;lt; 100; i++) {
 &lt;p&gt;Each of these functions was then run using a for loop varying the input from 1'000 to 10'000'000 and the number of ticks taken to complete was recorded.&lt;/p&gt;
 &lt;p&gt;The results are in: String method 2'937'886 ticks, Log Method 1'119'507, the Looping method 642'857 &amp;amp; the If method 437'401. The cringey set of if statements method is nearly 7 times faster than the string conversion method and 2.5 times faster than the log method.&lt;/p&gt;
 &lt;p&gt;I think if this were for production code I'd probably use the looping method after changing it to handle integers of any type (i.e. BigInteger) and negative values because of the versatility and ease of rewriting should any problems be found, but this had definitely made me rethink some the assumptions I've built up over the years about how quickly code will run in comparison to how many lines of code there are.&lt;/p&gt;</content>
-		<summary>Welcome!</summary>
+		<summary>Warren Bates</summary>
 	</entry>
 </feed>
