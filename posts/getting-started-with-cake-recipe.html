@@ -1,0 +1,284 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+        <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+
+        <title>Wozzo.Blog - Testing a Cake Addin</title>
+        <meta name="description" content="Welcome!" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">        
+
+        <link type="application/rss+xml" rel="alternate" title="Wozzo.Blog" href="/feed.rss" />
+                <link type="application/atom+xml" rel="alternate" title="Wozzo.Blog" href="/feed.atom" />
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="/favicon.ico" type="image/x-icon">
+
+        <link href="/assets/css/bootstrap.min.css" rel="stylesheet" />
+        <link href="/assets/css/highlight.css" rel="stylesheet">
+        <link href="/assets/css/clean-blog.css" rel="stylesheet" />
+        <link href="/assets/css/master.css" rel="stylesheet" />
+        <link href="/assets/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href='//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+        <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+        <link href="/assets/css/override.css" rel="stylesheet" />
+
+
+        <meta name="application-name" content="Wozzo.Blog" />
+        <meta name="msapplication-tooltip" content="Wozzo.Blog" />
+        <meta name="msapplication-starturl" content="/" />
+
+        <meta property="og:title" content="Wozzo.Blog - Testing a Cake Addin" />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="http://wozzo.github.io/posts/getting-started-with-cake-recipe" />
+        <!-- TODO: More social graph meta tags -->
+
+        <script src="/assets/js/jquery.min.js"></script>
+        <script src="/assets/js/bootstrap.min.js"></script>     
+        <script src="/assets/js/highlight.pack.js"></script>   
+        <script src="/assets/js/clean-blog.js"></script>
+        <script src="/assets/js/d3.v3.min.js"></script>
+        <script src="/assets/js/trianglify.min.js"></script>
+        <script src="/assets/js/Please-compressed.js"></script>
+                
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+                <script src="/assets/js/html5shiv.js"></script>
+                <script src="/assets/js/respond.min.js"></script>
+        <![endif]-->
+
+        
+        
+
+
+        </head>
+        <body>
+                
+                <!-- Navigation -->
+                <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+                        <div class="container-fluid">
+                                <!-- Brand and toggle get grouped for better mobile display -->
+                                <div class="navbar-header page-scroll">
+                                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
+                                        <span class="sr-only">Toggle navigation</span>
+                                        <span class="icon-bar"></span>
+                                        <span class="icon-bar"></span>
+                                        <span class="icon-bar"></span>
+                                        </button>
+                                        <a class="navbar-brand" href="/">Wozzo.Blog</a>
+                                </div>
+                        
+                                <!-- Collect the nav links, forms, and other content for toggling -->
+                                <div class="collapse navbar-collapse" id="navbar-collapse">
+                                        <ul class="nav navbar-nav navbar-right">
+                                                        <li><a href="/about">About Me</a></li>
+        <li><a href="/tags">All Tags</a></li>
+        <li><a href="/posts">Archive</a></li>
+ 
+                                        </ul>
+                                </div>
+                                <!-- /.navbar-collapse -->
+                        </div>
+                        <!-- /.container -->
+                </nav>
+                
+                <!-- Page Header -->
+                <header class="intro-header" id="intro-header">
+                        <div class="container">
+                                <div class="row">
+                                        <div class="col-md-12">
+
+    
+<div class="post-heading">
+    <h1>Testing a Cake Addin</h1>
+    <div class="meta">        
+Published on 26 August 2017<br>    </div>
+        <div class="tags">
+                    <a role="button" href="/tags/build" class="btn btn-default btn-xs">Build</a>
+                    <a role="button" href="/tags/cake" class="btn btn-default btn-xs">Cake</a>
+                    <a role="button" href="/tags/cake.recipe" class="btn btn-default btn-xs">Cake.Recipe</a>
+                    <a role="button" href="/tags/github" class="btn btn-default btn-xs">GitHub</a>
+                    <a role="button" href="/tags/recipe" class="btn btn-default btn-xs">Recipe</a>
+        </div>     
+</div>
+                                        </div>
+                                </div>
+                        </div>
+                </header>
+                
+                <!-- Main Content -->
+                <div class="container">
+                        <div class="row">
+                                <div id="content" class="col-md-12">
+                                        
+
+<p>I�ve been playing around with the Cake build tool for a little while now, but having recently had need of a plugin that didn�t yet exist I embarked on a journey that lead me to Cake.Recipe.</p>
+<blockquote class="blockquote">
+<p>Cake.Recipe is a set of convention based Cake scripts.</p>
+</blockquote>
+<p>If you check out the Content folder in that repository you�ll find a host of pre-written cake scripts that cover a wide range of use cases. They�ve been designed so that they all work together and can be called through a single cake file that contains a few bits of setup. They�re used by most of the addin�s under the cake-contrib team. The only thing that was lacking at the start of this journey was documentation about how to use Cake.Recipe, which is why I�m writing this post.</p>
+<h1 id="getting-started">Getting started</h1>
+<p>Before I knew what Cake.Recipe was I was looking around various repositories looking for good ideas for how to improve the addin I was working on at the time (Cake.Bower), and I started to notice that several of the repositories were missing a build.cake file. The .cake file can of course be called whatever you like, but by default it is called build.cake, so for this to be missing, or rather called setup.cake, I found a bit odd.
+Looking into the setup.cake file I found something very different from what I�m used to seeing in build.cake files.</p>
+<pre><code class="language-csharp">#load nuget:https://www.myget.org/F/cake-contrib/api/v2?package=Cake.Recipe&amp;prerelease
+ 
+Environment.SetVariableNames();
+ 
+BuildParameters.SetParameters(context: Context,
+                            buildSystem: BuildSystem,
+                            sourceDirectoryPath: &quot;./&quot;,
+                            title: &quot;Cake.Bower&quot;,
+                            repositoryOwner: &quot;cake-contrib&quot;,
+                            repositoryName: &quot;Cake.Bower&quot;,
+                            appVeyorAccountName: &quot;cakecontrib&quot;);
+ 
+BuildParameters.PrintParameters(Context);
+ 
+ToolSettings.SetToolSettings(context: Context,
+                            dupFinderExcludePattern: new string[] {
+                                BuildParameters.RootDirectoryPath + &quot;/src/Cake.Bower.Tests/*.cs&quot; },
+                            testCoverageFilter: &quot;+[*]* -[xunit.*]* -[Cake.Core]* -[Cake.Testing]* -[*.Tests]* &quot;,
+                            testCoverageExcludeByAttribute: &quot;*.ExcludeFromCodeCoverage*&quot;,
+                            testCoverageExcludeByFile: &quot;*/*Designer.cs;*/*.g.cs;*/*.g.i.cs&quot;);
+Build.Run();
+</code></pre>
+<p>No tasks. None at all.</p>
+<p>The top line is the critical one. It fetches the Cake.Recipe scripts and loads each one providing the methods you can see being used here. The bootstrapped build.ps1 that you�d normally download if you followed the instructions on the �Setting up a new project� tutorial page has been modified to use a default file of setup.cake purely as a convention to distinguish between normal cake builds and recipe builds. You can then modify the parameters in the setup.cake file to achieve the desired result. There are close to 80 different parameters that can be set here that can be used to configure the ~40 odd tasks that cake.recipe provides.</p>
+<h1 id="parameters">Parameters</h1>
+<p>Take a look at the parameters.cake file to see what options are available to you out of the box. These can all be set either in the SetParameters or using environment variables.
+Tasks
+The tasks.cake file paradoxically doesn�t contain any tasks, but does give you a handy list of tasks that are configured. It also provides you with the first way of overriding cake.recipe functionality by changing the value assigned to these properties, should one of the tasks need tweaking to suit your needs. More on that in a bit.
+The tasks are set in a cake file specific to the purpose of the task, i.e. the tasks related to testing are all in testing.cake, the tasks for code analysis are in analyzing.cake, etc. The best starting point for figuring out what is going is in the build.cake file, currently on line 354</p>
+<pre><code class="language-csharp">BuildParameters.Tasks.DefaultTask = Task(&quot;Default&quot;)
+        .IsDependentOn(&quot;Package&quot;);
+</code></pre>
+<p>We can start to see the intended targets for a full build. Don�t get thrown by the lack of dependencies here. For example the Package task target doesn�t only depend on the Export-Release-Notes task. Look above the task definition and find the SetupTasks method. In there you can see more dependencies being set.</p>
+<p>This should start to give you an idea what will happen when you run one of the targets listed here. The default is probably the best place to start. If you need a safe project to test it out on, fork Cake.Bower and run .\build.ps1. It will take a while on the first run as it has to download all of the tools and addins required to run.</p>
+<h1 id="cake.bower-build-running">Cake.Bower build running</h1>
+<p>The tasks that are run by the default target are</p>
+<pre><code>Task                                 Duration
+---------------------------------------------------------
+Export-Release-Notes                 Skipped
+Show-Info                            00:00:00.0093039
+Print-AppVeyor-Environment-Variables Skipped
+Clean                                00:00:00.0292549
+Restore                              00:00:01.0742619
+Build                                00:00:05.7580859
+DupFinder                            00:00:09.2430267
+InspectCode                          00:00:22.4277417
+Analyze                              00:00:00.0042806
+Install-ReportGenerator              00:00:02.2837979
+Install-ReportUnit                   00:00:02.2187105
+Install-OpenCover                    00:00:02.2890312
+Test-NUnit                           Skipped
+Test-xUnit                           00:00:06.9958299
+Test-MSTest                          Skipped
+Test-VSTest                          Skipped
+Test-Fixie                           Skipped
+Test                                 00:00:00.0065763
+Create-NuGet-Packages                00:00:00.7237132
+Create-Chocolatey-Packages           Skipped
+Package                              00:00:00.0050486
+Default                              00:00:00.0055089
+---------------------------------------------------------
+Total:                               00:00:53.0741721
+</code></pre>
+<p>You can see some of the tasks were skipped. This means the task appeared in the list of dependencies but the criteria to run it (defined using the <code>WithCriteria</code> method) were not met. For example the Test-NUnit task will only run if NUnit tests are found. There are none in Cake.Bower so it gets skipped. If I wanted to always skip a step I can find the parameter that governs whether it runs and set it in the setup.cake file. For example if I wanted to disable the InspectCode step I would change my setup.cake�s call to BuildParameters.SetParameters to the following.</p>
+<pre><code class="language-csharp">BuildParameters.SetParameters(context: Context,
+                            buildSystem: BuildSystem,
+                            sourceDirectoryPath: &quot;./&quot;,
+                            title: &quot;Cake.Bower&quot;,
+                            repositoryOwner: &quot;cake-contrib&quot;,
+                            repositoryName: &quot;Cake.Bower&quot;,
+                            appVeyorAccountName: &quot;cakecontrib&quot;,
+                            shouldRunInspectCode: false);
+</code></pre>
+<p>Run it again and this time the task will be skipped but the rest should be the same.</p>
+<h1 id="replacing-a-task">Replacing a task</h1>
+<p>With Cake, once a Task has been created you can�t create another with the same name. Calling the .Does(�) method adds an additional action but doesn�t replace the existing one. If you want to replace the tasks actions with something completely different you first need to clear the existing actions. To clear the InspectCode actions use the following</p>
+<pre><code class="language-csharp">BuildParameters.Tasks.InspectCodeTask.Task.Actions.Clear();
+</code></pre>
+<p>I�m now free to call the .Does(�) method with the action I want it to undertake and be sure it is the only thing it will do, for example:</p>
+<pre><code class="language-csharp">BuildParameters.Tasks.InspectCodeTask.Does( () =&gt; Information(&quot;And now for something completely different...&quot;));
+</code></pre>
+<p>Running .\build.ps1 now yields the following output when you get to the InspectCode task.</p>
+<pre><code>========================================
+InspectCode
+========================================
+Executing task: InspectCode
+And now for something completely different...
+Finished executing task: InspectCode
+</code></pre>
+<p>You are also free to create your own tasks and add them as dependencies to the existing ones. Something like this�</p>
+<pre><code class="language-csharp">Task(&quot;MakeTea&quot;).Does( () =&gt; Information(&quot;Make Tea not Love&quot;));
+BuildParameters.Tasks.InspectCodeTask.Task.Actions.Clear();
+BuildParameters.Tasks.InspectCodeTask
+    .IsDependentOn(&quot;MakeTea&quot;)
+    .Does( () =&gt; Information(&quot;And now for something completely different...&quot;));
+</code></pre>
+<p>which yields�</p>
+<pre><code>========================================
+MakeTea
+========================================
+Executing task: MakeTea
+Make Tea not Love
+Finished executing task: MakeTea
+ 
+========================================
+InspectCode
+========================================
+Executing task: InspectCode
+And now for something completely different...
+Finished executing task: InspectCode
+</code></pre>
+<p>And of course if you find that you need loads of additional scripts for a particular use case consider a pull request into Cake.Recipe</p>
+
+
+
+                                </div>
+                        </div>
+                </div>
+                
+                <hr>
+                
+                <!-- Footer -->
+                <footer>
+                        <div class="container">
+        <div class="row">
+                <div class="col-md-12 text-center">
+                    <p class="copyright text-muted">
+                        Copyright © 2017
+                        <br />
+                            <a href="/feed.rss"><i class="fa fa-rss"></i> RSS Feed</a>
+                        |
+                            <a href="/feed.atom"><i class="fa fa-rss"></i> Atom Feed</a>
+                        <br />
+                        <strong><a href="https://wyam.io">Generated by Wyam</a></strong>
+                    </p>
+                </div>
+        </div>
+</div>
+
+                </footer> 
+
+                
+                <script>hljs.initHighlightingOnLoad();</script>
+
+                        <script type="text/javascript">                
+                                // Header background                        
+                                var colors = Please.make_color({
+                                        colors_returned: 3,
+                                        saturation: .6
+                                });
+                                var t = new Trianglify({
+                                        x_gradient: colors,
+                                        y_gradient: ["#FFFFFF"]
+                                });
+                                var header = document.getElementById("intro-header");
+                                var pattern = t.generate(header.clientWidth, header.clientHeight);
+                                header.setAttribute('style', 'background-image: ' + pattern.dataUrl);                        
+                        </script>
+        </body>
+</html>
+
