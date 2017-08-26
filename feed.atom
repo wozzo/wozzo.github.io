@@ -4,7 +4,7 @@
 	<id>https://wbates.net/</id>
 	<title>Warren Bates</title>
 	<rights>2017</rights>
-	<updated>2017-08-26T18:03:39Z</updated>
+	<updated>2017-08-26T18:04:50Z</updated>
 	<subtitle>Warren Bates</subtitle>
 	<entry>
 		<link href="https://wbates.net/posts/getting-started-with-cake-recipe" />
@@ -131,14 +131,6 @@ And now for something completely different...
 Finished executing task: InspectCode
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;And of course if you find that you need loads of additional scripts for a particular use case consider a pull request into Cake.Recipe&lt;/p&gt;</content>
-		<summary>Warren Bates</summary>
-	</entry>
-	<entry>
-		<link href="https://wbates.net/posts/this-is-a-test" />
-		<id>https://wbates.net/posts/this-is-a-test</id>
-		<title>This is a test</title>
-		<updated>2017-08-26T00:00:00Z</updated>
-		<content>&lt;p&gt;This is a test&lt;/p&gt;</content>
 		<summary>Warren Bates</summary>
 	</entry>
 	<entry>

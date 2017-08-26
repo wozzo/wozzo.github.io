@@ -5,8 +5,8 @@
 		<link>https://wbates.net/</link>
 		<description>Warren Bates</description>
 		<copyright>2017</copyright>
-		<pubDate>Sat, 26 Aug 2017 18:03:39 GMT</pubDate>
-		<lastBuildDate>Sat, 26 Aug 2017 18:03:39 GMT</lastBuildDate>
+		<pubDate>Sat, 26 Aug 2017 18:04:50 GMT</pubDate>
+		<lastBuildDate>Sat, 26 Aug 2017 18:04:50 GMT</lastBuildDate>
 		<item>
 			<title>Getting Started with Cake.Recipe</title>
 			<link>https://wbates.net/posts/getting-started-with-cake-recipe</link>
@@ -133,14 +133,6 @@ And now for something completely different...
 Finished executing task: InspectCode
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;And of course if you find that you need loads of additional scripts for a particular use case consider a pull request into Cake.Recipe&lt;/p&gt;</content:encoded>
-		</item>
-		<item>
-			<title>This is a test</title>
-			<link>https://wbates.net/posts/this-is-a-test</link>
-			<description>Warren Bates</description>
-			<guid>https://wbates.net/posts/this-is-a-test</guid>
-			<pubDate>Sat, 26 Aug 2017 00:00:00 GMT</pubDate>
-			<content:encoded>&lt;p&gt;This is a test&lt;/p&gt;</content:encoded>
 		</item>
 		<item>
 			<title>Setting up a Wyam blog with Cake.Recipe and GitHub pages</title>
