@@ -4,21 +4,21 @@
 	<id>http://wozzo.github.io/</id>
 	<title>Wozzo.Blog</title>
 	<rights>2017</rights>
-	<updated>2017-08-26T09:55:18Z</updated>
+	<updated>2017-08-26T10:53:12Z</updated>
 	<subtitle>Welcome!</subtitle>
 	<entry>
 		<link href="http://wozzo.github.io/posts/getting-started-with-cake-recipe" />
 		<id>http://wozzo.github.io/posts/getting-started-with-cake-recipe</id>
 		<title>Testing a Cake Addin</title>
 		<updated>2017-08-26T00:00:00Z</updated>
-		<content>&lt;p&gt;I�ve been playing around with the Cake build tool for a little while now, but having recently had need of a plugin that didn�t yet exist I embarked on a journey that lead me to Cake.Recipe.&lt;/p&gt;
+		<content>&lt;p&gt;I've been playing around with the Cake build tool for a little while now, but having recently had need of a plugin that didn't yet exist I embarked on a journey that lead me to Cake.Recipe.&lt;/p&gt;
 &lt;blockquote class="blockquote"&gt;
 &lt;p&gt;Cake.Recipe is a set of convention based Cake scripts.&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;If you check out the Content folder in that repository you�ll find a host of pre-written cake scripts that cover a wide range of use cases. They�ve been designed so that they all work together and can be called through a single cake file that contains a few bits of setup. They�re used by most of the addin�s under the cake-contrib team. The only thing that was lacking at the start of this journey was documentation about how to use Cake.Recipe, which is why I�m writing this post.&lt;/p&gt;
+&lt;p&gt;If you check out the Content folder in that repository you'll find a host of pre-written cake scripts that cover a wide range of use cases. They've been designed so that they all work together and can be called through a single cake file that contains a few bits of setup. They're used by most of the addin's under the cake-contrib team. The only thing that was lacking at the start of this journey was documentation about how to use Cake.Recipe, which is why I'm writing this post.&lt;/p&gt;
 &lt;h1 id="getting-started"&gt;Getting started&lt;/h1&gt;
 &lt;p&gt;Before I knew what Cake.Recipe was I was looking around various repositories looking for good ideas for how to improve the addin I was working on at the time (Cake.Bower), and I started to notice that several of the repositories were missing a build.cake file. The .cake file can of course be called whatever you like, but by default it is called build.cake, so for this to be missing, or rather called setup.cake, I found a bit odd.
-Looking into the setup.cake file I found something very different from what I�m used to seeing in build.cake files.&lt;/p&gt;
+Looking into the setup.cake file I found something very different from what I'm used to seeing in build.cake files.&lt;/p&gt;
 &lt;pre&gt;&lt;code class="language-csharp"&gt;#load nuget:https://www.myget.org/F/cake-contrib/api/v2?package=Cake.Recipe&amp;amp;prerelease
  
 Environment.SetVariableNames();
@@ -42,16 +42,16 @@ ToolSettings.SetToolSettings(context: Context,
 Build.Run();
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;No tasks. None at all.&lt;/p&gt;
-&lt;p&gt;The top line is the critical one. It fetches the Cake.Recipe scripts and loads each one providing the methods you can see being used here. The bootstrapped build.ps1 that you�d normally download if you followed the instructions on the �Setting up a new project� tutorial page has been modified to use a default file of setup.cake purely as a convention to distinguish between normal cake builds and recipe builds. You can then modify the parameters in the setup.cake file to achieve the desired result. There are close to 80 different parameters that can be set here that can be used to configure the ~40 odd tasks that cake.recipe provides.&lt;/p&gt;
+&lt;p&gt;The top line is the critical one. It fetches the Cake.Recipe scripts and loads each one providing the methods you can see being used here. The bootstrapped build.ps1 that you'd normally download if you followed the instructions on the �Setting up a new project� tutorial page has been modified to use a default file of setup.cake purely as a convention to distinguish between normal cake builds and recipe builds. You can then modify the parameters in the setup.cake file to achieve the desired result. There are close to 80 different parameters that can be set here that can be used to configure the ~40 odd tasks that cake.recipe provides.&lt;/p&gt;
 &lt;h1 id="parameters"&gt;Parameters&lt;/h1&gt;
 &lt;p&gt;Take a look at the parameters.cake file to see what options are available to you out of the box. These can all be set either in the SetParameters or using environment variables.
 Tasks
-The tasks.cake file paradoxically doesn�t contain any tasks, but does give you a handy list of tasks that are configured. It also provides you with the first way of overriding cake.recipe functionality by changing the value assigned to these properties, should one of the tasks need tweaking to suit your needs. More on that in a bit.
+The tasks.cake file paradoxically doesn't contain any tasks, but does give you a handy list of tasks that are configured. It also provides you with the first way of overriding cake.recipe functionality by changing the value assigned to these properties, should one of the tasks need tweaking to suit your needs. More on that in a bit.
 The tasks are set in a cake file specific to the purpose of the task, i.e. the tasks related to testing are all in testing.cake, the tasks for code analysis are in analyzing.cake, etc. The best starting point for figuring out what is going is in the build.cake file, currently on line 354&lt;/p&gt;
 &lt;pre&gt;&lt;code class="language-csharp"&gt;BuildParameters.Tasks.DefaultTask = Task("Default")
         .IsDependentOn("Package");
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;We can start to see the intended targets for a full build. Don�t get thrown by the lack of dependencies here. For example the Package task target doesn�t only depend on the Export-Release-Notes task. Look above the task definition and find the SetupTasks method. In there you can see more dependencies being set.&lt;/p&gt;
+&lt;p&gt;We can start to see the intended targets for a full build. Don't get thrown by the lack of dependencies here. For example the Package task target doesn't only depend on the Export-Release-Notes task. Look above the task definition and find the SetupTasks method. In there you can see more dependencies being set.&lt;/p&gt;
 &lt;p&gt;This should start to give you an idea what will happen when you run one of the targets listed here. The default is probably the best place to start. If you need a safe project to test it out on, fork Cake.Bower and run .\build.ps1. It will take a while on the first run as it has to download all of the tools and addins required to run.&lt;/p&gt;
 &lt;h1 id="cake.bower-build-running"&gt;Cake.Bower build running&lt;/h1&gt;
 &lt;p&gt;The tasks that are run by the default target are&lt;/p&gt;
@@ -82,7 +82,7 @@ Default                              00:00:00.0055089
 ---------------------------------------------------------
 Total:                               00:00:53.0741721
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;You can see some of the tasks were skipped. This means the task appeared in the list of dependencies but the criteria to run it (defined using the &lt;code&gt;WithCriteria&lt;/code&gt; method) were not met. For example the Test-NUnit task will only run if NUnit tests are found. There are none in Cake.Bower so it gets skipped. If I wanted to always skip a step I can find the parameter that governs whether it runs and set it in the setup.cake file. For example if I wanted to disable the InspectCode step I would change my setup.cake�s call to BuildParameters.SetParameters to the following.&lt;/p&gt;
+&lt;p&gt;You can see some of the tasks were skipped. This means the task appeared in the list of dependencies but the criteria to run it (defined using the &lt;code&gt;WithCriteria&lt;/code&gt; method) were not met. For example the Test-NUnit task will only run if NUnit tests are found. There are none in Cake.Bower so it gets skipped. If I wanted to always skip a step I can find the parameter that governs whether it runs and set it in the setup.cake file. For example if I wanted to disable the InspectCode step I would change my setup.cake's call to BuildParameters.SetParameters to the following.&lt;/p&gt;
 &lt;pre&gt;&lt;code class="language-csharp"&gt;BuildParameters.SetParameters(context: Context,
                             buildSystem: BuildSystem,
                             sourceDirectoryPath: "./",
@@ -94,10 +94,10 @@ Total:                               00:00:53.0741721
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Run it again and this time the task will be skipped but the rest should be the same.&lt;/p&gt;
 &lt;h1 id="replacing-a-task"&gt;Replacing a task&lt;/h1&gt;
-&lt;p&gt;With Cake, once a Task has been created you can�t create another with the same name. Calling the .Does(�) method adds an additional action but doesn�t replace the existing one. If you want to replace the tasks actions with something completely different you first need to clear the existing actions. To clear the InspectCode actions use the following&lt;/p&gt;
+&lt;p&gt;With Cake, once a Task has been created you can't create another with the same name. Calling the .Does(�) method adds an additional action but doesn't replace the existing one. If you want to replace the tasks actions with something completely different you first need to clear the existing actions. To clear the InspectCode actions use the following&lt;/p&gt;
 &lt;pre&gt;&lt;code class="language-csharp"&gt;BuildParameters.Tasks.InspectCodeTask.Task.Actions.Clear();
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;I�m now free to call the .Does(�) method with the action I want it to undertake and be sure it is the only thing it will do, for example:&lt;/p&gt;
+&lt;p&gt;I'm now free to call the .Does(�) method with the action I want it to undertake and be sure it is the only thing it will do, for example:&lt;/p&gt;
 &lt;pre&gt;&lt;code class="language-csharp"&gt;BuildParameters.Tasks.InspectCodeTask.Does( () =&amp;gt; Information("And now for something completely different..."));
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Running .\build.ps1 now yields the following output when you get to the InspectCode task.&lt;/p&gt;
@@ -675,6 +675,264 @@ Add to nuget, and then you can change the #reference line to #addin and your scr
 &lt;li&gt;Check out &lt;a href="https://github.com/cake-contrib/Home"&gt;Cake-Contrib on Github&lt;/a&gt; and consider adding your addin on there. I started with Cake.Bower, and decided to write this blog post off the back of that.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;The resulting addin from this blog post can be found at &lt;a href="https://github.com/wozzo/Cake.Markdown-Pdf"&gt;Wozzo/Cake.Markdown-Pdf on github&lt;/a&gt; and the blog series can be found at &lt;a href="https://github.com/wozzo/Cake_Addin_Blog_Posts"&gt;Wozzo/Cake_Addin_Blog_Posts&lt;/a&gt;&lt;/p&gt;</content>
+		<summary>Welcome!</summary>
+	</entry>
+	<entry>
+		<link href="http://wozzo.github.io/posts/seeding-data-using-entity-framework-in-asp.net-core" />
+		<id>http://wozzo.github.io/posts/seeding-data-using-entity-framework-in-asp.net-core</id>
+		<title>Seeding data using Entity Framework in ASP.NET Core</title>
+		<updated>2016-09-17T00:00:00Z</updated>
+		<content>&lt;p&gt;With thanks to &lt;a href="http://coderhints.com/ef7-seed-user/"&gt;coderhints.com&lt;/a&gt; for the initial steps in doing this. I've done a bit of refactoring and added some additional steps to enable setting up a lot of data quickly and easily.&lt;/p&gt;
+&lt;p&gt;I'm going to demonstrate how you can set up some default information in your database using Entity Framework, and a default user for your application. Firstly find the ConfigureServices method in the Startup class. This is the first way my approach differs from above; ConfigureServices is where the DbContext is added to the application and it's where it should be setup, while Configure is where you tell the application how to respond to HTTP requests [1]. At the end of this method add the following code.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-csharp"&gt;var serviceProvider = services.BuildServiceProvider();
+var dbContext = serviceProvider.GetService&amp;lt;ApplicationDbContext&amp;gt;();
+var userManager = serviceProvider.GetService&amp;lt;UserManager&amp;lt;ApplicationUser&amp;gt;&amp;gt;();
+var roleManager = serviceProvider.GetService&amp;lt;RoleManager&amp;lt;IdentityRole&amp;gt;&amp;gt;();
+dbContext.Database.Migrate();
+dbContext.EnsureSeedData(userManager, roleManager).Wait();
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The serviceProvider is what allows us to retrieve instances of the services we need, in this case the ApplicationDbContext, UserManager and RoleManager. Calling the migrate method ensures we have applied the latest migrations and are working with an up to date schema. Finally that horrible red line there is the method where we're going to our seeding. So flick over to your ApplicationDbContext class and add a new method with the following signature&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-csharp"&gt;public async Task EnsureSeedData(UserManager&amp;lt;ApplicationUser&amp;gt; userManager, RoleManager&amp;lt;IdentityRole&amp;gt; roleManager)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This method needs to be rerunnable without throwing exceptions for adding repeat items, and nor do you want that, so every call you make that's going to update the database should have a check to make sure that data doesn't already exist.&lt;/p&gt;
+&lt;h1 id="adding-a-default-user"&gt;Adding a default user&lt;/h1&gt;
+&lt;p&gt;We're going to start by setting up our default 'Administrator' user. To do that we need to have an Administrator role.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-csharp"&gt;// Add roles
+if (!await Roles.AnyAsync(r =&amp;gt; string.Equals(r.Name, "Administrator", System.StringComparison.OrdinalIgnoreCase)))
+    await roleManager.CreateAsync(new IdentityRole("Administrator"));
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Here we check for the roles existence and if it isn't there, we add it. This should be repeated for any roles you require.
+Now to create our new user&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-csharp"&gt;// Add Admin user
+var adminUser = userManager.Users.FirstOrDefault(u =&amp;gt; string.Equals(u.UserName, "admin@wbates.net", System.StringComparison.OrdinalIgnoreCase));
+if (adminUser == null)
+{
+    adminUser = new ApplicationUser
+    {
+        UserName = "admin@wbates.net",
+        Email = "admin@wbates.net"
+    };
+    var result = await userManager.CreateAsync(adminUser, "AReallyDifficultImpossibleToGuessPassword123#");
+    if (result != IdentityResult.Success)
+        throw new System.Exception($"Unable to create '{adminUser.UserName}' account: {result}");
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;As always, check for the users existence and because we'll be wanting to ensure this user is enabled and has the 'Administrator' role we'll keep a reference to it. It's worth noting that no Exception is normally thrown if the user has not been created, instead the object returned from the CreateAsync call will tell us and give a message if it has failed. The most common reason for this is that the password is not complicated enough, hence the '#' on the password above.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-csharp"&gt;await userManager.SetLockoutEnabledAsync(adminUser, false);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Well we wouldn't want our administrator to be locked out of the system would we?&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-csharp"&gt;// Check AdminUserRoles
+var adminRoles = await userManager.GetRolesAsync(adminUser);
+if (!adminRoles.Any(r =&amp;gt; string.Equals(r, "Administrator")))
+    await userManager.AddToRoleAsync(adminUser, "Administrator");
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Finally we check that the user is in the admin role, and we're done with setting up our default user. Check the previous post for how ASP.NET Core configuration allows us to set some of the above defaults using .json files instead of hard coding them as we have here.&lt;/p&gt;
+&lt;h1 id="adding-seed-data"&gt;Adding seed data&lt;/h1&gt;
+&lt;p&gt;Assuming you've added additional DbSets to your ApplicationDbContext for your models, they'll be available in the EnsureSeedData method. As above you'll want to check for each values existing before adding it, but otherwise create an instance of the model and .Add it to the relevant DbSet. The changes won't be saved until you call SaveChangesAsync and it has completed, so leave that until the end. Here's a quick sample that shows how to add some records and save the changes to finish.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-csharp"&gt;// Ensure default MediaTypes
+if (!MediaTypes.Any(t =&amp;gt; string.Equals(t.Name, "DVD", System.StringComparison.OrdinalIgnoreCase)))
+{
+    var mediaType = new MediaType { Name = "DVD", Description = "Digital Versatile Disc" }
+    MediaTypes.Add(mediaType);
+}
+await SaveChangesAsync();
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h1 id="top-tips"&gt;Top tips&lt;/h1&gt;
+&lt;p&gt;Use ASP.NET's Configuration Options[2] to describe default values and allow them to be set by using .json files for different environments.
+Move most of this additional configuration out to an extension method on the IServicesCollection. Keep the configure method clean.
+Define the roles as auto properties in a static class so you don't need to use strings like �Administrator� to reference them everywhere&lt;/p&gt;</content>
+		<summary>Welcome!</summary>
+	</entry>
+	<entry>
+		<link href="http://wozzo.github.io/posts/asp.net-core-configuration" />
+		<id>http://wozzo.github.io/posts/asp.net-core-configuration</id>
+		<title>ASP.NET Core Configuration</title>
+		<updated>2016-04-24T00:00:00Z</updated>
+		<content>&lt;p&gt;Only just beginning to dive into ASP.NET Core (or ASP.NET 5 if you prefer), but there's a great deal to like. Configuration in Core is extremely simple. Values can simply be added to a json (or other format, but why bother) configuration file and are then available to your application where Configuration is instantiated.
+The default projects will include the following lines in the Startup method of Startup.cs.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-csharp"&gt;var builder = new ConfigurationBuilder().AddJsonFile("appsettings.json");
+Configuration = builder.Build().ReloadOnChanged("appsettings.json");
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This will load the values from the appsettings.json file (if it exists) into the Configuration property. Multiple calls to this method can be chained together (see environment specific config below). If appsettings.json looked like this&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-json"&gt;{
+    "Logging": {
+        "IncludeScopes": false,
+        "LogLevel": {
+            "Default": "Verbose",
+            "System": "Information",
+            "Microsoft": "Information"
+        }
+    },
+    "MyConfigValue": "An important configuration string"
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The logging stuff is default, I've added the MyConfigValue key, which means that once Configuration is instantiated I can then access it's value within the Startup class with the following:&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-csharp"&gt;Configuration["MyConfigValue"];
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The Logging.LogLevel.Default value can be retrieved using&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-csharp"&gt;Configuration["Logging:LogLevel:Default"];
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;By creating config classes specific to different areas of your application you can use the built in DI to inject that config only where it's needed.&lt;/p&gt;
+&lt;p&gt;If we replace MyConfigValue in the appsettings.json file above with the following key&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-json"&gt;"MyConfig": {
+    "Value1": "This is the first config value",
+    "Value2": "And this is the second",
+    "Number1": 15
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now add a new class to the project which can be called anything but I'm going with MyConfig.cs&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-csharp"&gt;public class MyConfig
+{
+    public string Value1 { get; set; }
+    public string Value2 { get; set; }
+    public int Number1 { get; set; }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;As you can see the properties match up. We now need to configure the options to be populated into a MyConfig object. Back to startup.cs and find the ConfigureServices method. Add the following lines&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-csharp"&gt;services.AddOptions();
+services.Configure&amp;lt;MyConfig&amp;gt;(Configuration.GetSection("MyConfig");
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This takes in the Configuration property and configures it so that when we ask for a MyConfig object it will provide it using whatever it has read from appsettings.json file by matching the classes properties to the keys with the same name. To see that in use create a new controller and add a constructor passing in IOptions as a parameter. This will provide an accessor to a populated config object. which is then accessible in the constructor and can be assigned as a property on that controller.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-csharp"&gt;public MyController(IOptions&amp;lt;MyConfig&amp;gt; myConfig)
+{
+    _myConfig = myConfig.Value;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The _myConfig object will now contain our config for this section.&lt;/p&gt;
+&lt;h1 id="environment-specific-config"&gt;Environment specific config&lt;/h1&gt;
+&lt;p&gt;You can easily add additional config files for each environment by calling AddJsonFile on the ConfigurationBuilder multiple times. Since I wrote this the default configure method has the following code.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-csharp"&gt;var builder = new ConfigurationBuilder()
+    .SetBasePath(env.ContentRootPath)
+    .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+    .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The later files take priority over the earlier ones, overwriting any earlier values. See this page for info on how to set the EnvironmentName. I also recommend adding *.development.json to your .gitignore files so that your development environment configuration isn't committed.&lt;/p&gt;</content>
+		<summary>Welcome!</summary>
+	</entry>
+	<entry>
+		<link href="http://wozzo.github.io/posts/configuring-for-pretty-urls-in-angularjs-and-visual-studio" />
+		<id>http://wozzo.github.io/posts/configuring-for-pretty-urls-in-angularjs-and-visual-studio</id>
+		<title>Configuring for Pretty URLs in AngularJS and Visual Studio</title>
+		<updated>2015-06-08T00:00:00Z</updated>
+		<content>&lt;p&gt;Pretty URLs look much better than some of the long query string type URLs we've gotten used to.
+AngularJS makes it very simple to use pretty urls just follow the steps below and then configure for your server.&lt;/p&gt;
+&lt;p&gt;You need to include the ngRoute module with the following line:&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-html"&gt;&amp;lt;script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.js"&amp;gt;&amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Our SPA also needs to know where to put the templates when a sub page is requested. Create a div in your page and add the ng-view attribute. That's it.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-html"&gt;&amp;lt;div ng-view&amp;gt;
+    &amp;lt;!-- Content will be injected here --&amp;gt;
+&amp;lt;/div&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Next you need to add &lt;code&gt;$routeProvider&lt;/code&gt; and &lt;code&gt;$locationProvider&lt;/code&gt; to your config and set them up.
+You use the when() function to define which view to serve up depending on what the path is. For example:&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-javascript"&gt;mainApp.config(function ($routeProvider, $locationProvider) {
+    // Route for home page
+    $routeProvider.when('/', {
+        templateUrl: '_home/home.html',
+        controller: 'CarouselCtrl'
+    })
+    .when('/about', {
+        templateUrl: '_about/about.html',
+        controller: 'aboutCtrl'
+    })
+    .otherwise({
+        redirectTo: "/"
+    });
+ 
+    $locationProvider.html5Mode(true);
+});
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This means that if I go to &lt;a href="http://yourserver.com/about"&gt;http://yourserver.com/about&lt;/a&gt; the page will serve up the contents of the _about/about.html.
+The $locationProvider line is required if you would like to also remove the hash from the URL. Without this your urls will appear like &lt;a href="http://yourserver.com/#/about;"&gt;http://yourserver.com/#/about;&lt;/a&gt; If you aren't worried about the # then you're finished and the following steps will not be necessary. Older browsers will also default back to using the # if they aren't fancy enough for pretty URLs.&lt;/p&gt;
+&lt;p&gt;Configuring your webserver to always route back to the index.html file, or whatever you main app's file is, is probably the trickiest aspect of this process. You also need to exclude any folders which actually do exist because otherwise the webserver will route back to index.html when trying to find each of your site assets (css files, images, etc.).&lt;/p&gt;
+&lt;h1 id="for-iis-express"&gt;For IIS Express:&lt;/h1&gt;
+&lt;p&gt;(See below for IIS Web Core as used in VS)&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Download &lt;a href="http://www.iis.net/downloads/microsoft/url-rewrite"&gt;URL Rewrite&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Run IIS Manager (found in the start menu)&lt;/li&gt;
+&lt;li&gt;Expand the panel on the left to find your site&lt;/li&gt;
+&lt;li&gt;Load URL Rewrite&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src="../assets/images/add-rule.png" class="img-fluid" alt="Add Url Rewrite rule"&gt;&lt;/p&gt;
+&lt;ol start="5"&gt;
+&lt;li&gt;&lt;p&gt;Click "Add Rule"&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Choose a blank inbound rule
+8 Call it Pretty URL Exclusions. These will be the folders that actually exist that you don't want to be rerouted.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Select "does not match the pattern"&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Add in a regular expression to ignore all the folders that exists&lt;/p&gt;
+&lt;p&gt;For example:
+To ignore the common folder and its contents use &lt;code&gt;common/.*&lt;/code&gt;
+Then use the pipe (|) to separate it from another folder
+You might end up with something like
+&lt;code&gt;css/.*|js/.*|images.*&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;For these folders we want the action type to be "None"&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Check "Stop processing of subsequent rules&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Apply the rule&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src="../assets/images/edit-inbound-rule.png" class="img-fluid" alt="Edit inbound url rewrite rule"&gt;&lt;/p&gt;
+&lt;ol start="12"&gt;
+&lt;li&gt;Create another blank inbound rule&lt;/li&gt;
+&lt;li&gt;Call it Pretty URL Redirect.&lt;/li&gt;
+&lt;li&gt;Select Matches the pattern and input .* to match all paths&lt;/li&gt;
+&lt;li&gt;Choose Redirect as the action type&lt;/li&gt;
+&lt;li&gt;Set the url to index.html or your main app file.&lt;/li&gt;
+&lt;li&gt;Apply the rule and restart the webserver.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h1 id="for-iis-web-core-visual-studio"&gt;For IIS Web Core (Visual Studio)&lt;/h1&gt;
+&lt;p&gt;I found the easiest thing to do here was just add the same rules as above directly into the web.config file in the project.
+Open it up and add in the following (edited for your folders ofcourse: see IIS Express above for more details) between your configuration tags.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-xml"&gt;&amp;lt;system.webServer&amp;gt;
+    &amp;lt;rewrite&amp;gt;
+        &amp;lt;rules&amp;gt;
+            &amp;lt;clear /&amp;gt;
+            &amp;lt;rule name="Pretty URL Exclusions" stopProcessing="true"&amp;gt;
+                &amp;lt;match url="(css/.*|js/.*|images/.*)" /&amp;gt;
+                &amp;lt;conditions logicalGrouping="MatchAll" trackAllCaptures="false" /&amp;gt;
+                &amp;lt;action type="None" /&amp;gt;
+            &amp;lt;/rule&amp;gt;
+            &amp;lt;rule name="Pretty URL Redirect"&amp;gt;
+                &amp;lt;match url="(.*)" /&amp;gt;
+                &amp;lt;conditions logicalGrouping="MatchAll" trackAllCaptures="false" /&amp;gt;
+                &amp;lt;action type="Rewrite" url="index.html" /&amp;gt;          
+            &amp;lt;/rule&amp;gt;
+        &amp;lt;/rules&amp;gt;
+    &amp;lt;/rewrite&amp;gt;
+&amp;lt;/system.webServer&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Restart your server and it should take effect straight away.&lt;/p&gt;
+&lt;h1 id="apache-web-server"&gt;Apache Web Server&lt;/h1&gt;
+&lt;p&gt;Apache is configured using the .htaccess file. It's typically located in the wwwroot folder. Find and open it in your editor of choice. Assuming the mod_rewrite.c is installed add the following lines to the .htaccess file to check if a file exists and if not redirect to the base file as above.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-xml"&gt;&amp;lt;ifModule mod_rewrite.c&amp;gt;
+    RewriteEngine On
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_URI} !index
+    RewriteRule (.*) index.html [L]
+&amp;lt;/ifModule&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Note: If you're doing this on a unix based system it's likely case sensitive so you will need to be very careful that you have typed all of your src tags in correctly. Or you could add the following as well and install the mod_speling.c if necessary.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-xml"&gt;&amp;lt;IfModule mod_speling.c&amp;gt;
+    CheckSpelling On
+    CheckCaseOnly On
+&amp;lt;/IfModule&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Restart your server and you should be good to go.&lt;/p&gt;
+&lt;h1 id="hints"&gt;Hints:&lt;/h1&gt;
+&lt;ol&gt;
+&lt;li&gt;Add &lt;code&gt;caseInsensitiveMatch: true&lt;/code&gt; to the when functions to remove case sensitivity.&lt;/li&gt;
+&lt;li&gt;Check that all of your assets are linked correctly from your index.html file.
+For example &lt;code&gt;&amp;lt;link href="Content/nav.css" rel="stylesheet" /&amp;gt;&lt;/code&gt; will not work if you attempted to access one of the "subfolders" because the browser would be looking in that subfolder for the content folder and nav file.
+Add a / to the front of the path to solve this problem (took me 20 minutes to figure that one out).
+&lt;code&gt;&amp;lt;link href="/Content/nav.css" rel="stylesheet" /&amp;gt;&lt;/code&gt; will work&lt;/li&gt;
+&lt;/ol&gt;</content>
 		<summary>Welcome!</summary>
 	</entry>
 	<entry>

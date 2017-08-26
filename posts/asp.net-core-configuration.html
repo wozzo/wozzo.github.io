@@ -5,7 +5,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
 
-        <title>Wozzo.Blog - Timing</title>
+        <title>Wozzo.Blog - ASP.NET Core Configuration</title>
         <meta name="description" content="Welcome!" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">        
 
@@ -28,9 +28,9 @@
         <meta name="msapplication-tooltip" content="Wozzo.Blog" />
         <meta name="msapplication-starturl" content="/" />
 
-        <meta property="og:title" content="Wozzo.Blog - Timing" />
+        <meta property="og:title" content="Wozzo.Blog - ASP.NET Core Configuration" />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="http://wozzo.github.io/tags/timing" />
+        <meta property="og:url" content="http://wozzo.github.io/posts/asp.net-core-configuration" />
         <!-- TODO: More social graph meta tags -->
 
         <script src="/assets/js/jquery.min.js"></script>
@@ -88,9 +88,20 @@
                         <div class="container">
                                 <div class="row">
                                         <div class="col-md-12">
-<div class="site-heading">
-    <h1>Timing</h1>
-</div>                                            </div>
+
+    
+<div class="post-heading">
+    <h1>ASP.NET Core Configuration</h1>
+    <div class="meta">        
+Published on 24 April 2016<br>    </div>
+        <div class="tags">
+                    <a role="button" href="/tags/asp.net" class="btn btn-default btn-xs">ASP.NET</a>
+                    <a role="button" href="/tags/asp.net-core" class="btn btn-default btn-xs">ASP.NET Core</a>
+                    <a role="button" href="/tags/c%23" class="btn btn-default btn-xs">C#</a>
+                    <a role="button" href="/tags/csharp" class="btn btn-default btn-xs">CSharp</a>
+        </div>     
+</div>
+                                        </div>
                                 </div>
                         </div>
                 </header>
@@ -99,63 +110,70 @@
                 <div class="container">
                         <div class="row">
                                 <div id="content" class="col-md-12">
-                                        <div class="container-sm-height">
-    <div class="row row-sm-height">
-        <div class="col-sm-8 right-border col-sm-height">
-                    <div class="post-list">
-            <a href="/posts/theres-fast-code-and-theres-fast-code">
-                <h3 class="post-title">There&#x27;s fast code and there&#x27;s fast code</h3>
-            </a>
-            <p class="post-meta">Posted on 24 May 2015</p>            
-        </div>   
+                                        
+
+<p>Only just beginning to dive into ASP.NET Core (or ASP.NET 5 if you prefer), but there's a great deal to like. Configuration in Core is extremely simple. Values can simply be added to a json (or other format, but why bother) configuration file and are then available to your application where Configuration is instantiated.
+The default projects will include the following lines in the Startup method of Startup.cs.</p>
+<pre><code class="language-csharp">var builder = new ConfigurationBuilder().AddJsonFile(&quot;appsettings.json&quot;);
+Configuration = builder.Build().ReloadOnChanged(&quot;appsettings.json&quot;);
+</code></pre>
+<p>This will load the values from the appsettings.json file (if it exists) into the Configuration property. Multiple calls to this method can be chained together (see environment specific config below). If appsettings.json looked like this</p>
+<pre><code class="language-json">{
+    &quot;Logging&quot;: {
+        &quot;IncludeScopes&quot;: false,
+        &quot;LogLevel&quot;: {
+            &quot;Default&quot;: &quot;Verbose&quot;,
+            &quot;System&quot;: &quot;Information&quot;,
+            &quot;Microsoft&quot;: &quot;Information&quot;
+        }
+    },
+    &quot;MyConfigValue&quot;: &quot;An important configuration string&quot;
+}
+</code></pre>
+<p>The logging stuff is default, I've added the MyConfigValue key, which means that once Configuration is instantiated I can then access it's value within the Startup class with the following:</p>
+<pre><code class="language-csharp">Configuration[&quot;MyConfigValue&quot;];
+</code></pre>
+<p>The Logging.LogLevel.Default value can be retrieved using</p>
+<pre><code class="language-csharp">Configuration[&quot;Logging:LogLevel:Default&quot;];
+</code></pre>
+<p>By creating config classes specific to different areas of your application you can use the built in DI to inject that config only where it's needed.</p>
+<p>If we replace MyConfigValue in the appsettings.json file above with the following key</p>
+<pre><code class="language-json">&quot;MyConfig&quot;: {
+    &quot;Value1&quot;: &quot;This is the first config value&quot;,
+    &quot;Value2&quot;: &quot;And this is the second&quot;,
+    &quot;Number1&quot;: 15
+}
+</code></pre>
+<p>Now add a new class to the project which can be called anything but I'm going with MyConfig.cs</p>
+<pre><code class="language-csharp">public class MyConfig
+{
+    public string Value1 { get; set; }
+    public string Value2 { get; set; }
+    public int Number1 { get; set; }
+}
+</code></pre>
+<p>As you can see the properties match up. We now need to configure the options to be populated into a MyConfig object. Back to startup.cs and find the ConfigureServices method. Add the following lines</p>
+<pre><code class="language-csharp">services.AddOptions();
+services.Configure&lt;MyConfig&gt;(Configuration.GetSection(&quot;MyConfig&quot;);
+</code></pre>
+<p>This takes in the Configuration property and configures it so that when we ask for a MyConfig object it will provide it using whatever it has read from appsettings.json file by matching the classes properties to the keys with the same name. To see that in use create a new controller and add a constructor passing in IOptions as a parameter. This will provide an accessor to a populated config object. which is then accessible in the constructor and can be assigned as a property on that controller.</p>
+<pre><code class="language-csharp">public MyController(IOptions&lt;MyConfig&gt; myConfig)
+{
+    _myConfig = myConfig.Value;
+}
+</code></pre>
+<p>The _myConfig object will now contain our config for this section.</p>
+<h1 id="environment-specific-config">Environment specific config</h1>
+<p>You can easily add additional config files for each environment by calling AddJsonFile on the ConfigurationBuilder multiple times. Since I wrote this the default configure method has the following code.</p>
+<pre><code class="language-csharp">var builder = new ConfigurationBuilder()
+    .SetBasePath(env.ContentRootPath)
+    .AddJsonFile(&quot;appsettings.json&quot;, optional: true, reloadOnChange: true)
+    .AddJsonFile($&quot;appsettings.{env.EnvironmentName}.json&quot;, optional: true);
+</code></pre>
+<p>The later files take priority over the earlier ones, overwriting any earlier values. See this page for info on how to set the EnvironmentName. I also recommend adding *.development.json to your .gitignore files so that your development environment configuration isn't committed.</p>
 
 
-            <nav>
-                <ul class="pager">
-                    <li class="previous">                
-                    </li>
-                    <li class="next">
-                    </li>
-                </ul>
-            </nav>
-            <hr class="visible-xs-block" />
-        </div>
-		
-        <div class="col-sm-4 col-sm-height">
-                <a role="button" href="/tags/csharp" class="btn btn-default btn-xs">CSharp (5)</a>
-                <a role="button" href="/tags/c%23" class="btn btn-default btn-xs">C# (5)</a>
-                <a role="button" href="/tags/cake" class="btn btn-default btn-xs">Cake (4)</a>
-                <a role="button" href="/tags/build" class="btn btn-default btn-xs">Build (4)</a>
-                <a role="button" href="/tags/github" class="btn btn-default btn-xs">GitHub (4)</a>
-                <a role="button" href="/tags/cake.recipe" class="btn btn-default btn-xs">Cake.Recipe (2)</a>
-                <a role="button" href="/tags/recipe" class="btn btn-default btn-xs">Recipe (2)</a>
-                <a role="button" href="/tags/addin" class="btn btn-default btn-xs">Addin (2)</a>
-                <a role="button" href="/tags/bower" class="btn btn-default btn-xs">Bower (2)</a>
-                <a role="button" href="/tags/cake.bower" class="btn btn-default btn-xs">Cake.Bower (2)</a>
-                <a role="button" href="/tags/asp.net" class="btn btn-default btn-xs">ASP.NET (2)</a>
-                <a role="button" href="/tags/asp.net-core" class="btn btn-default btn-xs">ASP.NET Core (2)</a>
-                <a role="button" href="/tags/javascript" class="btn btn-default btn-xs">JavaScript (2)</a>
-                <a role="button" href="/tags/preview" class="btn btn-default btn-xs">Preview (1)</a>
-                <a role="button" href="/tags/wyam" class="btn btn-default btn-xs">Wyam (1)</a>
-                <a role="button" href="/tags/pages" class="btn btn-default btn-xs">Pages (1)</a>
-                <a role="button" href="/tags/blog" class="btn btn-default btn-xs">Blog (1)</a>
-                <a role="button" href="/tags/testing" class="btn btn-default btn-xs">Testing (1)</a>
-                <a role="button" href="/tags/unit" class="btn btn-default btn-xs">Unit (1)</a>
-                <a role="button" href="/tags/xunit" class="btn btn-default btn-xs">xUnit (1)</a>
-                <a role="button" href="/tags/shouldly" class="btn btn-default btn-xs">Shouldly (1)</a>
-                <a role="button" href="/tags/entity-framework" class="btn btn-default btn-xs">Entity Framework (1)</a>
-                <a role="button" href="/tags/ef" class="btn btn-default btn-xs">EF (1)</a>
-                <a role="button" href="/tags/sql" class="btn btn-default btn-xs">SQL (1)</a>
-                <a role="button" href="/tags/visual-studio" class="btn btn-default btn-xs">Visual Studio (1)</a>
-                <a role="button" href="/tags/angularjs" class="btn btn-default btn-xs">AngularJS (1)</a>
-                <a role="button" href="/tags/closures" class="btn btn-default btn-xs">Closures (1)</a>
-                <a role="button" href="/tags/prime-numbers" class="btn btn-default btn-xs">Prime numbers (1)</a>
-                <a role="button" href="/tags/euler-problems" class="btn btn-default btn-xs">Euler Problems (1)</a>
-                <a role="button" href="/tags/math" class="btn btn-default btn-xs">Math (1)</a>
-                <a role="button" href="/tags/timing" class="btn btn-primary btn-xs">Timing (1)</a>
-        </div>
-    </div>
-</div>
+
                                 </div>
                         </div>
                 </div>

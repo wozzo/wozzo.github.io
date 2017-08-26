@@ -1,0 +1,283 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+        <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+
+        <title>Wozzo.Blog - Configuring for Pretty URLs in AngularJS and Visual Studio</title>
+        <meta name="description" content="Welcome!" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">        
+
+        <link type="application/rss+xml" rel="alternate" title="Wozzo.Blog" href="/feed.rss" />
+                <link type="application/atom+xml" rel="alternate" title="Wozzo.Blog" href="/feed.atom" />
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="/favicon.ico" type="image/x-icon">
+
+        <link href="/assets/css/bootstrap.min.css" rel="stylesheet" />
+        <link href="/assets/css/highlight.css" rel="stylesheet">
+        <link href="/assets/css/clean-blog.css" rel="stylesheet" />
+        <link href="/assets/css/master.css" rel="stylesheet" />
+        <link href="/assets/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href='//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+        <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+        <link href="/assets/css/override.css" rel="stylesheet" />
+
+
+        <meta name="application-name" content="Wozzo.Blog" />
+        <meta name="msapplication-tooltip" content="Wozzo.Blog" />
+        <meta name="msapplication-starturl" content="/" />
+
+        <meta property="og:title" content="Wozzo.Blog - Configuring for Pretty URLs in AngularJS and Visual Studio" />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="http://wozzo.github.io/posts/configuring-for-pretty-urls-in-angularjs-and-visual-studio" />
+        <!-- TODO: More social graph meta tags -->
+
+        <script src="/assets/js/jquery.min.js"></script>
+        <script src="/assets/js/bootstrap.min.js"></script>     
+        <script src="/assets/js/highlight.pack.js"></script>   
+        <script src="/assets/js/clean-blog.js"></script>
+        <script src="/assets/js/d3.v3.min.js"></script>
+        <script src="/assets/js/trianglify.min.js"></script>
+        <script src="/assets/js/Please-compressed.js"></script>
+                
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+                <script src="/assets/js/html5shiv.js"></script>
+                <script src="/assets/js/respond.min.js"></script>
+        <![endif]-->
+
+        
+        
+
+
+        </head>
+        <body>
+                
+                <!-- Navigation -->
+                <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+                        <div class="container-fluid">
+                                <!-- Brand and toggle get grouped for better mobile display -->
+                                <div class="navbar-header page-scroll">
+                                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
+                                        <span class="sr-only">Toggle navigation</span>
+                                        <span class="icon-bar"></span>
+                                        <span class="icon-bar"></span>
+                                        <span class="icon-bar"></span>
+                                        </button>
+                                        <a class="navbar-brand" href="/">Wozzo.Blog</a>
+                                </div>
+                        
+                                <!-- Collect the nav links, forms, and other content for toggling -->
+                                <div class="collapse navbar-collapse" id="navbar-collapse">
+                                        <ul class="nav navbar-nav navbar-right">
+                                                        <li><a href="/about">About Me</a></li>
+        <li><a href="/tags">All Tags</a></li>
+        <li><a href="/posts">Archive</a></li>
+ 
+                                        </ul>
+                                </div>
+                                <!-- /.navbar-collapse -->
+                        </div>
+                        <!-- /.container -->
+                </nav>
+                
+                <!-- Page Header -->
+                <header class="intro-header" id="intro-header">
+                        <div class="container">
+                                <div class="row">
+                                        <div class="col-md-12">
+
+    
+<div class="post-heading">
+    <h1>Configuring for Pretty URLs in AngularJS and Visual Studio</h1>
+    <div class="meta">        
+Published on 08 June 2015<br>    </div>
+        <div class="tags">
+                    <a role="button" href="/tags/angularjs" class="btn btn-default btn-xs">AngularJS</a>
+                    <a role="button" href="/tags/c%23" class="btn btn-default btn-xs">C#</a>
+                    <a role="button" href="/tags/csharp" class="btn btn-default btn-xs">CSharp</a>
+                    <a role="button" href="/tags/javascript" class="btn btn-default btn-xs">JavaScript</a>
+                    <a role="button" href="/tags/visual-studio" class="btn btn-default btn-xs">Visual Studio</a>
+        </div>     
+</div>
+                                        </div>
+                                </div>
+                        </div>
+                </header>
+                
+                <!-- Main Content -->
+                <div class="container">
+                        <div class="row">
+                                <div id="content" class="col-md-12">
+                                        
+
+<p>Pretty URLs look much better than some of the long query string type URLs we've gotten used to.
+AngularJS makes it very simple to use pretty urls just follow the steps below and then configure for your server.</p>
+<p>You need to include the ngRoute module with the following line:</p>
+<pre><code class="language-html">&lt;script src=&quot;//ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.js&quot;&gt;&lt;/script&gt;
+</code></pre>
+<p>Our SPA also needs to know where to put the templates when a sub page is requested. Create a div in your page and add the ng-view attribute. That's it.</p>
+<pre><code class="language-html">&lt;div ng-view&gt;
+    &lt;!-- Content will be injected here --&gt;
+&lt;/div&gt;
+</code></pre>
+<p>Next you need to add <code>$routeProvider</code> and <code>$locationProvider</code> to your config and set them up.
+You use the when() function to define which view to serve up depending on what the path is. For example:</p>
+<pre><code class="language-javascript">mainApp.config(function ($routeProvider, $locationProvider) {
+    // Route for home page
+    $routeProvider.when('/', {
+        templateUrl: '_home/home.html',
+        controller: 'CarouselCtrl'
+    })
+    .when('/about', {
+        templateUrl: '_about/about.html',
+        controller: 'aboutCtrl'
+    })
+    .otherwise({
+        redirectTo: &quot;/&quot;
+    });
+ 
+    $locationProvider.html5Mode(true);
+});
+</code></pre>
+<p>This means that if I go to <a href="http://yourserver.com/about">http://yourserver.com/about</a> the page will serve up the contents of the _about/about.html.
+The $locationProvider line is required if you would like to also remove the hash from the URL. Without this your urls will appear like <a href="http://yourserver.com/#/about;">http://yourserver.com/#/about;</a> If you aren't worried about the # then you're finished and the following steps will not be necessary. Older browsers will also default back to using the # if they aren't fancy enough for pretty URLs.</p>
+<p>Configuring your webserver to always route back to the index.html file, or whatever you main app's file is, is probably the trickiest aspect of this process. You also need to exclude any folders which actually do exist because otherwise the webserver will route back to index.html when trying to find each of your site assets (css files, images, etc.).</p>
+<h1 id="for-iis-express">For IIS Express:</h1>
+<p>(See below for IIS Web Core as used in VS)</p>
+<ol>
+<li>Download <a href="http://www.iis.net/downloads/microsoft/url-rewrite">URL Rewrite</a></li>
+<li>Run IIS Manager (found in the start menu)</li>
+<li>Expand the panel on the left to find your site</li>
+<li>Load URL Rewrite</li>
+</ol>
+<p><img src="../assets/images/add-rule.png" class="img-fluid" alt="Add Url Rewrite rule" /></p>
+<ol start="5">
+<li><p>Click &quot;Add Rule&quot;</p>
+</li>
+<li><p>Choose a blank inbound rule
+8 Call it Pretty URL Exclusions. These will be the folders that actually exist that you don't want to be rerouted.</p>
+</li>
+<li><p>Select &quot;does not match the pattern&quot;</p>
+</li>
+<li><p>Add in a regular expression to ignore all the folders that exists</p>
+<p>For example:
+To ignore the common folder and its contents use <code>common/.*</code>
+Then use the pipe (|) to separate it from another folder
+You might end up with something like
+<code>css/.*|js/.*|images.*</code></p>
+</li>
+<li><p>For these folders we want the action type to be &quot;None&quot;</p>
+</li>
+<li><p>Check &quot;Stop processing of subsequent rules</p>
+</li>
+<li><p>Apply the rule</p>
+</li>
+</ol>
+<p><img src="../assets/images/edit-inbound-rule.png" class="img-fluid" alt="Edit inbound url rewrite rule" /></p>
+<ol start="12">
+<li>Create another blank inbound rule</li>
+<li>Call it Pretty URL Redirect.</li>
+<li>Select Matches the pattern and input .* to match all paths</li>
+<li>Choose Redirect as the action type</li>
+<li>Set the url to index.html or your main app file.</li>
+<li>Apply the rule and restart the webserver.</li>
+</ol>
+<h1 id="for-iis-web-core-visual-studio">For IIS Web Core (Visual Studio)</h1>
+<p>I found the easiest thing to do here was just add the same rules as above directly into the web.config file in the project.
+Open it up and add in the following (edited for your folders ofcourse: see IIS Express above for more details) between your configuration tags.</p>
+<pre><code class="language-xml">&lt;system.webServer&gt;
+    &lt;rewrite&gt;
+        &lt;rules&gt;
+            &lt;clear /&gt;
+            &lt;rule name=&quot;Pretty URL Exclusions&quot; stopProcessing=&quot;true&quot;&gt;
+                &lt;match url=&quot;(css/.*|js/.*|images/.*)&quot; /&gt;
+                &lt;conditions logicalGrouping=&quot;MatchAll&quot; trackAllCaptures=&quot;false&quot; /&gt;
+                &lt;action type=&quot;None&quot; /&gt;
+            &lt;/rule&gt;
+            &lt;rule name=&quot;Pretty URL Redirect&quot;&gt;
+                &lt;match url=&quot;(.*)&quot; /&gt;
+                &lt;conditions logicalGrouping=&quot;MatchAll&quot; trackAllCaptures=&quot;false&quot; /&gt;
+                &lt;action type=&quot;Rewrite&quot; url=&quot;index.html&quot; /&gt;          
+            &lt;/rule&gt;
+        &lt;/rules&gt;
+    &lt;/rewrite&gt;
+&lt;/system.webServer&gt;
+</code></pre>
+<p>Restart your server and it should take effect straight away.</p>
+<h1 id="apache-web-server">Apache Web Server</h1>
+<p>Apache is configured using the .htaccess file. It's typically located in the wwwroot folder. Find and open it in your editor of choice. Assuming the mod_rewrite.c is installed add the following lines to the .htaccess file to check if a file exists and if not redirect to the base file as above.</p>
+<pre><code class="language-xml">&lt;ifModule mod_rewrite.c&gt;
+    RewriteEngine On
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_URI} !index
+    RewriteRule (.*) index.html [L]
+&lt;/ifModule&gt;
+</code></pre>
+<p>Note: If you're doing this on a unix based system it's likely case sensitive so you will need to be very careful that you have typed all of your src tags in correctly. Or you could add the following as well and install the mod_speling.c if necessary.</p>
+<pre><code class="language-xml">&lt;IfModule mod_speling.c&gt;
+    CheckSpelling On
+    CheckCaseOnly On
+&lt;/IfModule&gt;
+</code></pre>
+<p>Restart your server and you should be good to go.</p>
+<h1 id="hints">Hints:</h1>
+<ol>
+<li>Add <code>caseInsensitiveMatch: true</code> to the when functions to remove case sensitivity.</li>
+<li>Check that all of your assets are linked correctly from your index.html file.
+For example <code>&lt;link href=&quot;Content/nav.css&quot; rel=&quot;stylesheet&quot; /&gt;</code> will not work if you attempted to access one of the &quot;subfolders&quot; because the browser would be looking in that subfolder for the content folder and nav file.
+Add a / to the front of the path to solve this problem (took me 20 minutes to figure that one out).
+<code>&lt;link href=&quot;/Content/nav.css&quot; rel=&quot;stylesheet&quot; /&gt;</code> will work</li>
+</ol>
+
+
+
+                                </div>
+                        </div>
+                </div>
+                
+                <hr>
+                
+                <!-- Footer -->
+                <footer>
+                        <div class="container">
+        <div class="row">
+                <div class="col-md-12 text-center">
+                    <p class="copyright text-muted">
+                        Copyright © 2017
+                        <br />
+                            <a href="/feed.rss"><i class="fa fa-rss"></i> RSS Feed</a>
+                        |
+                            <a href="/feed.atom"><i class="fa fa-rss"></i> Atom Feed</a>
+                        <br />
+                        <strong><a href="https://wyam.io">Generated by Wyam</a></strong>
+                    </p>
+                </div>
+        </div>
+</div>
+
+                </footer> 
+
+                
+                <script>hljs.initHighlightingOnLoad();</script>
+
+                        <script type="text/javascript">                
+                                // Header background                        
+                                var colors = Please.make_color({
+                                        colors_returned: 3,
+                                        saturation: .6
+                                });
+                                var t = new Trianglify({
+                                        x_gradient: colors,
+                                        y_gradient: ["#FFFFFF"]
+                                });
+                                var header = document.getElementById("intro-header");
+                                var pattern = t.generate(header.clientWidth, header.clientHeight);
+                                header.setAttribute('style', 'background-image: ' + pattern.dataUrl);                        
+                        </script>
+        </body>
+</html>
+
