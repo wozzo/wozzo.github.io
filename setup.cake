@@ -38,7 +38,7 @@ Task("Tweet-New-Blog-Post")
 			&& !x.OldExists))
 		{
 			Information("New post found at: {0}", file.Path);
-			var uri = new System.Uri(siteUrl, file.Path.Substring(wyamDocsFolderDirectoryName.Length));
+			var uri = new System.Uri(siteUrl, "posts/" + System.IO.Path.GetFileNameWithoutExtension(file.Path));
 			Information("Post url: {0}", uri);
 
 			string title = null;
