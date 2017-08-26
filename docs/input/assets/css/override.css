@@ -1,0 +1,100 @@
+.ui.circular.button {
+    border-radius: 10em;
+}
+.ui.icon.button, .ui.icon.buttons .button {
+    padding: .6875em;
+}
+.ui.button, .ui.buttons .button, .ui.buttons .or {
+    font-size: 1rem;
+}
+.ui.button {
+    cursor: pointer;
+    display: inline-block;
+    min-height: 1em;
+    outline: 0;
+    border: none;
+    vertical-align: baseline;
+    background: #E0E1E2;
+    color: rgba(0,0,0,.6);
+    font-family: Overpass,'Helvetica Neue',Arial,Helvetica,sans-serif;
+    margin: 0 .25em 0 0;
+    padding: .6875em 1.5em;
+    text-transform: none;
+    text-shadow: none;
+    font-weight: 700;
+    line-height: 1em;
+    font-style: normal;
+    text-align: center;
+    text-decoration: none;
+    border-radius: .25rem;
+    box-shadow: 0 0 0 1px transparent inset, 0 0 0 0 rgba(34,36,38,.15) inset;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-transition: opacity .1s ease,background-color .1s ease,color .1s ease,box-shadow .1s ease,background .1s ease;
+    transition: opacity .1s ease,background-color .1s ease,color .1s ease,box-shadow .1s ease,background .1s ease;
+    will-change: '';
+    -webkit-tap-highlight-color: transparent;
+}
+
+
+
+.ui[class*="center aligned"].container {
+    text-align: center;
+}
+
+@media only screen and (min-width: 1200px)
+.ui.container {
+    width: 1119px;
+    margin-left: auto!important;
+    margin-right: auto!important;
+}
+.ui.container {
+    display: block;
+    max-width: 100%!important;
+}
+
+.ui.cards>.card {
+    font-size: 1em;
+}
+.ui.cards>.card {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    margin: .875em .5em;
+    float: none;
+}
+.ui.card, .ui.cards>.card {
+    max-width: 100%;
+    position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    width: 290px;
+    min-height: 0;
+    background: #fff;
+    padding: 0;
+    border: none;
+    border-radius: .28571429rem;
+    box-shadow: 0 1px 3px 0 #d4d4d5, 0 0 0 1px #d4d4d5;
+    -webkit-transition: box-shadow .1s ease,-webkit-transform .1s ease;
+    transition: box-shadow .1s ease,-webkit-transform .1s ease;
+    transition: box-shadow .1s ease,transform .1s ease;
+    transition: box-shadow .1s ease,transform .1s ease,-webkit-transform .1s ease;
+    z-index: '';
+}
+
+e-card {
+    width: 200px;
+    padding: 10px;
+    margin-left: auto;
+    text-align: center;
+}
+img {
+    max-width: 100%;
+}

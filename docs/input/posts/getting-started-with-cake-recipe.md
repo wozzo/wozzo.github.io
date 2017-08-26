@@ -1,4 +1,4 @@
-Title: Testing a Cake Addin
+Title: Getting Started with Cake.Recipe
 Published: 26/8/2017
 Tags:
 - Cake
@@ -43,7 +43,7 @@ Build.Run();
 
 No tasks. None at all.
 
-The top line is the critical one. It fetches the Cake.Recipe scripts and loads each one providing the methods you can see being used here. The bootstrapped build.ps1 that you'd normally download if you followed the instructions on the “Setting up a new project” tutorial page has been modified to use a default file of setup.cake purely as a convention to distinguish between normal cake builds and recipe builds. You can then modify the parameters in the setup.cake file to achieve the desired result. There are close to 80 different parameters that can be set here that can be used to configure the ~40 odd tasks that cake.recipe provides.
+The top line is the critical one. It fetches the Cake.Recipe scripts and loads each one providing the methods you can see being used here. The bootstrapped build.ps1 that you'd normally download if you followed the instructions on the "Setting up a new project" tutorial page has been modified to use a default file of setup.cake purely as a convention to distinguish between normal cake builds and recipe builds. You can then modify the parameters in the setup.cake file to achieve the desired result. There are close to 80 different parameters that can be set here that can be used to configure the ~40 odd tasks that cake.recipe provides.
 
 # Parameters
 Take a look at the parameters.cake file to see what options are available to you out of the box. These can all be set either in the SetParameters or using environment variables.
@@ -107,12 +107,12 @@ BuildParameters.SetParameters(context: Context,
 Run it again and this time the task will be skipped but the rest should be the same.
 
 # Replacing a task
-With Cake, once a Task has been created you can't create another with the same name. Calling the .Does(…) method adds an additional action but doesn't replace the existing one. If you want to replace the tasks actions with something completely different you first need to clear the existing actions. To clear the InspectCode actions use the following
+With Cake, once a Task has been created you can't create another with the same name. Calling the .Does(...) method adds an additional action but doesn't replace the existing one. If you want to replace the tasks actions with something completely different you first need to clear the existing actions. To clear the InspectCode actions use the following
 
 ```csharp
 BuildParameters.Tasks.InspectCodeTask.Task.Actions.Clear();
 ```
-I'm now free to call the .Does(…) method with the action I want it to undertake and be sure it is the only thing it will do, for example:
+I'm now free to call the .Does(...) method with the action I want it to undertake and be sure it is the only thing it will do, for example:
 
 ```csharp
 BuildParameters.Tasks.InspectCodeTask.Does( () => Information("And now for something completely different..."));
@@ -129,7 +129,7 @@ And now for something completely different...
 Finished executing task: InspectCode
 ```
 
-You are also free to create your own tasks and add them as dependencies to the existing ones. Something like this…
+You are also free to create your own tasks and add them as dependencies to the existing ones. Something like this...
 
 ```csharp
 Task("MakeTea").Does( () => Information("Make Tea not Love"));
@@ -138,7 +138,7 @@ BuildParameters.Tasks.InspectCodeTask
     .IsDependentOn("MakeTea")
     .Does( () => Information("And now for something completely different..."));
 ```
-which yields…
+which yields...
 
 ```
 ========================================

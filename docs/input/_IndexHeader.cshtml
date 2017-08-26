@@ -1,0 +1,20 @@
+<div class="site-heading">
+    @if(Context.String(BlogKeys.Description) != null)
+    {
+        <h1 style="font-weight: normal">@Context.String(BlogKeys.Description)</h1>
+    }
+    @if(Context.String(BlogKeys.Intro) != null)
+    {            
+        @if(Context.String(BlogKeys.Description) != null)
+        {
+            <img class="avatar" src="/assets/images/warren-square-portrait.png" title="Warren Bates">
+        }
+        <span class="subheading">@Context.String(BlogKeys.Intro)</span>
+
+        <div class="social links">
+            @Html.Partial("_SocialLinks")
+        </div>
+    }
+</div>
+
+

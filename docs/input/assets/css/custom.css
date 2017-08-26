@@ -1,0 +1,9 @@
+.avatar {
+    width: 150px;
+    height: 150px;
+    border: 2px solid white;
+    -webkit-border-radius: 500px;
+    -moz-border-radius: 500px;
+    border-radius: 500px;
+    box-shadow: 0 0 15px white;
+}

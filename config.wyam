@@ -1,1 +1,8 @@
 System.Globalization.CultureInfo.DefaultThreadCurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture("en-GB");
+
+Settings[BlogKeys.Title] = "Warren Bates";
+
+Settings[Keys.Host] = "wbates.net";
+Settings[BlogKeys.Description] = "Warren Bates";
+Settings[Keys.LinksUseHttps] = true;
+Settings[BlogKeys.Intro] = "Hi, my name is Warren. I'm a software engineer specialising in the Microsoft Stack. I have many years of experience working with C#, ASP.NET, MS-SQL, PowerShell, and much more. I enjoy extreme sports, particularly whitewater kayaking, snowboarding, and rock climbing.";
