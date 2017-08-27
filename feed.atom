@@ -4,8 +4,117 @@
 	<id>https://wbates.net/</id>
 	<title>Warren Bates</title>
 	<rights>2017</rights>
-	<updated>2017-08-26T18:04:50Z</updated>
+	<updated>2017-08-27T12:18:13Z</updated>
 	<subtitle>Warren Bates</subtitle>
+	<entry>
+		<link href="https://wbates.net/posts/baking-a-cake-addin-part-3-recipe" />
+		<id>https://wbates.net/posts/baking-a-cake-addin-part-3-recipe</id>
+		<title>Testing a Cake Addin</title>
+		<updated>2017-08-27T00:00:00Z</updated>
+		<content>&lt;p&gt;Now that we have our Cake addin written, it's time to put the finishing touches on and utilise the Cake teams preferred way of building addins - Cake.Recipe. I've written about &lt;a href="./getting-started-with-cake-recipe.md"&gt;getting started with Cake.Recipe&lt;/a&gt;, and there might be some crossover with that post, but most the content should be new.&lt;/p&gt;
+&lt;p&gt;We're going to make use of Cake.Recipe's tasks for documentation, versioning, as well as the normal aspects of building and running unit tests.&lt;/p&gt;
+&lt;h1 id="ready-the-repository"&gt;Ready the repository&lt;/h1&gt;
+&lt;h2 id="move-the-files"&gt;Move the files&lt;/h2&gt;
+&lt;p&gt;Cake.Recipe assumes a certain folder structure, and whilst it can be changed using the setup.cake file to alter various parameters, it's far easier if we stick with the convention.
+In the root of the working copy, create a new folder called src. I suggest using git to move the files into this directory so you can maintain the history of each. We need to move both the project folders (Cake.Markdown-pdf and Cake.Markdown-pdf.Tests) as well as the solution file.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-bash"&gt;# Hint - Case sensitive for directories/files even in Windows
+mkdir src
+git mv Cake.Markdown-Pdf src
+git mv Cake.Markdown-Pdf.Tests src
+git mv Cake.Markdown-Pdf.sln src
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;I suggest you also move the packages folder from the root into the src folder, otherwise the first time you build it will recreate the packages folder and you'll have a duplicate that could cause confusion. It doesn't need tracking by git though.&lt;/p&gt;
+&lt;h2 id="create-a-nuspec-file"&gt;Create a nuspec file&lt;/h2&gt;
+&lt;p&gt;Add another new folder called nuspec with a subdirectory of nuget&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-bash"&gt;mkdir -p nuspec\nuget
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Create a new text file in here called &lt;code&gt;Cake.Markdown-Pdf.nuspec&lt;/code&gt;.
+Open it up and paste the following in, replacing as appropriate.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-xml"&gt;&amp;lt;?xml version="1.0"?&amp;gt;
+&amp;lt;package &amp;gt;
+  &amp;lt;metadata&amp;gt;
+    &amp;lt;id&amp;gt;Cake.Markdown-Pdf&amp;lt;/id&amp;gt;
+    &amp;lt;title&amp;gt;Cake.Markdown-Pdf&amp;lt;/title&amp;gt;
+    &amp;lt;authors&amp;gt;Warren Bates&amp;lt;/authors&amp;gt;
+    &amp;lt;owners&amp;gt;Warren Bates&amp;lt;/owners&amp;gt;
+    &amp;lt;licenseUrl&amp;gt;https://github.com/wozzo/Cake.Markdown-Pdf/blob/master/LICENSE&amp;lt;/licenseUrl&amp;gt;
+    &amp;lt;projectUrl&amp;gt;https://github.com/wozzo/Cake.Markdown-Pdf&amp;lt;/projectUrl&amp;gt;
+    &amp;lt;iconUrl&amp;gt;https://cdn.rawgit.com/cake-contrib/graphics/a5cf0f881c390650144b2243ae551d5b9f836196/png/cake-contrib-medium.png&amp;lt;/iconUrl&amp;gt;
+    &amp;lt;requireLicenseAcceptance&amp;gt;false&amp;lt;/requireLicenseAcceptance&amp;gt;
+    &amp;lt;summary&amp;gt;Adds Markdown-Pdf alias for Cake&amp;lt;/summary&amp;gt;
+    &amp;lt;description&amp;gt;An alias for Cake to help with running Markdown-Pdf commands as part of a build&amp;lt;/description&amp;gt;
+    &amp;lt;tags&amp;gt;Cake Script Build Markdown Pdf Markdown-Pdf&amp;lt;/tags&amp;gt;
+  &amp;lt;/metadata&amp;gt;
+  &amp;lt;files&amp;gt;
+    &amp;lt;file src="Cake.Markdown-Pdf.xml" target="lib\net45" /&amp;gt;
+    &amp;lt;file src="Cake.Markdown-Pdf.dll" target="lib\net45" /&amp;gt;
+  &amp;lt;/files&amp;gt;
+&amp;lt;/package&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id="gitversion"&gt;GitVersion&lt;/h2&gt;
+&lt;p&gt;Add a new &lt;code&gt;SolutionInfo.cs&lt;/code&gt; file in the src folder and give it the following content&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-xml"&gt;using System.Reflection;
+
+[assembly: AssemblyVersion("0.1.0")]
+[assembly: AssemblyFileVersion("0.1.0")]
+[assembly: AssemblyInformationalVersion("0.1.0")]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This is going to be a shared file that will get updated with version information as part of the cake build. The following steps need to be repeated for each project in the solution.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Open up the &lt;code&gt;properties\AssesmblyInfo.cs&lt;/code&gt; file and remove the three properties we've just added to the &lt;code&gt;SolutionInfo.cs&lt;/code&gt; file.&lt;/li&gt;
+&lt;li&gt;Open up the csproj file, find the reference to the &lt;code&gt;AssemblyInfo.cs&lt;/code&gt; file, and add the following after&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;&lt;code class="language-xml"&gt;&amp;lt;Compile Include="..\SolutionInfo.cs"&amp;gt;
+  &amp;lt;Link&amp;gt;Properties\SolutionInfo.cs&amp;lt;/Link&amp;gt;
+&amp;lt;/Compile&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id="xml-documentation"&gt;XML Documentation&lt;/h2&gt;
+&lt;p&gt;Open up the solution in Visual Studio and open the Cake.Markdown-Pdf project properties. On the Build page select the 'XML Documentation file' checkbox. Do this for each build configuration.&lt;/p&gt;
+&lt;p&gt;&lt;img src="../assets/images/xml-documentation.png" class="img-fluid" alt="XML Documentation"&gt;&lt;/p&gt;
+&lt;p&gt;This will mean you'll need to add in xml comments or the build will fail. Building in Visual Studio should show warnings were they are missing&lt;/p&gt;
+&lt;h1 id="get-cake.recipe"&gt;Get Cake.Recipe&lt;/h1&gt;
+&lt;p&gt;Head to the &lt;a href="https://github.com/cake-contrib/Cake.Recipe"&gt;Cake.Recipe repository&lt;/a&gt; on GitHub and download the following list of files into the root of our repository.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;.appveyor.yml&lt;/li&gt;
+&lt;li&gt;.gitignore&lt;/li&gt;
+&lt;li&gt;GitReleaseManager.yaml&lt;/li&gt;
+&lt;li&gt;build.ps1&lt;/li&gt;
+&lt;li&gt;config.wyam&lt;/li&gt;
+&lt;li&gt;setup.cake&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Open up &lt;code&gt;setup.cake&lt;/code&gt; in a text editor and change the title, repositoryOwner, repositoryName, and appVeyorAccountName settings as appropriate. I've also added the nuspecFilePath from earlier.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-csharp"&gt;BuildParameters.SetParameters(context: Context,
+                            buildSystem: BuildSystem,
+                            sourceDirectoryPath: "./src",
+                            title: "Cake.Markdown-Pdf",
+                            repositoryOwner: "wozzo",
+                            repositoryName: "Cake.Markdown-Pdf",
+                            appVeyorAccountName: "wozzo",
+                            nuspecFilePath: "nuspec/nuget/Cake.Markdown-Pdf.nuspec");
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Ensure the last line calls the &lt;code&gt;Run()&lt;/code&gt; method.&lt;/p&gt;
+&lt;p&gt;You should now be able to run the build from the command line&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-powershell"&gt;.\build.ps1
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h1 id="documentation"&gt;Documentation&lt;/h1&gt;
+&lt;p&gt;Cake.Recipe uses &lt;a href="https://wyam.io"&gt;Wyam&lt;/a&gt; to auto generate a static site and commit it to the gh-pages branch of the project on GitHub. For those that don't know this is a special branch that GitHub uses to serve up site content at the url &lt;a href="https://%3Cusername%3E.github.io/%3Creponame%3E."&gt;https://&amp;lt;username&amp;gt;.github.io/&amp;lt;reponame&amp;gt;.&lt;/a&gt; For example this project's documentation will be at &lt;a href="https://wozzo.github.io/Cake.Markdown-Pdf."&gt;https://wozzo.github.io/Cake.Markdown-Pdf.&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Add a new folder called &lt;code&gt;docs&lt;/code&gt; in the root of the repo. Get wyam installed and run the following from that directory.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;wyam new -r docs
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;You can then delete the wyam.config file it creates in that directory.&lt;/p&gt;
+&lt;p&gt;You can now start editing the markdown pages to change the content of the site. I won't go into detail of using wyam as there are plenty of other blogs on that that go outside the scope of this tutorial.&lt;/p&gt;
+&lt;p&gt;You can preview the site by running this command and then visisting &lt;a href="http://localhost:5080/Cake.Markdown-Pdf"&gt;http://localhost:5080/Cake.Markdown-Pdf&lt;/a&gt; (case sensitive)&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-powershell"&gt;.\build.ps1 -target preview
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h1 id="appveyor"&gt;AppVeyor&lt;/h1&gt;
+&lt;p&gt;To use AppVeyor and cake together you'll need to setup several environment variables for your project. This lies outside of the scope of this tutorial but you can figure most of it out by reading through the appveyor.cake/environment.cake files in Cake.Recipe.&lt;/p&gt;
+&lt;p&gt;The only additional change I needed to do to get the build working was to add an &lt;code&gt;Image:&lt;/code&gt; property specifying which &lt;a href="https://www.appveyor.com/docs/build-environment/#build-worker-images"&gt;build worker image&lt;/a&gt; AppVeyor should use. Because I used Visual Studio 2017 I needed to add the following to my &lt;code&gt;.appveyor.yml&lt;/code&gt; file.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-yaml"&gt;image: Visual Studio 2017
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h1 id="finishing-up"&gt;Finishing up&lt;/h1&gt;
+&lt;p&gt;Commit the files and push to GitHub. The build should take care of the rest. You should definitely consider getting your project added to the Cake-Contrib team on GitHub. See &lt;a href="https://github.com/cake-contrib/Home"&gt;the cake-contrib&lt;/a&gt; page for more details.&lt;/p&gt;</content>
+		<summary>Warren Bates</summary>
+	</entry>
 	<entry>
 		<link href="https://wbates.net/posts/getting-started-with-cake-recipe" />
 		<id>https://wbates.net/posts/getting-started-with-cake-recipe</id>
