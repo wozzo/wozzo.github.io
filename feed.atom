@@ -4,13 +4,13 @@
 	<id>https://wbates.net/</id>
 	<title>Warren Bates</title>
 	<rights>2017</rights>
-	<updated>2017-08-27T12:18:13Z</updated>
+	<updated>2017-08-27T12:22:24Z</updated>
 	<subtitle>Warren Bates</subtitle>
 	<entry>
 		<link href="https://wbates.net/posts/baking-a-cake-addin-part-3-recipe" />
 		<id>https://wbates.net/posts/baking-a-cake-addin-part-3-recipe</id>
-		<title>Testing a Cake Addin</title>
-		<updated>2017-08-27T00:00:00Z</updated>
+		<title>Setting up the addin build process</title>
+		<updated>2017-08-26T00:00:00Z</updated>
 		<content>&lt;p&gt;Now that we have our Cake addin written, it's time to put the finishing touches on and utilise the Cake teams preferred way of building addins - Cake.Recipe. I've written about &lt;a href="./getting-started-with-cake-recipe.md"&gt;getting started with Cake.Recipe&lt;/a&gt;, and there might be some crossover with that post, but most the content should be new.&lt;/p&gt;
 &lt;p&gt;We're going to make use of Cake.Recipe's tasks for documentation, versioning, as well as the normal aspects of building and running unit tests.&lt;/p&gt;
 &lt;h1 id="ready-the-repository"&gt;Ready the repository&lt;/h1&gt;
@@ -28,7 +28,8 @@ git mv Cake.Markdown-Pdf.sln src
 &lt;p&gt;Add another new folder called nuspec with a subdirectory of nuget&lt;/p&gt;
 &lt;pre&gt;&lt;code class="language-bash"&gt;mkdir -p nuspec\nuget
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Create a new text file in here called &lt;code&gt;Cake.Markdown-Pdf.nuspec&lt;/code&gt;.
+&lt;p&gt;Create a new text file in here called &lt;code&gt;Cake.Markdown_Pdf.nuspec&lt;/code&gt;. The filename must be the same as the root namespace for the project or cake will not be able to locate the files for packaging.
+&lt;img src="../assets/images/default-namespace.png" class="img-fluid" alt="Default namespace"&gt;
 Open it up and paste the following in, replacing as appropriate.&lt;/p&gt;
 &lt;pre&gt;&lt;code class="language-xml"&gt;&amp;lt;?xml version="1.0"?&amp;gt;
 &amp;lt;package &amp;gt;
@@ -119,7 +120,7 @@ Open it up and paste the following in, replacing as appropriate.&lt;/p&gt;
 		<link href="https://wbates.net/posts/getting-started-with-cake-recipe" />
 		<id>https://wbates.net/posts/getting-started-with-cake-recipe</id>
 		<title>Getting Started with Cake.Recipe</title>
-		<updated>2017-08-26T00:00:00Z</updated>
+		<updated>2017-08-25T00:00:00Z</updated>
 		<content>&lt;p&gt;I've been playing around with the Cake build tool for a little while now, but having recently had need of a plugin that didn't yet exist I embarked on a journey that lead me to Cake.Recipe.&lt;/p&gt;
 &lt;blockquote class="blockquote"&gt;
 &lt;p&gt;Cake.Recipe is a set of convention based Cake scripts.&lt;/p&gt;

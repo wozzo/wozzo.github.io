@@ -5,7 +5,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
 
-        <title>Warren Bates - Testing a Cake Addin</title>
+        <title>Warren Bates - Setting up the addin build process</title>
         <meta name="description" content="Warren Bates" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">        
 
@@ -30,7 +30,7 @@
         <meta name="msapplication-tooltip" content="Warren Bates" />
         <meta name="msapplication-starturl" content="/" />
 
-        <meta property="og:title" content="Warren Bates - Testing a Cake Addin" />
+        <meta property="og:title" content="Warren Bates - Setting up the addin build process" />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://wbates.net/posts/baking-a-cake-addin-part-3-recipe" />
         <!-- TODO: More social graph meta tags -->
@@ -107,9 +107,9 @@
 
     
 <div class="post-heading">
-    <h1>Testing a Cake Addin</h1>
+    <h1>Setting up the addin build process</h1>
     <div class="meta">        
-Published on 27 August 2017<br>    </div>
+Published on 26 August 2017<br>    </div>
         <div class="tags">
                     <a role="button" href="/tags/addin" class="btn btn-default btn-xs">Addin</a>
                     <a role="button" href="/tags/appveyor" class="btn btn-default btn-xs">AppVeyor</a>
@@ -150,7 +150,8 @@ git mv Cake.Markdown-Pdf.sln src
 <p>Add another new folder called nuspec with a subdirectory of nuget</p>
 <pre><code class="language-bash">mkdir -p nuspec\nuget
 </code></pre>
-<p>Create a new text file in here called <code>Cake.Markdown-Pdf.nuspec</code>.
+<p>Create a new text file in here called <code>Cake.Markdown_Pdf.nuspec</code>. The filename must be the same as the root namespace for the project or cake will not be able to locate the files for packaging.
+<img src="../assets/images/default-namespace.png" class="img-fluid" alt="Default namespace" />
 Open it up and paste the following in, replacing as appropriate.</p>
 <pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot;?&gt;
 &lt;package &gt;
