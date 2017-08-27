@@ -1,5 +1,5 @@
-Title: Testing a Cake Addin
-Published: 27/8/2017
+Title: Setting up the addin build process
+Published: 26/8/2017
 Tags:
 - Cake
 - Addin
@@ -36,7 +36,8 @@ Add another new folder called nuspec with a subdirectory of nuget
 ```bash
 mkdir -p nuspec\nuget
 ```
-Create a new text file in here called `Cake.Markdown-Pdf.nuspec`.
+Create a new text file in here called `Cake.Markdown_Pdf.nuspec`. The filename must be the same as the root namespace for the project or cake will not be able to locate the files for packaging.
+![Default namespace](../assets/images/default-namespace.png)
 Open it up and paste the following in, replacing as appropriate.
 ```xml
 <?xml version="1.0"?>
