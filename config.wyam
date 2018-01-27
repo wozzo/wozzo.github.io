@@ -1,5 +1,6 @@
 System.Globalization.CultureInfo.DefaultThreadCurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture("en-GB");
-
+#r blog
+#t CleanBlog
 Settings[BlogKeys.Title] = "Warren Bates";
 
 Settings[Keys.Host] = "wbates.net";

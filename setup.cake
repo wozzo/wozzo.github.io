@@ -1,4 +1,4 @@
-#load nuget:https://www.myget.org/F/cake-contrib/api/v2?package=Cake.Recipe&prerelease
+#load nuget:https://www.myget.org/F/cake-contrib/api/v2?package=Cake.Recipe&version=0.3.0-unstable0342
 
 Environment.SetVariableNames();
 
@@ -11,7 +11,8 @@ BuildParameters.SetParameters(context: Context,
                             appVeyorAccountName: "wozzo",
                             wyamRecipe: "Blog",
                             wyamTheme: "CleanBlog",
-                            webLinkRoot: "/");
+                            webLinkRoot: "/",
+							shouldDeployGraphDocumentation: false);
 
 BuildParameters.PrintParameters(Context);
 
@@ -58,7 +59,12 @@ Task("Tweet-New-Blog-Post")
 				title = System.IO.Path.GetFileNameWithoutExtension(file.Path);
 			Information("Post title: {0}", title);
 
-			SendMessageToTwitter(string.Format("New blog post: {0}. {1}", title, uri));
+			TwitterSendTweet(BuildParameters.Twitter.ConsumerKey,
+				BuildParameters.Twitter.ConsumerSecret,
+				BuildParameters.Twitter.AccessToken,
+				BuildParameters.Twitter.AccessTokenSecret,
+				string.Format("New blog post: {0}. {1}", title, uri)
+			);
 		}
 	});
 
