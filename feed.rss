@@ -4,13 +4,13 @@
 		<title>Warren Bates</title>
 		<link>https://wbates.net/</link>
 		<description>Warren Bates</description>
-		<copyright>2017</copyright>
-		<pubDate>Sun, 27 Aug 2017 12:22:24 GMT</pubDate>
-		<lastBuildDate>Sun, 27 Aug 2017 12:22:24 GMT</lastBuildDate>
+		<copyright>2018</copyright>
+		<pubDate>Sat, 27 Jan 2018 20:40:08 GMT</pubDate>
+		<lastBuildDate>Sat, 27 Jan 2018 20:40:08 GMT</lastBuildDate>
 		<item>
 			<title>Setting up the addin build process</title>
 			<link>https://wbates.net/posts/baking-a-cake-addin-part-3-recipe</link>
-			<description>Warren Bates</description>
+			<description>&lt;p&gt;Now that we have our Cake addin written, it's time to put the finishing touches on and utilise the Cake teams preferred way of building addins - Cake.Recipe. I've written about &lt;a href="./getting-started-with-cake-recipe.md"&gt;getting started with Cake.Recipe&lt;/a&gt;, and there might be some crossover with that post, but most the content should be new.&lt;/p&gt;</description>
 			<guid>https://wbates.net/posts/baking-a-cake-addin-part-3-recipe</guid>
 			<pubDate>Sat, 26 Aug 2017 00:00:00 GMT</pubDate>
 			<content:encoded>&lt;p&gt;Now that we have our Cake addin written, it's time to put the finishing touches on and utilise the Cake teams preferred way of building addins - Cake.Recipe. I've written about &lt;a href="./getting-started-with-cake-recipe.md"&gt;getting started with Cake.Recipe&lt;/a&gt;, and there might be some crossover with that post, but most the content should be new.&lt;/p&gt;
@@ -31,9 +31,9 @@ git mv Cake.Markdown-Pdf.sln src
 &lt;pre&gt;&lt;code class="language-bash"&gt;mkdir -p nuspec\nuget
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Create a new text file in here called &lt;code&gt;Cake.Markdown_Pdf.nuspec&lt;/code&gt;. The filename must be the same as the root namespace for the project or cake will not be able to locate the files for packaging.
-&lt;img src="../assets/images/default-namespace.png" class="img-fluid" alt="Default namespace"&gt;
+&lt;img src="../assets/images/default-namespace.png" class="img-fluid" alt="Default namespace" /&gt;
 Open it up and paste the following in, replacing as appropriate.&lt;/p&gt;
-&lt;pre&gt;&lt;code class="language-xml"&gt;&amp;lt;?xml version="1.0"?&amp;gt;
+&lt;pre&gt;&lt;code class="language-xml"&gt;&amp;lt;?xml version=&amp;quot;1.0&amp;quot;?&amp;gt;
 &amp;lt;package &amp;gt;
   &amp;lt;metadata&amp;gt;
     &amp;lt;id&amp;gt;Cake.Markdown-Pdf&amp;lt;/id&amp;gt;
@@ -49,8 +49,8 @@ Open it up and paste the following in, replacing as appropriate.&lt;/p&gt;
     &amp;lt;tags&amp;gt;Cake Script Build Markdown Pdf Markdown-Pdf&amp;lt;/tags&amp;gt;
   &amp;lt;/metadata&amp;gt;
   &amp;lt;files&amp;gt;
-    &amp;lt;file src="Cake.Markdown-Pdf.xml" target="lib\net45" /&amp;gt;
-    &amp;lt;file src="Cake.Markdown-Pdf.dll" target="lib\net45" /&amp;gt;
+    &amp;lt;file src=&amp;quot;Cake.Markdown-Pdf.xml&amp;quot; target=&amp;quot;lib\net45&amp;quot; /&amp;gt;
+    &amp;lt;file src=&amp;quot;Cake.Markdown-Pdf.dll&amp;quot; target=&amp;quot;lib\net45&amp;quot; /&amp;gt;
   &amp;lt;/files&amp;gt;
 &amp;lt;/package&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
@@ -58,22 +58,22 @@ Open it up and paste the following in, replacing as appropriate.&lt;/p&gt;
 &lt;p&gt;Add a new &lt;code&gt;SolutionInfo.cs&lt;/code&gt; file in the src folder and give it the following content&lt;/p&gt;
 &lt;pre&gt;&lt;code class="language-xml"&gt;using System.Reflection;
 
-[assembly: AssemblyVersion("0.1.0")]
-[assembly: AssemblyFileVersion("0.1.0")]
-[assembly: AssemblyInformationalVersion("0.1.0")]
+[assembly: AssemblyVersion(&amp;quot;0.1.0&amp;quot;)]
+[assembly: AssemblyFileVersion(&amp;quot;0.1.0&amp;quot;)]
+[assembly: AssemblyInformationalVersion(&amp;quot;0.1.0&amp;quot;)]
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;This is going to be a shared file that will get updated with version information as part of the cake build. The following steps need to be repeated for each project in the solution.&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;Open up the &lt;code&gt;properties\AssesmblyInfo.cs&lt;/code&gt; file and remove the three properties we've just added to the &lt;code&gt;SolutionInfo.cs&lt;/code&gt; file.&lt;/li&gt;
 &lt;li&gt;Open up the csproj file, find the reference to the &lt;code&gt;AssemblyInfo.cs&lt;/code&gt; file, and add the following after&lt;/li&gt;
 &lt;/ol&gt;
-&lt;pre&gt;&lt;code class="language-xml"&gt;&amp;lt;Compile Include="..\SolutionInfo.cs"&amp;gt;
+&lt;pre&gt;&lt;code class="language-xml"&gt;&amp;lt;Compile Include=&amp;quot;..\SolutionInfo.cs&amp;quot;&amp;gt;
   &amp;lt;Link&amp;gt;Properties\SolutionInfo.cs&amp;lt;/Link&amp;gt;
 &amp;lt;/Compile&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h2 id="xml-documentation"&gt;XML Documentation&lt;/h2&gt;
 &lt;p&gt;Open up the solution in Visual Studio and open the Cake.Markdown-Pdf project properties. On the Build page select the 'XML Documentation file' checkbox. Do this for each build configuration.&lt;/p&gt;
-&lt;p&gt;&lt;img src="../assets/images/xml-documentation.png" class="img-fluid" alt="XML Documentation"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="../assets/images/xml-documentation.png" class="img-fluid" alt="XML Documentation" /&gt;&lt;/p&gt;
 &lt;p&gt;This will mean you'll need to add in xml comments or the build will fail. Building in Visual Studio should show warnings were they are missing&lt;/p&gt;
 &lt;h1 id="get-cake.recipe"&gt;Get Cake.Recipe&lt;/h1&gt;
 &lt;p&gt;Head to the &lt;a href="https://github.com/cake-contrib/Cake.Recipe"&gt;Cake.Recipe repository&lt;/a&gt; on GitHub and download the following list of files into the root of our repository.&lt;/p&gt;
@@ -88,12 +88,12 @@ Open it up and paste the following in, replacing as appropriate.&lt;/p&gt;
 &lt;p&gt;Open up &lt;code&gt;setup.cake&lt;/code&gt; in a text editor and change the title, repositoryOwner, repositoryName, and appVeyorAccountName settings as appropriate. I've also added the nuspecFilePath from earlier.&lt;/p&gt;
 &lt;pre&gt;&lt;code class="language-csharp"&gt;BuildParameters.SetParameters(context: Context,
                             buildSystem: BuildSystem,
-                            sourceDirectoryPath: "./src",
-                            title: "Cake.Markdown-Pdf",
-                            repositoryOwner: "wozzo",
-                            repositoryName: "Cake.Markdown-Pdf",
-                            appVeyorAccountName: "wozzo",
-                            nuspecFilePath: "nuspec/nuget/Cake.Markdown-Pdf.nuspec");
+                            sourceDirectoryPath: &amp;quot;./src&amp;quot;,
+                            title: &amp;quot;Cake.Markdown-Pdf&amp;quot;,
+                            repositoryOwner: &amp;quot;wozzo&amp;quot;,
+                            repositoryName: &amp;quot;Cake.Markdown-Pdf&amp;quot;,
+                            appVeyorAccountName: &amp;quot;wozzo&amp;quot;,
+                            nuspecFilePath: &amp;quot;nuspec/nuget/Cake.Markdown-Pdf.nuspec&amp;quot;);
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Ensure the last line calls the &lt;code&gt;Run()&lt;/code&gt; method.&lt;/p&gt;
 &lt;p&gt;You should now be able to run the build from the command line&lt;/p&gt;
@@ -115,12 +115,13 @@ Open it up and paste the following in, replacing as appropriate.&lt;/p&gt;
 &lt;pre&gt;&lt;code class="language-yaml"&gt;image: Visual Studio 2017
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h1 id="finishing-up"&gt;Finishing up&lt;/h1&gt;
-&lt;p&gt;Commit the files and push to GitHub. The build should take care of the rest. You should definitely consider getting your project added to the Cake-Contrib team on GitHub. See &lt;a href="https://github.com/cake-contrib/Home"&gt;the cake-contrib&lt;/a&gt; page for more details.&lt;/p&gt;</content:encoded>
+&lt;p&gt;Commit the files and push to GitHub. The build should take care of the rest. You should definitely consider getting your project added to the Cake-Contrib team on GitHub. See &lt;a href="https://github.com/cake-contrib/Home"&gt;the cake-contrib&lt;/a&gt; page for more details.&lt;/p&gt;
+</content:encoded>
 		</item>
 		<item>
 			<title>Getting Started with Cake.Recipe</title>
 			<link>https://wbates.net/posts/getting-started-with-cake-recipe</link>
-			<description>Warren Bates</description>
+			<description>&lt;p&gt;I've been playing around with the Cake build tool for a little while now, but having recently had need of a plugin that didn't yet exist I embarked on a journey that lead me to Cake.Recipe.&lt;/p&gt;</description>
 			<guid>https://wbates.net/posts/getting-started-with-cake-recipe</guid>
 			<pubDate>Fri, 25 Aug 2017 00:00:00 GMT</pubDate>
 			<content:encoded>&lt;p&gt;I've been playing around with the Cake build tool for a little while now, but having recently had need of a plugin that didn't yet exist I embarked on a journey that lead me to Cake.Recipe.&lt;/p&gt;
@@ -137,31 +138,31 @@ Environment.SetVariableNames();
  
 BuildParameters.SetParameters(context: Context,
                             buildSystem: BuildSystem,
-                            sourceDirectoryPath: "./",
-                            title: "Cake.Bower",
-                            repositoryOwner: "cake-contrib",
-                            repositoryName: "Cake.Bower",
-                            appVeyorAccountName: "cakecontrib");
+                            sourceDirectoryPath: &amp;quot;./&amp;quot;,
+                            title: &amp;quot;Cake.Bower&amp;quot;,
+                            repositoryOwner: &amp;quot;cake-contrib&amp;quot;,
+                            repositoryName: &amp;quot;Cake.Bower&amp;quot;,
+                            appVeyorAccountName: &amp;quot;cakecontrib&amp;quot;);
  
 BuildParameters.PrintParameters(Context);
  
 ToolSettings.SetToolSettings(context: Context,
                             dupFinderExcludePattern: new string[] {
-                                BuildParameters.RootDirectoryPath + "/src/Cake.Bower.Tests/*.cs" },
-                            testCoverageFilter: "+[*]* -[xunit.*]* -[Cake.Core]* -[Cake.Testing]* -[*.Tests]* ",
-                            testCoverageExcludeByAttribute: "*.ExcludeFromCodeCoverage*",
-                            testCoverageExcludeByFile: "*/*Designer.cs;*/*.g.cs;*/*.g.i.cs");
+                                BuildParameters.RootDirectoryPath + &amp;quot;/src/Cake.Bower.Tests/*.cs&amp;quot; },
+                            testCoverageFilter: &amp;quot;+[*]* -[xunit.*]* -[Cake.Core]* -[Cake.Testing]* -[*.Tests]* &amp;quot;,
+                            testCoverageExcludeByAttribute: &amp;quot;*.ExcludeFromCodeCoverage*&amp;quot;,
+                            testCoverageExcludeByFile: &amp;quot;*/*Designer.cs;*/*.g.cs;*/*.g.i.cs&amp;quot;);
 Build.Run();
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;No tasks. None at all.&lt;/p&gt;
-&lt;p&gt;The top line is the critical one. It fetches the Cake.Recipe scripts and loads each one providing the methods you can see being used here. The bootstrapped build.ps1 that you'd normally download if you followed the instructions on the "Setting up a new project" tutorial page has been modified to use a default file of setup.cake purely as a convention to distinguish between normal cake builds and recipe builds. You can then modify the parameters in the setup.cake file to achieve the desired result. There are close to 80 different parameters that can be set here that can be used to configure the ~40 odd tasks that cake.recipe provides.&lt;/p&gt;
+&lt;p&gt;The top line is the critical one. It fetches the Cake.Recipe scripts and loads each one providing the methods you can see being used here. The bootstrapped build.ps1 that you'd normally download if you followed the instructions on the &amp;quot;Setting up a new project&amp;quot; tutorial page has been modified to use a default file of setup.cake purely as a convention to distinguish between normal cake builds and recipe builds. You can then modify the parameters in the setup.cake file to achieve the desired result. There are close to 80 different parameters that can be set here that can be used to configure the ~40 odd tasks that cake.recipe provides.&lt;/p&gt;
 &lt;h1 id="parameters"&gt;Parameters&lt;/h1&gt;
 &lt;p&gt;Take a look at the parameters.cake file to see what options are available to you out of the box. These can all be set either in the SetParameters or using environment variables.
 Tasks
 The tasks.cake file paradoxically doesn't contain any tasks, but does give you a handy list of tasks that are configured. It also provides you with the first way of overriding cake.recipe functionality by changing the value assigned to these properties, should one of the tasks need tweaking to suit your needs. More on that in a bit.
 The tasks are set in a cake file specific to the purpose of the task, i.e. the tasks related to testing are all in testing.cake, the tasks for code analysis are in analyzing.cake, etc. The best starting point for figuring out what is going is in the build.cake file, currently on line 354&lt;/p&gt;
-&lt;pre&gt;&lt;code class="language-csharp"&gt;BuildParameters.Tasks.DefaultTask = Task("Default")
-        .IsDependentOn("Package");
+&lt;pre&gt;&lt;code class="language-csharp"&gt;BuildParameters.Tasks.DefaultTask = Task(&amp;quot;Default&amp;quot;)
+        .IsDependentOn(&amp;quot;Package&amp;quot;);
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;We can start to see the intended targets for a full build. Don't get thrown by the lack of dependencies here. For example the Package task target doesn't only depend on the Export-Release-Notes task. Look above the task definition and find the SetupTasks method. In there you can see more dependencies being set.&lt;/p&gt;
 &lt;p&gt;This should start to give you an idea what will happen when you run one of the targets listed here. The default is probably the best place to start. If you need a safe project to test it out on, fork Cake.Bower and run .\build.ps1. It will take a while on the first run as it has to download all of the tools and addins required to run.&lt;/p&gt;
@@ -197,11 +198,11 @@ Total:                               00:00:53.0741721
 &lt;p&gt;You can see some of the tasks were skipped. This means the task appeared in the list of dependencies but the criteria to run it (defined using the &lt;code&gt;WithCriteria&lt;/code&gt; method) were not met. For example the Test-NUnit task will only run if NUnit tests are found. There are none in Cake.Bower so it gets skipped. If I wanted to always skip a step I can find the parameter that governs whether it runs and set it in the setup.cake file. For example if I wanted to disable the InspectCode step I would change my setup.cake's call to BuildParameters.SetParameters to the following.&lt;/p&gt;
 &lt;pre&gt;&lt;code class="language-csharp"&gt;BuildParameters.SetParameters(context: Context,
                             buildSystem: BuildSystem,
-                            sourceDirectoryPath: "./",
-                            title: "Cake.Bower",
-                            repositoryOwner: "cake-contrib",
-                            repositoryName: "Cake.Bower",
-                            appVeyorAccountName: "cakecontrib",
+                            sourceDirectoryPath: &amp;quot;./&amp;quot;,
+                            title: &amp;quot;Cake.Bower&amp;quot;,
+                            repositoryOwner: &amp;quot;cake-contrib&amp;quot;,
+                            repositoryName: &amp;quot;Cake.Bower&amp;quot;,
+                            appVeyorAccountName: &amp;quot;cakecontrib&amp;quot;,
                             shouldRunInspectCode: false);
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Run it again and this time the task will be skipped but the rest should be the same.&lt;/p&gt;
@@ -210,7 +211,7 @@ Total:                               00:00:53.0741721
 &lt;pre&gt;&lt;code class="language-csharp"&gt;BuildParameters.Tasks.InspectCodeTask.Task.Actions.Clear();
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;I'm now free to call the .Does(...) method with the action I want it to undertake and be sure it is the only thing it will do, for example:&lt;/p&gt;
-&lt;pre&gt;&lt;code class="language-csharp"&gt;BuildParameters.Tasks.InspectCodeTask.Does( () =&amp;gt; Information("And now for something completely different..."));
+&lt;pre&gt;&lt;code class="language-csharp"&gt;BuildParameters.Tasks.InspectCodeTask.Does( () =&amp;gt; Information(&amp;quot;And now for something completely different...&amp;quot;));
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Running .\build.ps1 now yields the following output when you get to the InspectCode task.&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;========================================
@@ -221,11 +222,11 @@ And now for something completely different...
 Finished executing task: InspectCode
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;You are also free to create your own tasks and add them as dependencies to the existing ones. Something like this...&lt;/p&gt;
-&lt;pre&gt;&lt;code class="language-csharp"&gt;Task("MakeTea").Does( () =&amp;gt; Information("Make Tea not Love"));
+&lt;pre&gt;&lt;code class="language-csharp"&gt;Task(&amp;quot;MakeTea&amp;quot;).Does( () =&amp;gt; Information(&amp;quot;Make Tea not Love&amp;quot;));
 BuildParameters.Tasks.InspectCodeTask.Task.Actions.Clear();
 BuildParameters.Tasks.InspectCodeTask
-    .IsDependentOn("MakeTea")
-    .Does( () =&amp;gt; Information("And now for something completely different..."));
+    .IsDependentOn(&amp;quot;MakeTea&amp;quot;)
+    .Does( () =&amp;gt; Information(&amp;quot;And now for something completely different...&amp;quot;));
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;which yields...&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;========================================
@@ -242,12 +243,15 @@ Executing task: InspectCode
 And now for something completely different...
 Finished executing task: InspectCode
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;And of course if you find that you need loads of additional scripts for a particular use case consider a pull request into Cake.Recipe&lt;/p&gt;</content:encoded>
+&lt;p&gt;And of course if you find that you need loads of additional scripts for a particular use case consider a pull request into Cake.Recipe&lt;/p&gt;
+</content:encoded>
 		</item>
 		<item>
 			<title>Setting up a Wyam blog with Cake.Recipe and GitHub pages</title>
 			<link>https://wbates.net/posts/setting-up-a-wyam-blog-with-cake-recipe-and-github-pages</link>
-			<description>Warren Bates</description>
+			<description>&lt;p&gt;I first saw &lt;a href="https://wyam.io"&gt;Wyam&lt;/a&gt; in action when I was working on the Cake.Recipe blog series, and was so impressed I decided to move the entire blog to it using GitHub pages to serve it up.
+This post is going to document that process for others to follow.
+One important distinction to get out of the way is the difference between a personal github page and a project page.&lt;/p&gt;</description>
 			<guid>https://wbates.net/posts/setting-up-a-wyam-blog-with-cake-recipe-and-github-pages</guid>
 			<pubDate>Thu, 24 Aug 2017 00:00:00 GMT</pubDate>
 			<content:encoded>&lt;p&gt;I first saw &lt;a href="https://wyam.io"&gt;Wyam&lt;/a&gt; in action when I was working on the Cake.Recipe blog series, and was so impressed I decided to move the entire blog to it using GitHub pages to serve it up.
@@ -260,18 +264,18 @@ One important distinction to get out of the way is the difference between a pers
 &lt;p&gt;Use the following commands to create a new orphaned branch called &lt;code&gt;develop&lt;/code&gt;. It must be called &lt;code&gt;develop&lt;/code&gt; for cake.recipe to publish the documentation using AppVeyor (remember I mentioned some hacks?).&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;git checkout --orphan develop
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Do an initial commit on this branch too. The majority of our work will be in this &lt;code&gt;develop&lt;/code&gt; branch, while we leave the &lt;code&gt;master&lt;/code&gt; branch to AppVeyor. Use the branch name &lt;code&gt;develop&lt;/code&gt; elsewhere in this tutorial where I use the term "working branch"&lt;/p&gt;
+&lt;p&gt;Do an initial commit on this branch too. The majority of our work will be in this &lt;code&gt;develop&lt;/code&gt; branch, while we leave the &lt;code&gt;master&lt;/code&gt; branch to AppVeyor. Use the branch name &lt;code&gt;develop&lt;/code&gt; elsewhere in this tutorial where I use the term &amp;quot;working branch&amp;quot;&lt;/p&gt;
 &lt;h2 id="project-pages"&gt;Project pages&lt;/h2&gt;
 &lt;p&gt;If a branch exists called &lt;code&gt;gh-pages&lt;/code&gt; then GitHub will use this branch to serve your sites content.
 Create a new orphaned branch with the following command&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;git checkout --orphan gh-pages
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Do an initial commit on this branch and then switch back to the master branch. Use the branch name &lt;code&gt;master&lt;/code&gt; elsewhere in this tutorial where I use the term "working branch".&lt;/p&gt;
+&lt;p&gt;Do an initial commit on this branch and then switch back to the master branch. Use the branch name &lt;code&gt;master&lt;/code&gt; elsewhere in this tutorial where I use the term &amp;quot;working branch&amp;quot;.&lt;/p&gt;
 &lt;h1 id="starting-with-wyam"&gt;Starting with Wyam&lt;/h1&gt;
 &lt;p&gt;Not strictly a required step, but it might make life easier. Install wyam on your machine - to see how to get Wyam go to their &lt;a href="https://wyam.io/docs/usage/obtaining"&gt;obtaining&lt;/a&gt; page.
 Note: I had to add %appdata%/local/wyam to my path to allow powershell to be able to run wyam commands.&lt;/p&gt;
 &lt;h1 id="creating-your-blog"&gt;Creating your blog&lt;/h1&gt;
-&lt;p&gt;Wyam uses recipes to setup the outline of your site quickly. Create a folder called "docs" in the root of your working branch. In your command line interface of choice browse to the docs folder and run the following command&lt;/p&gt;
+&lt;p&gt;Wyam uses recipes to setup the outline of your site quickly. Create a folder called &amp;quot;docs&amp;quot; in the root of your working branch. In your command line interface of choice browse to the docs folder and run the following command&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;wyam new --recipe blog
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;This will create a new folder called input and setup a couple of pages under there. Follow the next few steps to see what this blog will look like, then we'll start adding some content. The recipe will also add a config.wyam file, but we won't be needing this. It is safe to delete.&lt;/p&gt;
@@ -289,16 +293,16 @@ Note: I had to add %appdata%/local/wyam to my path to allow powershell to be abl
 &lt;p&gt;Open up the &lt;code&gt;setup.cake&lt;/code&gt; file in your favourite text editor and edit the parameters so that it reflects the name of your blog.&lt;/p&gt;
 &lt;pre&gt;&lt;code class="language-csharp"&gt;BuildParameters.SetParameters(context: Context,
                             buildSystem: BuildSystem,
-                            title: "Wozzo.Blog",
-                            repositoryOwner: "wozzo",
-                            repositoryName: "wozzo.github.io",
-                            appVeyorAccountName: "wozzo",
-                            wyamRecipe: "Blog",
-                            wyamTheme: "CleanBlog");
+                            title: &amp;quot;Wozzo.Blog&amp;quot;,
+                            repositoryOwner: &amp;quot;wozzo&amp;quot;,
+                            repositoryName: &amp;quot;wozzo.github.io&amp;quot;,
+                            appVeyorAccountName: &amp;quot;wozzo&amp;quot;,
+                            wyamRecipe: &amp;quot;Blog&amp;quot;,
+                            wyamTheme: &amp;quot;CleanBlog&amp;quot;);
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;If you're working on a personal page then you may also want to provide an additional parameter to change the virtual directory the website is compiled for. By default Cake will use the &lt;code&gt;repositoryName&lt;/code&gt; value.
 For a personal site you add the following parameter.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;webLinkRoot: "/"
+&lt;pre&gt;&lt;code&gt;webLinkRoot: &amp;quot;/&amp;quot;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;I've also added two additional parameters telling Wyam that it should use the blog recipe and Phantom theme.&lt;/p&gt;
 &lt;h2 id="setup-appveyors-config"&gt;Setup AppVeyor's config&lt;/h2&gt;
@@ -341,7 +345,7 @@ Hit any key to exit
 http://localhost:5080/Wozzo.Blog
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;The virtual directory is case sensitive by the way ;-)&lt;/p&gt;
-&lt;p&gt;&lt;img src="../assets/images/wyam-in-browser.png" class="img-fluid" alt="Wyam blog in the browser inception"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="../assets/images/wyam-in-browser.png" class="img-fluid" alt="Wyam blog in the browser inception" /&gt;&lt;/p&gt;
 &lt;p&gt;Isn't it pretty. For some reason when I tried to use the SolidState theme I got exceptions due to missing files. If you get it working, please get in touch.&lt;/p&gt;
 &lt;h1 id="appveyor"&gt;AppVeyor&lt;/h1&gt;
 &lt;p&gt;Wyam's site has some really great &lt;a href="https://wyam.io/docs/deployment/appveyor"&gt;instructions for setting up Wyam with AppVeyor&lt;/a&gt;, and it's worth looking through but we're going to do things differently to get the benefits of working with Cake.Recipe.&lt;/p&gt;
@@ -356,15 +360,17 @@ WYAM_DEPLOY_BRANCH   =   master / gh-pages
 WYAM_ACCESS_TOKEN    =   **************************************
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;The access token must be kept secret. You can create one by following these &lt;a href="https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/"&gt;instructions&lt;/a&gt;. This token will need the repo -&amp;gt; public_repo scope.&lt;/p&gt;
-&lt;p&gt;&lt;img src="../assets/images/appveyor-environment-variables.png" class="img-fluid" alt="Setting AppVeyor environment variables"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="../assets/images/appveyor-environment-variables.png" class="img-fluid" alt="Setting AppVeyor environment variables" /&gt;&lt;/p&gt;
 &lt;h1 id="get-blogging"&gt;Get Blogging&lt;/h1&gt;
 &lt;p&gt;That's all the setup complete. Now commit any uncommitted changes and push your working branch to the remote. AppVeyor should pick it up and run it deploying your site.&lt;/p&gt;
-&lt;p&gt;If there are any problems check the AppVeyor build log. In particular the &lt;code&gt;Printing Build Parameters...&lt;/code&gt; section can provide useful insight.&lt;/p&gt;</content:encoded>
+&lt;p&gt;If there are any problems check the AppVeyor build log. In particular the &lt;code&gt;Printing Build Parameters...&lt;/code&gt; section can provide useful insight.&lt;/p&gt;
+</content:encoded>
 		</item>
 		<item>
 			<title>Testing a Cake Addin</title>
 			<link>https://wbates.net/posts/baking-a-cake-adding-part-2-testing</link>
-			<description>Warren Bates</description>
+			<description>&lt;p&gt;Tasting the cake would be the obvious pun here, but hopefully by now you've gotten stuck in and had more than a slice. Today I'm going to walkthrough setting up some simple unit tests on the Markdown-Pdf addin I wrote in &lt;a href="http://wbates.net/baking-a-cake-addin/"&gt;part 1&lt;/a&gt;.
+In your solution add a new .Net framework class library project. Add the Cake.Testing nuget package to this solution along with your testing framework of choice. I'll be using &lt;a href="https://xunit.github.io/"&gt;xUnit&lt;/a&gt; along with the &lt;a href="https://github.com/shouldly/shouldly"&gt;Shouldly&lt;/a&gt; assertion package.&lt;/p&gt;</description>
 			<guid>https://wbates.net/posts/baking-a-cake-adding-part-2-testing</guid>
 			<pubDate>Mon, 21 Aug 2017 00:00:00 GMT</pubDate>
 			<content:encoded>&lt;p&gt;Tasting the cake would be the obvious pun here, but hopefully by now you've gotten stuck in and had more than a slice. Today I'm going to walkthrough setting up some simple unit tests on the Markdown-Pdf addin I wrote in &lt;a href="http://wbates.net/baking-a-cake-addin/"&gt;part 1&lt;/a&gt;.
@@ -372,7 +378,7 @@ In your solution add a new .Net framework class library project. Add the Cake.Te
 &lt;h2 id="fixture"&gt;Fixture&lt;/h2&gt;
 &lt;p&gt;Create a new class for your test fixture called MarkdownPdfRunnerFixture. This class should inherit from Cake.Testing's ToolFixture&amp;lt;TSetting&amp;gt; where TSetting is the settings class from the addin that we want to test.
 Add a constructor that calls the base constructor passing in a string with the tool's name.&lt;/p&gt;
-&lt;pre&gt;&lt;code class="language-csharp"&gt;public MarkdownPdfFixture() : base("markdown-pdf") { }
+&lt;pre&gt;&lt;code class="language-csharp"&gt;public MarkdownPdfFixture() : base(&amp;quot;markdown-pdf&amp;quot;) { }
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;then add a property which will hold an action for configuring the settings&lt;/p&gt;
 &lt;pre&gt;&lt;code class="language-csharp"&gt;public Action&amp;lt;MarkdownPdfRunnerSettings&amp;gt; RunnerSettings;
@@ -393,7 +399,7 @@ public void No_Settings_Should_Use_Correct_Argument_Provided_In_MarkdownPdfRunne
 {
     fixture.RunnerSettings = null;
     var result = fixture.Run();
-    result.Args.ShouldBe("");
+    result.Args.ShouldBe(&amp;quot;&amp;quot;);
 }
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Here we use the WithFilePath method and pass in a test string. Because the desired action here is to pass that string as the only argument that's what we check for&lt;/p&gt;
@@ -411,7 +417,7 @@ public void WithHelp_Settings_Should_Use_Correct_Argument_Provided_In_MarkdownPd
 {
     fixture.RunnerSettings = s =&amp;gt; s.WithHelp();
     var result = fixture.Run();
-    result.Args.ShouldBe("--help");
+    result.Args.ShouldBe(&amp;quot;--help&amp;quot;);
 }
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Finally a combination test that checks that all the correct settings are applied and in the correct order.&lt;/p&gt;
@@ -420,18 +426,18 @@ public void WithFilePath_And_CssFilePath_Settings_Should_Use_Correct_Argument_Pr
 {
     fixture.RunnerSettings = s =&amp;gt; s.WithFilePath(TestFilePath).WithCssPath(TestCssFilePath);
     var result = fixture.Run();
-    result.Args.ShouldBe($"--css-path {TestCssFilePath} {TestFilePath}");
+    result.Args.ShouldBe($&amp;quot;--css-path {TestCssFilePath} {TestFilePath}&amp;quot;);
 }
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h2 id="run-the-tests"&gt;Run the tests&lt;/h2&gt;
 &lt;p&gt;Hopefully you've added a cake build script to your project by now, in which case you can add the following to it to get cake to run your unit tests as part of a task&lt;/p&gt;
-&lt;pre&gt;&lt;code class="language-csharp"&gt;#tool "xunit.runner.console"
+&lt;pre&gt;&lt;code class="language-csharp"&gt;#tool &amp;quot;xunit.runner.console&amp;quot;
 ...
-var testResultsPath = MakeAbsolute(Directory(artifacts + "./test-results"));
-var testAssemblies = new List&amp;lt;FilePath&amp;gt; { MakeAbsolute(File("./src/Cake.Markdown-Pdf.Tests/bin/" + configuration + "/Cake.Markdown-Pdf.Tests.dll")) };
+var testResultsPath = MakeAbsolute(Directory(artifacts + &amp;quot;./test-results&amp;quot;));
+var testAssemblies = new List&amp;lt;FilePath&amp;gt; { MakeAbsolute(File(&amp;quot;./src/Cake.Markdown-Pdf.Tests/bin/&amp;quot; + configuration + &amp;quot;/Cake.Markdown-Pdf.Tests.dll&amp;quot;)) };
 
-Task("Run-Unit-Tests")
-    .IsDependentOn("Build")
+Task(&amp;quot;Run-Unit-Tests&amp;quot;)
+    .IsDependentOn(&amp;quot;Build&amp;quot;)
     .Does(() =&amp;gt;
 {
     CreateDirectory(testResultsPath);
@@ -441,17 +447,18 @@ Task("Run-Unit-Tests")
         NoAppDomain = true,
         OutputDirectory = testResultsPath,
     };
-    settings.ExcludeTrait("Category", "Integration");
+    settings.ExcludeTrait(&amp;quot;Category&amp;quot;, &amp;quot;Integration&amp;quot;);
     
     XUnit2(testAssemblies, settings);
 });
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Happy testing :)&lt;/p&gt;</content:encoded>
+&lt;p&gt;Happy testing :)&lt;/p&gt;
+</content:encoded>
 		</item>
 		<item>
 			<title>Baking a Cake Addin</title>
 			<link>https://wbates.net/posts/baking-a-cake-addin-part-1</link>
-			<description>Warren Bates</description>
+			<description>&lt;p&gt;No blog post on Cake is complete without a few puns, and bonus, now while you're googling technical stuff you always get a few recipes for delicious cakes thrown in. So what is cake and why do we need add ins?&lt;/p&gt;</description>
 			<guid>https://wbates.net/posts/baking-a-cake-addin-part-1</guid>
 			<pubDate>Sun, 20 Aug 2017 00:00:00 GMT</pubDate>
 			<content:encoded>&lt;p&gt;No blog post on Cake is complete without a few puns, and bonus, now while you're googling technical stuff you always get a few recipes for delicious cakes thrown in. So what is cake and why do we need add ins?&lt;/p&gt;
@@ -489,12 +496,12 @@ The runner will implement the interface as well as helping cake to locate the co
     : base(fileSystem, environment, processRunner, tools) { }
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Then override the GetToolName() method and get it to return a string giving the name of your tool&lt;/p&gt;
-&lt;pre&gt;&lt;code class="language-csharp"&gt;protected override string GetToolName() =&amp;gt; "Markdown-pdf Runner";
+&lt;pre&gt;&lt;code class="language-csharp"&gt;protected override string GetToolName() =&amp;gt; &amp;quot;Markdown-pdf Runner&amp;quot;;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Override GetToolExecutableNames(), here is where we provide the names of the files the ToolLocator needs to look for. To find out go to %appdata%\roaming\npm on your machine.&lt;/p&gt;
-&lt;p&gt;&lt;img src="../assets/images/finding-npm-commands.png" class="img-fluid" alt="Finding Npm commands"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="../assets/images/finding-npm-commands.png" class="img-fluid" alt="Finding Npm commands" /&gt;&lt;/p&gt;
 &lt;p&gt;This will usually be the normal command you'd run suffixed with .cmd followed without the suffix&lt;/p&gt;
-&lt;pre&gt;&lt;code class="language-csharp"&gt;protected override IEnumerable&amp;lt;string&amp;gt; GetToolExecutableNames() =&amp;gt; new[] { "markdown-pdf.cmd", "markdown-pdf" };
+&lt;pre&gt;&lt;code class="language-csharp"&gt;protected override IEnumerable&amp;lt;string&amp;gt; GetToolExecutableNames() =&amp;gt; new[] { &amp;quot;markdown-pdf.cmd&amp;quot;, &amp;quot;markdown-pdf&amp;quot; };
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;I'm a big fan of expression bodied methods for these trivial one liners in case you hadn't realised ;)
 One final thing to add at this stage is a method that will process the settings and convert them to arguments, or more accurately a &lt;a href="http://cakebuild.net/api/Cake.Core.IO/ProcessArgumentBuilder/"&gt;ProcessArgumentBuilder&lt;/a&gt;
@@ -512,9 +519,9 @@ All it will really do is call a method on the settings object that knows how to 
         public MarkdownPdfRunner(IFileSystem fileSystem, ICakeEnvironment environment, IProcessRunner processRunner, IToolLocator tools)
             : base(fileSystem, environment, processRunner, tools) { }
 
-        protected override string GetToolName() =&amp;gt; "Markdown-pdf Runner";
+        protected override string GetToolName() =&amp;gt; &amp;quot;Markdown-pdf Runner&amp;quot;;
 
-        protected override IEnumerable&amp;lt;string&amp;gt; GetToolExecutableNames() =&amp;gt; new[] { "markdown-pdf.cmd", "markdown-pdf" };
+        protected override IEnumerable&amp;lt;string&amp;gt; GetToolExecutableNames() =&amp;gt; new[] { &amp;quot;markdown-pdf.cmd&amp;quot;, &amp;quot;markdown-pdf&amp;quot; };
 
         protected static ProcessArgumentBuilder GetSettingsArguments(MarkdownPdfRunnerSettings settings)
         {
@@ -525,7 +532,7 @@ All it will really do is call a method on the settings object that knows how to 
     }
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h2 id="markdownpdfrunnersettings"&gt;MarkdownPdfRunnerSettings&lt;/h2&gt;
-&lt;p&gt;This class is going to contain the properties that apply to all the commands we're going to use and the instructions for converting those into command line arguments. Markdown-pdf doesn't have separate "commands" just options so we only need one settings type. See &lt;a href="https://github.com/cake-contrib/Cake.Bower"&gt;Cake.Bower&lt;/a&gt; for an example of a plugin that uses multiple settings types.
+&lt;p&gt;This class is going to contain the properties that apply to all the commands we're going to use and the instructions for converting those into command line arguments. Markdown-pdf doesn't have separate &amp;quot;commands&amp;quot; just options so we only need one settings type. See &lt;a href="https://github.com/cake-contrib/Cake.Bower"&gt;Cake.Bower&lt;/a&gt; for an example of a plugin that uses multiple settings types.
 We now need to know what options are available to us through markdown-pdf's CLI. Handily this is available &lt;a href="https://www.npmjs.com/package/markdown-pdf#cli-interface"&gt;here&lt;/a&gt;.&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;Usage: markdown-pdf [options] &amp;lt;markdown-file-path&amp;gt;
  
@@ -589,29 +596,29 @@ We need to add a method that will evaulate these properties and produce our Proc
 &lt;pre&gt;&lt;code class="language-csharp"&gt;internal void Evaluate(ProcessArgumentBuilder args)
 {
     if (Help)
-        args.Append("--help");
+        args.Append(&amp;quot;--help&amp;quot;);
     if (Version)
-        args.Append("--version");
+        args.Append(&amp;quot;--version&amp;quot;);
     if (!string.IsNullOrWhiteSpace(PhantomPath))
-        args.Append($"--phantom-path {PhantomPath}");
+        args.Append($&amp;quot;--phantom-path {PhantomPath}&amp;quot;);
     if (!string.IsNullOrWhiteSpace(RunningsPath))
-        args.Append($"--runnings-path {RunningsPath}");
+        args.Append($&amp;quot;--runnings-path {RunningsPath}&amp;quot;);
     if (!string.IsNullOrWhiteSpace(CssPath))
-        args.Append($"--css-path {CssPath}");
+        args.Append($&amp;quot;--css-path {CssPath}&amp;quot;);
     if (!string.IsNullOrWhiteSpace(HighlightCssPath))
-        args.Append($"--highlight-css-path {HighlightCssPath}");
+        args.Append($&amp;quot;--highlight-css-path {HighlightCssPath}&amp;quot;);
     if (!string.IsNullOrWhiteSpace(RemarkableOptions))
-        args.Append($"--remarkable-options {RemarkableOptions}");
+        args.Append($&amp;quot;--remarkable-options {RemarkableOptions}&amp;quot;);
     if (PaperFormat != MarkdownPdfPaperFormat.None)
-        args.Append($"--paper-format {PaperFormat}");
+        args.Append($&amp;quot;--paper-format {PaperFormat}&amp;quot;);
     if (Orientation != MarkdownPdfOrientation.None)
-        args.Append($"--paper-orientation {Orientation}");
+        args.Append($&amp;quot;--paper-orientation {Orientation}&amp;quot;);
     if (!string.IsNullOrWhiteSpace(PaperBorder))
-        args.Append($"--paper-border {PaperBorder}");
+        args.Append($&amp;quot;--paper-border {PaperBorder}&amp;quot;);
     if (RenderDelay &amp;gt; 0)
-        args.Append($"--render-delay {RenderDelay}");
+        args.Append($&amp;quot;--render-delay {RenderDelay}&amp;quot;);
     if (LoadTimeout &amp;gt; 0)
-        args.Append($"--load-timeout {LoadTimeout}");
+        args.Append($&amp;quot;--load-timeout {LoadTimeout}&amp;quot;);
     if (!string.IsNullOrWhiteSpace(OutFilePath))
         args.Append(OutFilePath);
     if (!string.IsNullOrWhiteSpace(FilePath))
@@ -755,14 +762,14 @@ I'm going to show two different options for this part, one using a CakeMethodAli
 }
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;This addin is now ready to be used in a cake script as below.&lt;/p&gt;
-&lt;pre&gt;&lt;code class="language-csharp"&gt;#reference "./bin/Cake.Markdown-Pdf.dll" // Use the relative path to your Cake.Markdown-Pdf.dll file built by Visual Studio.
+&lt;pre&gt;&lt;code class="language-csharp"&gt;#reference &amp;quot;./bin/Cake.Markdown-Pdf.dll&amp;quot; // Use the relative path to your Cake.Markdown-Pdf.dll file built by Visual Studio.
 
-var target = Argument("target", "Default");
+var target = Argument(&amp;quot;target&amp;quot;, &amp;quot;Default&amp;quot;);
 
-Task("Default")
+Task(&amp;quot;Default&amp;quot;)
   .Does(() =&amp;gt;
 {
-    MarkdownPdf(s =&amp;gt; s.WithFilePath("README.md"));
+    MarkdownPdf(s =&amp;gt; s.WithFilePath(&amp;quot;README.md&amp;quot;));
 });
 
 RunTarget(target);
@@ -777,7 +784,7 @@ public static IMarkdownPdfRunner MarkdownPdf(this ICakeContext context)
     return new MarkdownPdfRunner(context.FileSystem, context.Environment, context.ProcessRunner, context.Tools);
 }
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;This changes the call from &lt;code&gt;MarkdownPdf(s =&amp;gt; s.WithFilePath("README.md"));&lt;/code&gt; to &lt;code&gt;MarkdownPdf.Run(s =&amp;gt; s.WithFilePath("README.md"));&lt;/code&gt;
+&lt;p&gt;This changes the call from &lt;code&gt;MarkdownPdf(s =&amp;gt; s.WithFilePath(&amp;quot;README.md&amp;quot;));&lt;/code&gt; to &lt;code&gt;MarkdownPdf.Run(s =&amp;gt; s.WithFilePath(&amp;quot;README.md&amp;quot;));&lt;/code&gt;
 A subtle difference but as stated, important if there's more than one command that needs to be run.&lt;/p&gt;
 &lt;h2 id="final-steps"&gt;Final steps&lt;/h2&gt;
 &lt;ul&gt;
@@ -786,12 +793,13 @@ Add to nuget, and then you can change the #reference line to #addin and your scr
 &lt;li&gt;Setup a cake script for this project.&lt;/li&gt;
 &lt;li&gt;Check out &lt;a href="https://github.com/cake-contrib/Home"&gt;Cake-Contrib on Github&lt;/a&gt; and consider adding your addin on there. I started with Cake.Bower, and decided to write this blog post off the back of that.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;The resulting addin from this blog post can be found at &lt;a href="https://github.com/wozzo/Cake.Markdown-Pdf"&gt;Wozzo/Cake.Markdown-Pdf on github&lt;/a&gt; and the blog series can be found at &lt;a href="https://github.com/wozzo/Cake_Addin_Blog_Posts"&gt;Wozzo/Cake_Addin_Blog_Posts&lt;/a&gt;&lt;/p&gt;</content:encoded>
+&lt;p&gt;The resulting addin from this blog post can be found at &lt;a href="https://github.com/wozzo/Cake.Markdown-Pdf"&gt;Wozzo/Cake.Markdown-Pdf on github&lt;/a&gt; and the blog series can be found at &lt;a href="https://github.com/wozzo/Cake_Addin_Blog_Posts"&gt;Wozzo/Cake_Addin_Blog_Posts&lt;/a&gt;&lt;/p&gt;
+</content:encoded>
 		</item>
 		<item>
 			<title>Seeding data using Entity Framework in ASP.NET Core</title>
 			<link>https://wbates.net/posts/seeding-data-using-entity-framework-in-asp.net-core</link>
-			<description>Warren Bates</description>
+			<description>&lt;p&gt;With thanks to &lt;a href="http://coderhints.com/ef7-seed-user/"&gt;coderhints.com&lt;/a&gt; for the initial steps in doing this. I've done a bit of refactoring and added some additional steps to enable setting up a lot of data quickly and easily.&lt;/p&gt;</description>
 			<guid>https://wbates.net/posts/seeding-data-using-entity-framework-in-asp.net-core</guid>
 			<pubDate>Sat, 17 Sep 2016 00:00:00 GMT</pubDate>
 			<content:encoded>&lt;p&gt;With thanks to &lt;a href="http://coderhints.com/ef7-seed-user/"&gt;coderhints.com&lt;/a&gt; for the initial steps in doing this. I've done a bit of refactoring and added some additional steps to enable setting up a lot of data quickly and easily.&lt;/p&gt;
@@ -810,23 +818,23 @@ dbContext.EnsureSeedData(userManager, roleManager).Wait();
 &lt;h1 id="adding-a-default-user"&gt;Adding a default user&lt;/h1&gt;
 &lt;p&gt;We're going to start by setting up our default 'Administrator' user. To do that we need to have an Administrator role.&lt;/p&gt;
 &lt;pre&gt;&lt;code class="language-csharp"&gt;// Add roles
-if (!await Roles.AnyAsync(r =&amp;gt; string.Equals(r.Name, "Administrator", System.StringComparison.OrdinalIgnoreCase)))
-    await roleManager.CreateAsync(new IdentityRole("Administrator"));
+if (!await Roles.AnyAsync(r =&amp;gt; string.Equals(r.Name, &amp;quot;Administrator&amp;quot;, System.StringComparison.OrdinalIgnoreCase)))
+    await roleManager.CreateAsync(new IdentityRole(&amp;quot;Administrator&amp;quot;));
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Here we check for the roles existence and if it isn't there, we add it. This should be repeated for any roles you require.
 Now to create our new user&lt;/p&gt;
 &lt;pre&gt;&lt;code class="language-csharp"&gt;// Add Admin user
-var adminUser = userManager.Users.FirstOrDefault(u =&amp;gt; string.Equals(u.UserName, "admin@wbates.net", System.StringComparison.OrdinalIgnoreCase));
+var adminUser = userManager.Users.FirstOrDefault(u =&amp;gt; string.Equals(u.UserName, &amp;quot;admin&amp;#64;wbates.net&amp;quot;, System.StringComparison.OrdinalIgnoreCase));
 if (adminUser == null)
 {
     adminUser = new ApplicationUser
     {
-        UserName = "admin@wbates.net",
-        Email = "admin@wbates.net"
+        UserName = &amp;quot;admin&amp;#64;wbates.net&amp;quot;,
+        Email = &amp;quot;admin&amp;#64;wbates.net&amp;quot;
     };
-    var result = await userManager.CreateAsync(adminUser, "AReallyDifficultImpossibleToGuessPassword123#");
+    var result = await userManager.CreateAsync(adminUser, &amp;quot;AReallyDifficultImpossibleToGuessPassword123#&amp;quot;);
     if (result != IdentityResult.Success)
-        throw new System.Exception($"Unable to create '{adminUser.UserName}' account: {result}");
+        throw new System.Exception($&amp;quot;Unable to create '{adminUser.UserName}' account: {result}&amp;quot;);
 }
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;As always, check for the users existence and because we'll be wanting to ensure this user is enabled and has the 'Administrator' role we'll keep a reference to it. It's worth noting that no Exception is normally thrown if the user has not been created, instead the object returned from the CreateAsync call will tell us and give a message if it has failed. The most common reason for this is that the password is not complicated enough, hence the '#' on the password above.&lt;/p&gt;
@@ -835,16 +843,16 @@ if (adminUser == null)
 &lt;p&gt;Well we wouldn't want our administrator to be locked out of the system would we?&lt;/p&gt;
 &lt;pre&gt;&lt;code class="language-csharp"&gt;// Check AdminUserRoles
 var adminRoles = await userManager.GetRolesAsync(adminUser);
-if (!adminRoles.Any(r =&amp;gt; string.Equals(r, "Administrator")))
-    await userManager.AddToRoleAsync(adminUser, "Administrator");
+if (!adminRoles.Any(r =&amp;gt; string.Equals(r, &amp;quot;Administrator&amp;quot;)))
+    await userManager.AddToRoleAsync(adminUser, &amp;quot;Administrator&amp;quot;);
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Finally we check that the user is in the admin role, and we're done with setting up our default user. Check the previous post for how ASP.NET Core configuration allows us to set some of the above defaults using .json files instead of hard coding them as we have here.&lt;/p&gt;
 &lt;h1 id="adding-seed-data"&gt;Adding seed data&lt;/h1&gt;
 &lt;p&gt;Assuming you've added additional DbSets to your ApplicationDbContext for your models, they'll be available in the EnsureSeedData method. As above you'll want to check for each values existing before adding it, but otherwise create an instance of the model and .Add it to the relevant DbSet. The changes won't be saved until you call SaveChangesAsync and it has completed, so leave that until the end. Here's a quick sample that shows how to add some records and save the changes to finish.&lt;/p&gt;
 &lt;pre&gt;&lt;code class="language-csharp"&gt;// Ensure default MediaTypes
-if (!MediaTypes.Any(t =&amp;gt; string.Equals(t.Name, "DVD", System.StringComparison.OrdinalIgnoreCase)))
+if (!MediaTypes.Any(t =&amp;gt; string.Equals(t.Name, &amp;quot;DVD&amp;quot;, System.StringComparison.OrdinalIgnoreCase)))
 {
-    var mediaType = new MediaType { Name = "DVD", Description = "Digital Versatile Disc" }
+    var mediaType = new MediaType { Name = &amp;quot;DVD&amp;quot;, Description = &amp;quot;Digital Versatile Disc&amp;quot; }
     MediaTypes.Add(mediaType);
 }
 await SaveChangesAsync();
@@ -852,44 +860,46 @@ await SaveChangesAsync();
 &lt;h1 id="top-tips"&gt;Top tips&lt;/h1&gt;
 &lt;p&gt;Use ASP.NET's Configuration Options[2] to describe default values and allow them to be set by using .json files for different environments.
 Move most of this additional configuration out to an extension method on the IServicesCollection. Keep the configure method clean.
-Define the roles as auto properties in a static class so you don't need to use strings like �Administrator� to reference them everywhere&lt;/p&gt;</content:encoded>
+Define the roles as auto properties in a static class so you don't need to use strings like �Administrator� to reference them everywhere&lt;/p&gt;
+</content:encoded>
 		</item>
 		<item>
 			<title>ASP.NET Core Configuration</title>
 			<link>https://wbates.net/posts/asp.net-core-configuration</link>
-			<description>Warren Bates</description>
+			<description>&lt;p&gt;Only just beginning to dive into ASP.NET Core (or ASP.NET 5 if you prefer), but there's a great deal to like. Configuration in Core is extremely simple. Values can simply be added to a json (or other format, but why bother) configuration file and are then available to your application where Configuration is instantiated.
+The default projects will include the following lines in the Startup method of Startup.cs.&lt;/p&gt;</description>
 			<guid>https://wbates.net/posts/asp.net-core-configuration</guid>
 			<pubDate>Sun, 24 Apr 2016 00:00:00 GMT</pubDate>
 			<content:encoded>&lt;p&gt;Only just beginning to dive into ASP.NET Core (or ASP.NET 5 if you prefer), but there's a great deal to like. Configuration in Core is extremely simple. Values can simply be added to a json (or other format, but why bother) configuration file and are then available to your application where Configuration is instantiated.
 The default projects will include the following lines in the Startup method of Startup.cs.&lt;/p&gt;
-&lt;pre&gt;&lt;code class="language-csharp"&gt;var builder = new ConfigurationBuilder().AddJsonFile("appsettings.json");
-Configuration = builder.Build().ReloadOnChanged("appsettings.json");
+&lt;pre&gt;&lt;code class="language-csharp"&gt;var builder = new ConfigurationBuilder().AddJsonFile(&amp;quot;appsettings.json&amp;quot;);
+Configuration = builder.Build().ReloadOnChanged(&amp;quot;appsettings.json&amp;quot;);
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;This will load the values from the appsettings.json file (if it exists) into the Configuration property. Multiple calls to this method can be chained together (see environment specific config below). If appsettings.json looked like this&lt;/p&gt;
 &lt;pre&gt;&lt;code class="language-json"&gt;{
-    "Logging": {
-        "IncludeScopes": false,
-        "LogLevel": {
-            "Default": "Verbose",
-            "System": "Information",
-            "Microsoft": "Information"
+    &amp;quot;Logging&amp;quot;: {
+        &amp;quot;IncludeScopes&amp;quot;: false,
+        &amp;quot;LogLevel&amp;quot;: {
+            &amp;quot;Default&amp;quot;: &amp;quot;Verbose&amp;quot;,
+            &amp;quot;System&amp;quot;: &amp;quot;Information&amp;quot;,
+            &amp;quot;Microsoft&amp;quot;: &amp;quot;Information&amp;quot;
         }
     },
-    "MyConfigValue": "An important configuration string"
+    &amp;quot;MyConfigValue&amp;quot;: &amp;quot;An important configuration string&amp;quot;
 }
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;The logging stuff is default, I've added the MyConfigValue key, which means that once Configuration is instantiated I can then access it's value within the Startup class with the following:&lt;/p&gt;
-&lt;pre&gt;&lt;code class="language-csharp"&gt;Configuration["MyConfigValue"];
+&lt;pre&gt;&lt;code class="language-csharp"&gt;Configuration[&amp;quot;MyConfigValue&amp;quot;];
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;The Logging.LogLevel.Default value can be retrieved using&lt;/p&gt;
-&lt;pre&gt;&lt;code class="language-csharp"&gt;Configuration["Logging:LogLevel:Default"];
+&lt;pre&gt;&lt;code class="language-csharp"&gt;Configuration[&amp;quot;Logging:LogLevel:Default&amp;quot;];
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;By creating config classes specific to different areas of your application you can use the built in DI to inject that config only where it's needed.&lt;/p&gt;
 &lt;p&gt;If we replace MyConfigValue in the appsettings.json file above with the following key&lt;/p&gt;
-&lt;pre&gt;&lt;code class="language-json"&gt;"MyConfig": {
-    "Value1": "This is the first config value",
-    "Value2": "And this is the second",
-    "Number1": 15
+&lt;pre&gt;&lt;code class="language-json"&gt;&amp;quot;MyConfig&amp;quot;: {
+    &amp;quot;Value1&amp;quot;: &amp;quot;This is the first config value&amp;quot;,
+    &amp;quot;Value2&amp;quot;: &amp;quot;And this is the second&amp;quot;,
+    &amp;quot;Number1&amp;quot;: 15
 }
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Now add a new class to the project which can be called anything but I'm going with MyConfig.cs&lt;/p&gt;
@@ -902,7 +912,7 @@ Configuration = builder.Build().ReloadOnChanged("appsettings.json");
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;As you can see the properties match up. We now need to configure the options to be populated into a MyConfig object. Back to startup.cs and find the ConfigureServices method. Add the following lines&lt;/p&gt;
 &lt;pre&gt;&lt;code class="language-csharp"&gt;services.AddOptions();
-services.Configure&amp;lt;MyConfig&amp;gt;(Configuration.GetSection("MyConfig");
+services.Configure&amp;lt;MyConfig&amp;gt;(Configuration.GetSection(&amp;quot;MyConfig&amp;quot;);
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;This takes in the Configuration property and configures it so that when we ask for a MyConfig object it will provide it using whatever it has read from appsettings.json file by matching the classes properties to the keys with the same name. To see that in use create a new controller and add a constructor passing in IOptions as a parameter. This will provide an accessor to a populated config object. which is then accessible in the constructor and can be assigned as a property on that controller.&lt;/p&gt;
 &lt;pre&gt;&lt;code class="language-csharp"&gt;public MyController(IOptions&amp;lt;MyConfig&amp;gt; myConfig)
@@ -915,21 +925,23 @@ services.Configure&amp;lt;MyConfig&amp;gt;(Configuration.GetSection("MyConfig");
 &lt;p&gt;You can easily add additional config files for each environment by calling AddJsonFile on the ConfigurationBuilder multiple times. Since I wrote this the default configure method has the following code.&lt;/p&gt;
 &lt;pre&gt;&lt;code class="language-csharp"&gt;var builder = new ConfigurationBuilder()
     .SetBasePath(env.ContentRootPath)
-    .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-    .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true);
+    .AddJsonFile(&amp;quot;appsettings.json&amp;quot;, optional: true, reloadOnChange: true)
+    .AddJsonFile($&amp;quot;appsettings.{env.EnvironmentName}.json&amp;quot;, optional: true);
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;The later files take priority over the earlier ones, overwriting any earlier values. See this page for info on how to set the EnvironmentName. I also recommend adding *.development.json to your .gitignore files so that your development environment configuration isn't committed.&lt;/p&gt;</content:encoded>
+&lt;p&gt;The later files take priority over the earlier ones, overwriting any earlier values. See this page for info on how to set the EnvironmentName. I also recommend adding *.development.json to your .gitignore files so that your development environment configuration isn't committed.&lt;/p&gt;
+</content:encoded>
 		</item>
 		<item>
 			<title>Configuring for Pretty URLs in AngularJS and Visual Studio</title>
 			<link>https://wbates.net/posts/configuring-for-pretty-urls-in-angularjs-and-visual-studio</link>
-			<description>Warren Bates</description>
+			<description>&lt;p&gt;Pretty URLs look much better than some of the long query string type URLs we've gotten used to.
+AngularJS makes it very simple to use pretty urls just follow the steps below and then configure for your server.&lt;/p&gt;</description>
 			<guid>https://wbates.net/posts/configuring-for-pretty-urls-in-angularjs-and-visual-studio</guid>
 			<pubDate>Mon, 08 Jun 2015 00:00:00 GMT</pubDate>
 			<content:encoded>&lt;p&gt;Pretty URLs look much better than some of the long query string type URLs we've gotten used to.
 AngularJS makes it very simple to use pretty urls just follow the steps below and then configure for your server.&lt;/p&gt;
 &lt;p&gt;You need to include the ngRoute module with the following line:&lt;/p&gt;
-&lt;pre&gt;&lt;code class="language-html"&gt;&amp;lt;script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.js"&amp;gt;&amp;lt;/script&amp;gt;
+&lt;pre&gt;&lt;code class="language-html"&gt;&amp;lt;script src=&amp;quot;//ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Our SPA also needs to know where to put the templates when a sub page is requested. Create a div in your page and add the ng-view attribute. That's it.&lt;/p&gt;
 &lt;pre&gt;&lt;code class="language-html"&gt;&amp;lt;div ng-view&amp;gt;
@@ -949,7 +961,7 @@ You use the when() function to define which view to serve up depending on what t
         controller: 'aboutCtrl'
     })
     .otherwise({
-        redirectTo: "/"
+        redirectTo: &amp;quot;/&amp;quot;
     });
  
     $locationProvider.html5Mode(true);
@@ -966,14 +978,14 @@ The $locationProvider line is required if you would like to also remove the hash
 &lt;li&gt;Expand the panel on the left to find your site&lt;/li&gt;
 &lt;li&gt;Load URL Rewrite&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;&lt;img src="../assets/images/add-rule.png" class="img-fluid" alt="Add Url Rewrite rule"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="../assets/images/add-rule.png" class="img-fluid" alt="Add Url Rewrite rule" /&gt;&lt;/p&gt;
 &lt;ol start="5"&gt;
-&lt;li&gt;&lt;p&gt;Click "Add Rule"&lt;/p&gt;
+&lt;li&gt;&lt;p&gt;Click &amp;quot;Add Rule&amp;quot;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;&lt;p&gt;Choose a blank inbound rule
 8 Call it Pretty URL Exclusions. These will be the folders that actually exist that you don't want to be rerouted.&lt;/p&gt;
 &lt;/li&gt;
-&lt;li&gt;&lt;p&gt;Select "does not match the pattern"&lt;/p&gt;
+&lt;li&gt;&lt;p&gt;Select &amp;quot;does not match the pattern&amp;quot;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;&lt;p&gt;Add in a regular expression to ignore all the folders that exists&lt;/p&gt;
 &lt;p&gt;For example:
@@ -982,14 +994,14 @@ Then use the pipe (|) to separate it from another folder
 You might end up with something like
 &lt;code&gt;css/.*|js/.*|images.*&lt;/code&gt;&lt;/p&gt;
 &lt;/li&gt;
-&lt;li&gt;&lt;p&gt;For these folders we want the action type to be "None"&lt;/p&gt;
+&lt;li&gt;&lt;p&gt;For these folders we want the action type to be &amp;quot;None&amp;quot;&lt;/p&gt;
 &lt;/li&gt;
-&lt;li&gt;&lt;p&gt;Check "Stop processing of subsequent rules&lt;/p&gt;
+&lt;li&gt;&lt;p&gt;Check &amp;quot;Stop processing of subsequent rules&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;&lt;p&gt;Apply the rule&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;&lt;img src="../assets/images/edit-inbound-rule.png" class="img-fluid" alt="Edit inbound url rewrite rule"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="../assets/images/edit-inbound-rule.png" class="img-fluid" alt="Edit inbound url rewrite rule" /&gt;&lt;/p&gt;
 &lt;ol start="12"&gt;
 &lt;li&gt;Create another blank inbound rule&lt;/li&gt;
 &lt;li&gt;Call it Pretty URL Redirect.&lt;/li&gt;
@@ -1005,15 +1017,15 @@ Open it up and add in the following (edited for your folders ofcourse: see IIS E
     &amp;lt;rewrite&amp;gt;
         &amp;lt;rules&amp;gt;
             &amp;lt;clear /&amp;gt;
-            &amp;lt;rule name="Pretty URL Exclusions" stopProcessing="true"&amp;gt;
-                &amp;lt;match url="(css/.*|js/.*|images/.*)" /&amp;gt;
-                &amp;lt;conditions logicalGrouping="MatchAll" trackAllCaptures="false" /&amp;gt;
-                &amp;lt;action type="None" /&amp;gt;
+            &amp;lt;rule name=&amp;quot;Pretty URL Exclusions&amp;quot; stopProcessing=&amp;quot;true&amp;quot;&amp;gt;
+                &amp;lt;match url=&amp;quot;(css/.*|js/.*|images/.*)&amp;quot; /&amp;gt;
+                &amp;lt;conditions logicalGrouping=&amp;quot;MatchAll&amp;quot; trackAllCaptures=&amp;quot;false&amp;quot; /&amp;gt;
+                &amp;lt;action type=&amp;quot;None&amp;quot; /&amp;gt;
             &amp;lt;/rule&amp;gt;
-            &amp;lt;rule name="Pretty URL Redirect"&amp;gt;
-                &amp;lt;match url="(.*)" /&amp;gt;
-                &amp;lt;conditions logicalGrouping="MatchAll" trackAllCaptures="false" /&amp;gt;
-                &amp;lt;action type="Rewrite" url="index.html" /&amp;gt;          
+            &amp;lt;rule name=&amp;quot;Pretty URL Redirect&amp;quot;&amp;gt;
+                &amp;lt;match url=&amp;quot;(.*)&amp;quot; /&amp;gt;
+                &amp;lt;conditions logicalGrouping=&amp;quot;MatchAll&amp;quot; trackAllCaptures=&amp;quot;false&amp;quot; /&amp;gt;
+                &amp;lt;action type=&amp;quot;Rewrite&amp;quot; url=&amp;quot;index.html&amp;quot; /&amp;gt;          
             &amp;lt;/rule&amp;gt;
         &amp;lt;/rules&amp;gt;
     &amp;lt;/rewrite&amp;gt;
@@ -1041,24 +1053,25 @@ Open it up and add in the following (edited for your folders ofcourse: see IIS E
 &lt;ol&gt;
 &lt;li&gt;Add &lt;code&gt;caseInsensitiveMatch: true&lt;/code&gt; to the when functions to remove case sensitivity.&lt;/li&gt;
 &lt;li&gt;Check that all of your assets are linked correctly from your index.html file.
-For example &lt;code&gt;&amp;lt;link href="Content/nav.css" rel="stylesheet" /&amp;gt;&lt;/code&gt; will not work if you attempted to access one of the "subfolders" because the browser would be looking in that subfolder for the content folder and nav file.
+For example &lt;code&gt;&amp;lt;link href=&amp;quot;Content/nav.css&amp;quot; rel=&amp;quot;stylesheet&amp;quot; /&amp;gt;&lt;/code&gt; will not work if you attempted to access one of the &amp;quot;subfolders&amp;quot; because the browser would be looking in that subfolder for the content folder and nav file.
 Add a / to the front of the path to solve this problem (took me 20 minutes to figure that one out).
-&lt;code&gt;&amp;lt;link href="/Content/nav.css" rel="stylesheet" /&amp;gt;&lt;/code&gt; will work&lt;/li&gt;
-&lt;/ol&gt;</content:encoded>
+&lt;code&gt;&amp;lt;link href=&amp;quot;/Content/nav.css&amp;quot; rel=&amp;quot;stylesheet&amp;quot; /&amp;gt;&lt;/code&gt; will work&lt;/li&gt;
+&lt;/ol&gt;
+</content:encoded>
 		</item>
 		<item>
 			<title>Closures in C#</title>
 			<link>https://wbates.net/posts/closures-in-csharp</link>
-			<description>Warren Bates</description>
+			<description>&lt;p&gt;Closures are a vital part of any language that passes functions around as variables. They ensure that everything that was available when we defined the function is available when it's called later, even if it's called in a different scope or long after the original scope has completely ended. There's a vast amount of information available on closures in Javascript because as a classless language where functions are always first class objects closures are regularly used to imitate class like functionality.&lt;/p&gt;</description>
 			<guid>https://wbates.net/posts/closures-in-csharp</guid>
 			<pubDate>Thu, 28 May 2015 00:00:00 GMT</pubDate>
 			<content:encoded>&lt;p&gt;Closures are a vital part of any language that passes functions around as variables. They ensure that everything that was available when we defined the function is available when it's called later, even if it's called in a different scope or long after the original scope has completely ended. There's a vast amount of information available on closures in Javascript because as a classless language where functions are always first class objects closures are regularly used to imitate class like functionality.&lt;/p&gt;
 &lt;p&gt;For example:&lt;/p&gt;
 &lt;pre&gt;&lt;code class="language-javascript"&gt;function fakeClass() {
-    var publicVar = "This variable will be public";
+    var publicVar = &amp;quot;This variable will be public&amp;quot;;
     this.publicVar = publicVar;
   
-    var privateVar = "This variable will be private";
+    var privateVar = &amp;quot;This variable will be private&amp;quot;;
     this.getPrivateVar = function() {
         return privateVar;
     }
@@ -1066,9 +1079,9 @@ Add a / to the front of the path to solve this problem (took me 20 minutes to fi
 
 var instance = new fakeClass();
  
-// This will output "This variable will be public"
+// This will output &amp;quot;This variable will be public&amp;quot;
 console.log(instance.publicVar);
-// This will output "This variable will be private"
+// This will output &amp;quot;This variable will be private&amp;quot;
 console.log(instance.getPrivateVar());
 // This will throw a type undefined error
 console.log(instance.privateVar);
@@ -1112,12 +1125,13 @@ for (int i = 0; i &amp;lt; 100; i++) {
     Console.WriteLine(getNextPrime());
 }
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;That's it. We call the first function and store the returned delegate in another variable, then we call that as many times as we like, each time it will return the next prime number that can be found. Eventually this code will hit the maximum value for an integer and will go back to the beginning, but dealing with that is left as an exercise for the reader.&lt;/p&gt;</content:encoded>
+&lt;p&gt;That's it. We call the first function and store the returned delegate in another variable, then we call that as many times as we like, each time it will return the next prime number that can be found. Eventually this code will hit the maximum value for an integer and will go back to the beginning, but dealing with that is left as an exercise for the reader.&lt;/p&gt;
+</content:encoded>
 		</item>
 		<item>
 			<title>There's fast code and there's fast code</title>
 			<link>https://wbates.net/posts/theres-fast-code-and-theres-fast-code</link>
-			<description>Warren Bates</description>
+			<description>&lt;p&gt;I was solving a problem recently and came across a number of different ways of solving it. I decided to test them each out to see which was the quickest. The functions purpose was to return the number of digits in an integer. I've tried four different methods out. Two of them are single line solutions, one uses a bit of looping to solve the problem and the final one... well you'll see.&lt;/p&gt;</description>
 			<guid>https://wbates.net/posts/theres-fast-code-and-theres-fast-code</guid>
 			<pubDate>Sun, 24 May 2015 00:00:00 GMT</pubDate>
 			<content:encoded>&lt;p&gt;I was solving a problem recently and came across a number of different ways of solving it. I decided to test them each out to see which was the quickest. The functions purpose was to return the number of digits in an integer. I've tried four different methods out. Two of them are single line solutions, one uses a bit of looping to solve the problem and the final one... well you'll see.&lt;/p&gt;
@@ -1201,7 +1215,8 @@ for (int i = 0; i &amp;lt; 100; i++) {
 &lt;h1 id="timing"&gt;Timing&lt;/h1&gt;
 &lt;p&gt;Each of these functions was then run using a for loop varying the input from 1'000 to 10'000'000 and the number of ticks taken to complete was recorded.&lt;/p&gt;
 &lt;p&gt;The results are in: String method 2'937'886 ticks, Log Method 1'119'507, the Looping method 642'857 &amp;amp; the If method 437'401. The cringey set of if statements method is nearly 7 times faster than the string conversion method and 2.5 times faster than the log method.&lt;/p&gt;
-&lt;p&gt;I think if this were for production code I'd probably use the looping method after changing it to handle integers of any type (i.e. BigInteger) and negative values because of the versatility and ease of rewriting should any problems be found, but this had definitely made me rethink some the assumptions I've built up over the years about how quickly code will run in comparison to how many lines of code there are.&lt;/p&gt;</content:encoded>
+&lt;p&gt;I think if this were for production code I'd probably use the looping method after changing it to handle integers of any type (i.e. BigInteger) and negative values because of the versatility and ease of rewriting should any problems be found, but this had definitely made me rethink some the assumptions I've built up over the years about how quickly code will run in comparison to how many lines of code there are.&lt;/p&gt;
+</content:encoded>
 		</item>
 	</channel>
 </rss>
